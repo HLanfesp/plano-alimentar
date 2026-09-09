@@ -144,12 +144,12 @@
     "fonte": "TACO/USDA — tilápia, filé, grelhada"
   },
   "goma_tapioca": {
-    "nome": "Goma de tapioca hidratada",
-    "kcal": 156,
-    "p": 0,
-    "c": 39,
-    "g": 0,
-    "fonte": "TACO — fécula de mandioca (goma), hidratada"
+    "nome": "Goma de tapioca (medida crua, como comprada)",
+    "kcal": 331,
+    "p": 0.5,
+    "c": 81.2,
+    "g": 0.3,
+    "fonte": "TACO — fécula de mandioca, crua. Corrigido na Task 3: o valor anterior (156 kcal/100g) era da fécula já HIDRATADA/cozida, mas as gramagens do plano medem a goma seca antes de hidratar (como é vendida e pesada na cozinha) — usar o valor hidratado diluía o cálculo em ~2x e subestimava toda opção com este item (confirmado contra 7 opções do plano: todas batiam a <4% do kcal impresso com o valor crú e todas erravam 20-38% com o hidratado)"
   },
   "geleia": {
     "nome": "Geleia de frutas",
@@ -224,12 +224,12 @@
     "fonte": "TACO — carne bovina, patinho, moído, cozido"
   },
   "flocao_milho": {
-    "nome": "Flocão de milho cozido",
-    "kcal": 69,
-    "p": 1.6,
-    "c": 14.5,
-    "g": 0.3,
-    "fonte": "TACO — fubá/flocão de milho, cozido"
+    "nome": "Flocão de milho (medida crua, como comprado)",
+    "kcal": 353,
+    "p": 7.2,
+    "c": 78.9,
+    "g": 1.9,
+    "fonte": "TACO — milho, fubá, cru. Corrigido na Task 3: o valor anterior (69 kcal/100g) era do fubá já COZIDO (hidratado com água), mas as gramagens do plano medem o flocão seco antes de cozinhar — usar o valor cozido subestimava toda opção com este item em 20-45% (confirmado contra as 3 opções do plano que usam flocão: todas batiam a <2% do kcal impresso com o valor crú)"
   },
   "castanha_caju": {
     "nome": "Castanha de caju",
