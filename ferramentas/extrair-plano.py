@@ -236,7 +236,7 @@ def slugify_id(nome_base: str) -> str:
     return s
 
 
-def extrair_dia(bloco: str, indice: int):
+def extrair_dia(bloco: str, indice: int, erros_meta: set):
     dia_codigo = DIAS_ORDEM[indice]
 
     m_dn = re.search(r'<div class="dn">(.*?)</div>', bloco, re.S)
@@ -254,8 +254,19 @@ def extrair_dia(bloco: str, indice: int):
 
     m_dkv = re.search(r'<div class="dkv"[^>]*>~?(\d+)</div>', bloco)
     m_dkl = re.search(r'<div class="dkl">[^<]*?~?(\d+)\s*g\s*P</div>', bloco)
-    meta_kcal = int(m_dkv.group(1)) if m_dkv else None
-    meta_p = int(m_dkl.group(1)) if m_dkl else None
+
+    meta_kcal = None
+    meta_p = None
+
+    if m_dkv:
+        meta_kcal = int(m_dkv.group(1))
+    else:
+        erros_meta.add(f"Dia {dia_codigo}: meta de kcal não pôde ser extraída")
+
+    if m_dkl:
+        meta_p = int(m_dkl.group(1))
+    else:
+        erros_meta.add(f"Dia {dia_codigo}: meta de proteína não pôde ser extraída")
 
     return dia_codigo, sessao, rotulo_dia, meta_kcal, meta_p
 
@@ -379,10 +390,11 @@ def main():
         sys.exit(1)
 
     desconhecidos = set()
+    erros_meta = set()
     dias = {}
 
     for indice, bloco in enumerate(blocos_dia):
-        dia_codigo, sessao, rotulo_dia, meta_kcal, meta_p = extrair_dia(bloco, indice)
+        dia_codigo, sessao, rotulo_dia, meta_kcal, meta_p = extrair_dia(bloco, indice, erros_meta)
 
         idx_db = bloco.find('<div class="db">')
         bloco_db = bloco[idx_db + len('<div class="db">'):] if idx_db != -1 else bloco
@@ -395,6 +407,12 @@ def main():
             "meta": {"kcal": meta_kcal, "p": meta_p},
             "refeicoes": refeicoes,
         }
+
+    if erros_meta:
+        print("Metas de kcal ou proteína não puderam ser extraídas:", file=sys.stderr)
+        for erro in sorted(erros_meta):
+            print(f"  - {erro}", file=sys.stderr)
+        sys.exit(1)
 
     if desconhecidos:
         print("Ingredientes sem entrada na base (alimentos.json/unidades.json):", file=sys.stderr)
