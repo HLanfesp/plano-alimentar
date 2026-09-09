@@ -1,54 +1,418 @@
 {
-  "whey": { "nome": "Whey concentrado", "kcal": 400, "p": 80.0, "c": 8.0, "g": 6.0, "fonte": "Rótulo médio — whey protein concentrado" },
-  "salada_verde": { "nome": "Salada verde", "kcal": 15, "p": 1.7, "c": 1.7, "g": 0.2, "fonte": "TACO — alface, crespa, crua" },
-  "banana": { "nome": "Banana prata", "kcal": 98, "p": 1.3, "c": 22.0, "g": 0.1, "fonte": "TACO — banana, prata (carboidrato líquido de fibra)" },
-  "ovo": { "nome": "Ovo de galinha", "kcal": 143, "p": 13.0, "c": 1.6, "g": 9.5, "fonte": "TACO (cozido)" },
-  "pao_integral": { "nome": "Pão integral", "kcal": 253, "p": 9.4, "c": 49.9, "g": 3.3, "fonte": "TACO — pão, de forma, integral" },
-  "frango_grelhado": { "nome": "Frango grelhado", "kcal": 165, "p": 31.0, "c": 0.0, "g": 3.6, "fonte": "TACO" },
-  "leite_desnatado": { "nome": "Leite desnatado", "kcal": 35, "p": 3.4, "c": 5.1, "g": 0.2, "fonte": "TACO — leite de vaca, desnatado" },
-  "mel": { "nome": "Mel (representa a opção \"canela ou mel\" do plano)", "kcal": 309, "p": 0.4, "c": 84.0, "g": 0.0, "fonte": "TACO — mel de abelha, representante declarado (opção canela/mel)" },
-  "arroz_branco": { "nome": "Arroz branco", "kcal": 128, "p": 2.5, "c": 28.1, "g": 0.2, "fonte": "TACO (cozido)" },
-  "aveia": { "nome": "Aveia em flocos", "kcal": 394, "p": 13.9, "c": 67.0, "g": 8.5, "fonte": "TACO — aveia, flocos, crua" },
-  "azeite": { "nome": "Azeite de oliva", "kcal": 884, "p": 0.0, "c": 0.0, "g": 100.0, "fonte": "TACO" },
-  "legumes_salteados": { "nome": "Legumes salteados", "kcal": 50, "p": 2.0, "c": 7.0, "g": 1.8, "fonte": "TACO — mix de legumes cozidos, estimativa" },
-  "queijo_minas": { "nome": "Queijo minas frescal", "kcal": 264, "p": 17.4, "c": 3.2, "g": 20.2, "fonte": "TACO — queijo, minas, frescal" },
-  "batata_doce": { "nome": "Batata doce cozida", "kcal": 77, "p": 0.6, "c": 18.4, "g": 0.1, "fonte": "TACO (cozida)" },
-  "pasta_amendoim": { "nome": "Pasta de amendoim", "kcal": 588, "p": 25.0, "c": 20.0, "g": 50.0, "fonte": "Rótulo médio — pasta de amendoim integral" },
-  "feijao": { "nome": "Feijão carioca", "kcal": 76, "p": 4.8, "c": 13.6, "g": 0.5, "fonte": "TACO (cozido)" },
-  "granola": { "nome": "Granola", "kcal": 389, "p": 9.0, "c": 64.0, "g": 9.0, "fonte": "Rótulo médio — granola tradicional" },
-  "tilapia": { "nome": "Tilápia grelhada", "kcal": 128, "p": 26.0, "c": 0.0, "g": 2.7, "fonte": "TACO/USDA — tilápia, filé, grelhada" },
-  "goma_tapioca": { "nome": "Goma de tapioca hidratada", "kcal": 156, "p": 0.0, "c": 39.0, "g": 0.0, "fonte": "TACO — fécula de mandioca (goma), hidratada" },
-  "geleia": { "nome": "Geleia de frutas", "kcal": 260, "p": 0.2, "c": 64.0, "g": 0.1, "fonte": "Rótulo médio — geleia de frutas" },
-  "iogurte_grego": { "nome": "Iogurte grego natural", "kcal": 97, "p": 9.0, "c": 4.0, "g": 5.0, "fonte": "Rótulo médio — iogurte grego natural integral" },
-  "whey_isolado": { "nome": "Whey isolado", "kcal": 380, "p": 90.0, "c": 2.0, "g": 1.0, "fonte": "Rótulo médio — whey protein isolado" },
-  "queijo_cottage": { "nome": "Queijo cottage", "kcal": 98, "p": 11.1, "c": 3.4, "g": 4.3, "fonte": "TACO/rótulo — queijo cottage" },
-  "iogurte_natural": { "nome": "Iogurte natural integral", "kcal": 51, "p": 3.5, "c": 4.7, "g": 2.0, "fonte": "TACO — iogurte, natural, integral" },
-  "fruta_estacao": { "nome": "Fruta da estação (representada por banana prata)", "kcal": 98, "p": 1.3, "c": 22.0, "g": 0.1, "fonte": "TACO — banana, prata, representante declarado (carboidrato líquido de fibra)" },
-  "torrada_integral": { "nome": "Torrada integral", "kcal": 404, "p": 12.0, "c": 74.0, "g": 6.0, "fonte": "Rótulo médio — torrada integral" },
-  "carne_bovina_magra": { "nome": "Carne bovina magra grelhada", "kcal": 219, "p": 31.0, "c": 0.0, "g": 10.0, "fonte": "TACO — carne bovina, patinho, grelhada" },
-  "patinho_moido": { "nome": "Patinho moído cozido", "kcal": 163, "p": 29.0, "c": 0.0, "g": 5.0, "fonte": "TACO — carne bovina, patinho, moído, cozido" },
-  "flocao_milho": { "nome": "Flocão de milho cozido", "kcal": 69, "p": 1.6, "c": 14.5, "g": 0.3, "fonte": "TACO — fubá/flocão de milho, cozido" },
-  "castanha_caju": { "nome": "Castanha de caju", "kcal": 570, "p": 18.5, "c": 29.1, "g": 46.3, "fonte": "TACO — castanha de caju, torrada" },
-  "arroz_integral": { "nome": "Arroz integral", "kcal": 124, "p": 2.6, "c": 25.8, "g": 1.0, "fonte": "TACO (cozido)" },
-  "brocolis": { "nome": "Brócolis cozido", "kcal": 25, "p": 2.1, "c": 4.0, "g": 0.3, "fonte": "TACO (cozido)" },
-  "morango": { "nome": "Morango", "kcal": 30, "p": 0.9, "c": 6.0, "g": 0.3, "fonte": "TACO — morango (carboidrato líquido de fibra)" },
-  "macarrao_integral": { "nome": "Macarrão integral cozido", "kcal": 124, "p": 5.0, "c": 25.0, "g": 0.9, "fonte": "TACO — macarrão, integral, cozido" },
-  "queijo_coalho": { "nome": "Queijo coalho", "kcal": 330, "p": 18.0, "c": 1.5, "g": 27.0, "fonte": "TACO/rótulo — queijo coalho" },
-  "maca": { "nome": "Maçã", "kcal": 52, "p": 0.2, "c": 13.3, "g": 0.3, "fonte": "TACO — maçã, crua" },
-  "atum_agua": { "nome": "Atum em água", "kcal": 116, "p": 25.0, "c": 0.0, "g": 1.0, "fonte": "Rótulo médio — atum em conserva, água" },
-  "mandioca": { "nome": "Mandioca cozida", "kcal": 125, "p": 0.6, "c": 30.1, "g": 0.3, "fonte": "TACO — mandioca/aipim, cozida" },
-  "vagem_cenoura": { "nome": "Vagem e cenoura refogadas", "kcal": 35, "p": 1.5, "c": 5.5, "g": 0.8, "fonte": "TACO — mix vagem/cenoura, cozidas" },
-  "salmao": { "nome": "Salmão grelhado", "kcal": 208, "p": 20.0, "c": 0.0, "g": 13.0, "fonte": "TACO/USDA — salmão, grelhado" },
-  "cafe": { "nome": "Café", "kcal": 0, "p": 0.0, "c": 0.0, "g": 0.0, "fonte": "TACO — café, infusão (calorias desprezíveis)" },
-  "pera": { "nome": "Pera", "kcal": 53, "p": 0.3, "c": 13.8, "g": 0.2, "fonte": "TACO — pera, crua" },
-  "pao_frances": { "nome": "Pão francês", "kcal": 300, "p": 8.0, "c": 58.0, "g": 3.0, "fonte": "TACO — pão francês" },
-  "amendoa": { "nome": "Amêndoa", "kcal": 575, "p": 21.0, "c": 20.0, "g": 49.0, "fonte": "TACO — amêndoa, torrada" },
-  "lentilha": { "nome": "Lentilha cozida", "kcal": 93, "p": 6.3, "c": 16.6, "g": 0.5, "fonte": "TACO (cozida)" },
-  "noz": { "nome": "Noz", "kcal": 620, "p": 14.0, "c": 14.0, "g": 59.0, "fonte": "TACO — noz" },
-  "inhame": { "nome": "Inhame cozido", "kcal": 97, "p": 1.5, "c": 23.2, "g": 0.1, "fonte": "TACO (cozido)" },
-  "couve_refogada": { "nome": "Couve refogada", "kcal": 40, "p": 1.9, "c": 3.0, "g": 2.5, "fonte": "TACO — couve, refogada" },
-  "grao_de_bico": { "nome": "Grão de bico cozido", "kcal": 121, "p": 8.4, "c": 20.0, "g": 1.5, "fonte": "TACO (cozido)" },
-  "rapadura": { "nome": "Rapadura", "kcal": 352, "p": 0.5, "c": 94.0, "g": 0.1, "fonte": "TACO — rapadura" },
-  "leite_achocolatado": { "nome": "Leite achocolatado", "kcal": 76, "p": 3.0, "c": 12.0, "g": 2.0, "fonte": "Rótulo médio — achocolatado pronto" },
-  "suco_laranja": { "nome": "Suco de laranja natural", "kcal": 37, "p": 0.5, "c": 8.1, "g": 0.1, "fonte": "TACO — suco de laranja, natural" }
+  "whey": {
+    "nome": "Whey concentrado",
+    "kcal": 400,
+    "p": 80,
+    "c": 8,
+    "g": 6,
+    "fonte": "Rótulo médio — whey protein concentrado (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "salada_verde": {
+    "nome": "Salada verde (prato misto)",
+    "kcal": 15,
+    "p": 1.2,
+    "c": 2.2,
+    "g": 0.2,
+    "fonte": "Prato misto, não um único item de tabela — composição assumida: alface 60% + tomate 30% + cenoura 10%, valores TACO de cada componente (alface crespa crua kcal11/p1.3/c1.7/g0.2; tomate cru kcal15/p1.1/c3.1/g0.2; cenoura crua kcal34/p1.3/c7.7/g0.2), ponderados e com carboidrato líquido de fibra (bruto ponderado ~2,7 g, fibra estimada ~0,5 g, resultando em 2,2 g) para bater com Atwater"
+  },
+  "banana": {
+    "nome": "Banana prata",
+    "kcal": 98,
+    "p": 1.3,
+    "c": 24,
+    "g": 0.1,
+    "fonte": "TACO — banana, prata: carboidrato líquido de fibra (26,0 g carboidrato total na tabela − 2,0 g fibra = 24,0 g)"
+  },
+  "ovo": {
+    "nome": "Ovo de galinha",
+    "kcal": 143,
+    "p": 13,
+    "c": 1.6,
+    "g": 9.5,
+    "fonte": "TACO (cozido)"
+  },
+  "pao_integral": {
+    "nome": "Pão integral",
+    "kcal": 253,
+    "p": 9.4,
+    "c": 49.9,
+    "g": 3.3,
+    "fonte": "TACO — pão, de forma, integral"
+  },
+  "frango_grelhado": {
+    "nome": "Frango grelhado",
+    "kcal": 165,
+    "p": 31,
+    "c": 0,
+    "g": 3.6,
+    "fonte": "TACO"
+  },
+  "leite_desnatado": {
+    "nome": "Leite desnatado",
+    "kcal": 35,
+    "p": 3.4,
+    "c": 5.1,
+    "g": 0.2,
+    "fonte": "TACO — leite de vaca, desnatado"
+  },
+  "mel": {
+    "nome": "Mel (representa a opção \"canela ou mel\" do plano)",
+    "kcal": 309,
+    "p": 0.4,
+    "c": 84,
+    "g": 0,
+    "fonte": "TACO — mel de abelha, representante declarado (opção canela/mel)"
+  },
+  "arroz_branco": {
+    "nome": "Arroz branco",
+    "kcal": 128,
+    "p": 2.5,
+    "c": 28.1,
+    "g": 0.2,
+    "fonte": "TACO (cozido)"
+  },
+  "aveia": {
+    "nome": "Aveia em flocos",
+    "kcal": 394,
+    "p": 13.9,
+    "c": 67,
+    "g": 8.5,
+    "fonte": "TACO — aveia, flocos, crua"
+  },
+  "azeite": {
+    "nome": "Azeite de oliva",
+    "kcal": 884,
+    "p": 0,
+    "c": 0,
+    "g": 100,
+    "fonte": "TACO"
+  },
+  "legumes_salteados": {
+    "nome": "Legumes salteados (prato misto)",
+    "kcal": 50,
+    "p": 2,
+    "c": 7,
+    "g": 1.8,
+    "fonte": "Prato misto refogado, não um único item de tabela — composição assumida: brócolis 40% + cenoura 30% + abobrinha 30%, cozidos/refogados, valores TACO de cada componente ponderados, com acréscimo de azeite de preparo refletido na gordura (g=1,8)"
+  },
+  "queijo_minas": {
+    "nome": "Queijo minas frescal",
+    "kcal": 264,
+    "p": 17.4,
+    "c": 3.2,
+    "g": 20.2,
+    "fonte": "TACO — queijo, minas, frescal"
+  },
+  "batata_doce": {
+    "nome": "Batata doce cozida",
+    "kcal": 77,
+    "p": 0.6,
+    "c": 18.4,
+    "g": 0.1,
+    "fonte": "TACO (cozida)"
+  },
+  "pasta_amendoim": {
+    "nome": "Pasta de amendoim",
+    "kcal": 588,
+    "p": 25,
+    "c": 20,
+    "g": 50,
+    "fonte": "Rótulo médio — pasta de amendoim integral (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "feijao": {
+    "nome": "Feijão carioca",
+    "kcal": 76,
+    "p": 4.8,
+    "c": 13.6,
+    "g": 0.5,
+    "fonte": "TACO (cozido)"
+  },
+  "granola": {
+    "nome": "Granola",
+    "kcal": 389,
+    "p": 9,
+    "c": 64,
+    "g": 9,
+    "fonte": "Rótulo médio — granola tradicional (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "tilapia": {
+    "nome": "Tilápia grelhada",
+    "kcal": 128,
+    "p": 26,
+    "c": 0,
+    "g": 2.7,
+    "fonte": "TACO/USDA — tilápia, filé, grelhada"
+  },
+  "goma_tapioca": {
+    "nome": "Goma de tapioca hidratada",
+    "kcal": 156,
+    "p": 0,
+    "c": 39,
+    "g": 0,
+    "fonte": "TACO — fécula de mandioca (goma), hidratada"
+  },
+  "geleia": {
+    "nome": "Geleia de frutas",
+    "kcal": 260,
+    "p": 0.2,
+    "c": 64,
+    "g": 0.1,
+    "fonte": "Rótulo médio — geleia de frutas (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "iogurte_grego": {
+    "nome": "Iogurte grego natural",
+    "kcal": 97,
+    "p": 9,
+    "c": 4,
+    "g": 5,
+    "fonte": "Rótulo médio — iogurte grego natural integral (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "whey_isolado": {
+    "nome": "Whey isolado",
+    "kcal": 380,
+    "p": 90,
+    "c": 2,
+    "g": 1,
+    "fonte": "Rótulo médio — whey protein isolado (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "queijo_cottage": {
+    "nome": "Queijo cottage",
+    "kcal": 98,
+    "p": 11.1,
+    "c": 3.4,
+    "g": 4.3,
+    "fonte": "Rótulo médio — queijo cottage (média de mercado entre marcas, valores próximos de TACO/rótulo, não produto específico conferido)"
+  },
+  "iogurte_natural": {
+    "nome": "Iogurte natural integral",
+    "kcal": 51,
+    "p": 3.5,
+    "c": 4.7,
+    "g": 2,
+    "fonte": "TACO — iogurte, natural, integral"
+  },
+  "fruta_estacao": {
+    "nome": "Fruta da estação (representada por banana prata)",
+    "kcal": 98,
+    "p": 1.3,
+    "c": 24,
+    "g": 0.1,
+    "fonte": "TACO — banana, prata, representante declarado: carboidrato líquido de fibra (26,0 g carboidrato total na tabela − 2,0 g fibra = 24,0 g)"
+  },
+  "torrada_integral": {
+    "nome": "Torrada integral",
+    "kcal": 404,
+    "p": 12,
+    "c": 74,
+    "g": 6,
+    "fonte": "Rótulo médio — torrada integral (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "carne_bovina_magra": {
+    "nome": "Carne bovina magra grelhada",
+    "kcal": 219,
+    "p": 31,
+    "c": 0,
+    "g": 10,
+    "fonte": "TACO — carne bovina, patinho, grelhada"
+  },
+  "patinho_moido": {
+    "nome": "Patinho moído cozido",
+    "kcal": 163,
+    "p": 29,
+    "c": 0,
+    "g": 5,
+    "fonte": "TACO — carne bovina, patinho, moído, cozido"
+  },
+  "flocao_milho": {
+    "nome": "Flocão de milho cozido",
+    "kcal": 69,
+    "p": 1.6,
+    "c": 14.5,
+    "g": 0.3,
+    "fonte": "TACO — fubá/flocão de milho, cozido"
+  },
+  "castanha_caju": {
+    "nome": "Castanha de caju",
+    "kcal": 570,
+    "p": 18.5,
+    "c": 29.1,
+    "g": 46.3,
+    "fonte": "TACO — castanha de caju, torrada"
+  },
+  "arroz_integral": {
+    "nome": "Arroz integral",
+    "kcal": 124,
+    "p": 2.6,
+    "c": 25.8,
+    "g": 1,
+    "fonte": "TACO (cozido)"
+  },
+  "brocolis": {
+    "nome": "Brócolis cozido",
+    "kcal": 25,
+    "p": 2.1,
+    "c": 4,
+    "g": 0.3,
+    "fonte": "TACO (cozido)"
+  },
+  "morango": {
+    "nome": "Morango",
+    "kcal": 30,
+    "p": 0.9,
+    "c": 6,
+    "g": 0.3,
+    "fonte": "TACO — morango: carboidrato líquido de fibra (6,8 g carboidrato total na tabela − 0,8 g fibra ≈ 6,0 g)"
+  },
+  "macarrao_integral": {
+    "nome": "Macarrão integral cozido",
+    "kcal": 124,
+    "p": 5,
+    "c": 25,
+    "g": 0.9,
+    "fonte": "TACO — macarrão, integral, cozido"
+  },
+  "queijo_coalho": {
+    "nome": "Queijo coalho",
+    "kcal": 330,
+    "p": 18,
+    "c": 1.5,
+    "g": 27,
+    "fonte": "Rótulo médio — queijo coalho (média de mercado entre marcas, valores próximos de TACO/rótulo, não produto específico conferido)"
+  },
+  "maca": {
+    "nome": "Maçã",
+    "kcal": 52,
+    "p": 0.2,
+    "c": 13.3,
+    "g": 0.3,
+    "fonte": "TACO — maçã, crua"
+  },
+  "atum_agua": {
+    "nome": "Atum em água",
+    "kcal": 116,
+    "p": 25,
+    "c": 0,
+    "g": 1,
+    "fonte": "Rótulo médio — atum em conserva, água (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "mandioca": {
+    "nome": "Mandioca cozida",
+    "kcal": 125,
+    "p": 0.6,
+    "c": 30.1,
+    "g": 0.3,
+    "fonte": "TACO — mandioca/aipim, cozida"
+  },
+  "vagem_cenoura": {
+    "nome": "Vagem e cenoura refogadas (prato misto)",
+    "kcal": 35,
+    "p": 1.5,
+    "c": 5.5,
+    "g": 0.8,
+    "fonte": "Prato misto, não um único item de tabela — composição assumida: vagem 50% + cenoura 50%, cozidas, valores TACO de cada componente ponderados, com carboidrato líquido de fibra (bruto ponderado ~6,3 g, fibra estimada ~0,8 g, resultando em 5,5 g) para bater com Atwater"
+  },
+  "salmao": {
+    "nome": "Salmão grelhado",
+    "kcal": 208,
+    "p": 20,
+    "c": 0,
+    "g": 13,
+    "fonte": "TACO/USDA — salmão, grelhado"
+  },
+  "cafe": {
+    "nome": "Café",
+    "kcal": 0,
+    "p": 0,
+    "c": 0,
+    "g": 0,
+    "fonte": "TACO — café, infusão (calorias desprezíveis)"
+  },
+  "pera": {
+    "nome": "Pera",
+    "kcal": 53,
+    "p": 0.3,
+    "c": 13.8,
+    "g": 0.2,
+    "fonte": "TACO — pera, crua"
+  },
+  "pao_frances": {
+    "nome": "Pão francês",
+    "kcal": 300,
+    "p": 8,
+    "c": 58,
+    "g": 3,
+    "fonte": "TACO — pão francês"
+  },
+  "amendoa": {
+    "nome": "Amêndoa",
+    "kcal": 575,
+    "p": 21,
+    "c": 20,
+    "g": 49,
+    "fonte": "TACO — amêndoa, torrada"
+  },
+  "lentilha": {
+    "nome": "Lentilha cozida",
+    "kcal": 93,
+    "p": 6.3,
+    "c": 16.6,
+    "g": 0.5,
+    "fonte": "TACO (cozida)"
+  },
+  "noz": {
+    "nome": "Noz",
+    "kcal": 620,
+    "p": 14,
+    "c": 14,
+    "g": 59,
+    "fonte": "TACO — noz"
+  },
+  "inhame": {
+    "nome": "Inhame cozido",
+    "kcal": 97,
+    "p": 1.5,
+    "c": 23.2,
+    "g": 0.1,
+    "fonte": "TACO (cozido)"
+  },
+  "couve_refogada": {
+    "nome": "Couve refogada",
+    "kcal": 40,
+    "p": 1.9,
+    "c": 3,
+    "g": 2.5,
+    "fonte": "TACO — couve, refogada"
+  },
+  "grao_de_bico": {
+    "nome": "Grão de bico cozido",
+    "kcal": 121,
+    "p": 8.4,
+    "c": 20,
+    "g": 1.5,
+    "fonte": "TACO (cozido)"
+  },
+  "rapadura": {
+    "nome": "Rapadura",
+    "kcal": 352,
+    "p": 0.5,
+    "c": 94,
+    "g": 0.1,
+    "fonte": "TACO — rapadura"
+  },
+  "leite_achocolatado": {
+    "nome": "Leite achocolatado",
+    "kcal": 76,
+    "p": 3,
+    "c": 12,
+    "g": 2,
+    "fonte": "Rótulo médio — achocolatado pronto (média de mercado entre marcas, não produto específico conferido)"
+  },
+  "suco_laranja": {
+    "nome": "Suco de laranja natural",
+    "kcal": 37,
+    "p": 0.5,
+    "c": 8.1,
+    "g": 0.1,
+    "fonte": "TACO — suco de laranja, natural"
+  }
 }
