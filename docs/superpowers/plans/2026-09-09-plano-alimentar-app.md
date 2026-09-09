@@ -1032,7 +1032,7 @@ Abrir `http://localhost:8000` e conferir os 11 requisitos acima, um a um. Módul
 
 - [ ] **Step 3: Confirmar que a lógica pura seguiu intacta**
 
-Run: `node --test testes/`
+Run: `node --test testes/*.test.js`
 Expected: PASS, todos.
 
 - [ ] **Step 4: Commit**
@@ -1119,7 +1119,7 @@ Na UI acrescentar:
 
 - [ ] **Step 4: Rodar até passar e verificar à mão**
 
-Run: `node --test testes/`
+Run: `node --test testes/*.test.js`
 Expected: PASS, todos. Depois conferir extras, troca de perfil e exportação no navegador.
 
 - [ ] **Step 5: Commit**
@@ -1179,7 +1179,7 @@ Verificado no iPhone em modo aviao: abre, registra e preserva estado."
 
 - [ ] **Step 1: README**
 
-Explicar o que é, como atualizar o plano do mês seguinte (rodar `extrair-plano.py` e commitar o JSON novo), e como rodar os testes (`node --test testes/`).
+Explicar o que é, como atualizar o plano do mês seguinte (rodar `extrair-plano.py` e commitar o JSON novo), e como rodar os testes (`node --test testes/*.test.js`).
 
 - [ ] **Step 2: Criar o repositório e publicar**
 
