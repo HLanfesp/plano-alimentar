@@ -24,6 +24,15 @@
 //    realmente promete ao usuário: que seguir o plano dá, no fim do dia, a
 //    caloria prescrita — não que cada opção isolada seja matematicamente
 //    exata.
+//
+// Risco residual conhecido: os três critérios não pegam uma classe específica
+// de erro — um erro sistemático de 20 a 40 kcal por ocorrência, espalhado por
+// dezenas de opções em dias diferentes. Ele fica abaixo do teto por opção (80
+// kcal), contribui pouco demais para estourar a média (25 kcal), e some dentro
+// da banda de 12% do dia (88%-112%). O critério de dia também tolera, por
+// construção, erros que se cancelam dentro do mesmo dia. É uma troca
+// consciente — o dia é o que o app exibe — mas é lacuna de cobertura, não
+// detalhe.
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
@@ -32,14 +41,17 @@ import { calcularItens } from '../src/nutricao.js';
 const plano = JSON.parse(readFileSync('dados/plano-2026-09.json', 'utf8'));
 const alimentos = JSON.parse(readFileSync('dados/alimentos.json', 'utf8'));
 
-// Sábado tem a linha "Durante o pedal" (tipo "combustivel"): são 2h de
-// combustível de treino durante o pedal que fazem parte da meta diária de
-// 2952 kcal do sábado, mas não têm kcal impresso por opção (por isso o teste
-// `sabado tem a linha de combustivel, sem kcal` existe e essa refeição é
-// pulada em todo o resto deste arquivo). Para a cobertura por dia do sábado
-// fechar contra a meta, essas 360 kcal precisam ser somadas de volta ao total
-// calculado antes da comparação — senão o sábado vai parecer sistematicamente
-// deficitário por um motivo que não é erro de dado nem de cálculo.
+// Constante: combustível de treino do sábado
+// -------------------------------------------
+// A linha "Durante o pedal" do plano do sábado expressa combustível em
+// carboidrato por hora (não em kcal): três opções de 50, 45 e 40 g/h.
+// Média: 45 g/h. A 4 kcal por grama de carboidrato, são 180 kcal/hora.
+// Premissa: 2 horas de combustível (brick é "até 3h", combustível começa
+// "a partir de 60 min" — alinhado com treino de bike de qualidade).
+// Cálculo: 2 h × 180 kcal/h = 360 kcal.
+// Esta constante soma-se de volta ao total do sábado no teste de cobertura
+// por dia, já que o plano inclui esse combustível na meta de 2952 kcal mas
+// não imprime kcal por opção (aquelas estão expressas em carbo/h).
 const KCAL_COMBUSTIVEL_SABADO = 360;
 
 function todasAsOpcoes() {
