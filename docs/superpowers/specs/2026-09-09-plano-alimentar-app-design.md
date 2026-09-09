@@ -45,7 +45,8 @@ tudo, para não perder a motivação de usar.** Toda decisão de escopo abaixo
 | Extras | Lista de porções prontas | Dois toques, zero digitação |
 | Histórico | Diário + resumo semanal | Alimenta a revisão mensal do plano |
 | Visual | Verde #22c55e, tema claro | Referência escolhida pelo usuário; mesmo verde dos planos atuais |
-| Combustível de treino / suplementos | Fora do escopo v1 | Regra de "não somar" ainda indefinida; risco de contagem dupla |
+| Combustível de treino | Seção própria, presente todos os dias (§6.5) | É uma refeição real do cardápio no sábado e o treino troca de dia |
+| Suplementos (ômega-3, magnésio, creatina) | Fora do escopo v1 | Não afetam macro; nada a somar |
 
 ## 4. Validação da abordagem por ingrediente
 
@@ -64,6 +65,11 @@ opções tem seu kcal e proteína calculados comparados ao valor impresso no
 plano. Nenhuma opção pode divergir mais de 8%; a média não pode passar de
 4%. Opções fora da faixa indicam erro de gramagem ou de valor na base e
 devem ser corrigidas antes do app ir ao ar.
+
+A linha "Durante o pedal" do sábado é a única refeição sem kcal impresso e
+fica fora dessa comparação. Em seu lugar, um teste separado: sábado
+completo (uma opção por refeição + 2h de combustível) deve cair a menos de
+6% dos 2952 kcal da meta.
 
 ## 5. Arquitetura
 
@@ -210,7 +216,70 @@ Proteína pesa o dobro: é o macro que o plano trata como inegociável
 Isto é uma **sugestão, nunca uma imposição** — as três opções continuam
 igualmente acessíveis e clicáveis.
 
-### 6.3 Extra
+### 6.3 Combustível de treino
+
+**Correção de defeito da revisão de 2026-09-09.** A versão anterior desta
+spec mandou o combustível de treino para fora do escopo. Medição
+posterior mostrou que isso quebra o sábado:
+
+| Sábado — soma das refeições comestíveis | Meta do plano | Déficit |
+|---|---|---|
+| 2688 / 2643 / 2778 kcal (sempre A / B / C) | 2952 kcal | **174 a 309 kcal** |
+
+O déficit é a linha **"Durante o pedal · a partir de 60 min ⚠️"**, a única
+refeição do plano expressa em `g carbo/h` em vez de kcal. A regra
+registrada é explícita: *"Bike 2h+/brick: gel + Energy Kick + Saltz já são
+a linha 'Durante o pedal' do cardápio — não somam ao resto do dia."*
+"Não somar" significa "não adicionar por cima", não "não contar".
+
+Excluí-la produziria o pior resultado possível: **todo sábado abriria em
+vermelho**, no maior dia de treino, para um atleta cujo risco declarado é
+déficit. E erraria o carboidrato exatamente no dia em que o plano manda
+colocá-lo no topo.
+
+**Modelo:** uma seção "Combustível de treino" existe em **todos os dias**,
+não só no sábado — o atleta troca o dia do treino com frequência (pode
+fazer a bike na quarta). Um conceito só, sem caso especial e sem risco de
+contagem dupla.
+
+- **No sábado:** aparece expandida e marcada ⚠️ obrigatória, na posição da
+  linha "Durante o pedal". A meta de 2952 kcal conta com ela.
+- **Nos demais dias:** recolhida e discreta. Se usada, soma normalmente e
+  o dia passa da meta — o que o alerta assimétrico trata como verde, e é
+  o comportamento correto: se pedalou 2h, gastou.
+
+**Itens (valores de rótulo conferidos em 07/Set/2026):**
+
+| Item | Toque | kcal | Carbo | Origem do valor |
+|---|---|---|---|---|
+| +1h de pedal | 1 por hora | 180 | 45 g | Média das 3 opções do plano (~50/45/40 g carbo/h) |
+| DUX Energy Kick (sachê 30 g) | 1 | 137 | 30 g | Rótulo |
+| Saltz Z2 (dose 15 g) | 1 | 44 | 11 g | Rótulo (+1000 mg sódio) |
+
+O item "+1h de pedal" é composto e derivado do próprio plano, não de
+rótulo — é assim que se evita inventar número. O gel Z2 isolado **não**
+entra como item: seu rótulo não foi conferido, e ele já está dentro do
+composto por hora.
+
+Sub-rótulo permanente na seção: *"Saltz: 1 dose/h · ~1000 mg sódio/h"*.
+
+Nos pré-treinos, uma linha discreta: *"Se usar Energy Kick, ele substitui
+esta refeição — não some os dois."* Sem lógica nova; corrige um erro que
+o atleta cometia na prática (somava o Energy Kick ao pré-treino do
+cardápio, dobrando o carbo).
+
+**Item em aberto:** o rótulo do gel Z2 nunca foi conferido. Não bloqueia a
+v1, porque o composto por hora vem do plano.
+
+### 6.4 Trocar o perfil do dia
+
+O atleta às vezes move o treino de dia. Além de navegar entre os dias, o
+seletor oferece **"usar este dia como hoje"**: registrar a quarta contra o
+cardápio e a meta da terça, se foi a bike que ele fez. Guardado junto com
+o dia (`perfil: "ter"`), e a tela Semana mostra o perfil efetivamente
+usado, não o do calendário.
+
+### 6.5 Extra
 
 Botão `+ Extra` fixo no rodapé. Abre uma folha com lista de porções
 prontas, cada uma com macro já definido. Semente inicial (~15 itens):
@@ -223,7 +292,7 @@ Ordenação por frequência de uso do próprio atleta: o que ele mais usa
 sobe. Contagem em localStorage. Extras aparecem numa seção própria no fim
 do dia, separados do plano, e somam normalmente nas barras.
 
-### 6.4 Semana
+### 6.6 Semana
 
 - Aderência ao plano em % (ingredientes marcados / previstos).
 - Médias de kcal, proteína e carbo vs meta, por dia e da semana.
@@ -298,9 +367,9 @@ reportando qualquer ingrediente desconhecido em vez de adivinhar.
 
 Adiado deliberadamente, não esquecido:
 
-- Combustível de treino (gel Z2, DUX Energy Kick, Saltz) e suplementação
-  — depende de resolver a regra de "não somar na corrida" e o que já está
-  contabilizado no cardápio, sob risco de contagem dupla.
+- Suplementação (ômega-3, magnésio, creatina, vitamina D) — não afeta
+  macro, nada a somar. O combustível de treino, que a revisão anterior
+  colocava aqui, foi movido para dentro do escopo: ver §6.3.
 - Ajuste de porção (½ · 1× · 1½).
 - Gordura e fibra no dashboard.
 - Sincronização em nuvem, login, notificações.
