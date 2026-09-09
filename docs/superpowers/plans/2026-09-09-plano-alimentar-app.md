@@ -182,7 +182,7 @@ Regra para os três nomes genéricos do plano, com o representante **declarado n
 
 ```json
 {
-  "fruta_estacao": { "nome": "Fruta da estação (representada por banana)", "kcal": 92, "p": 1.3, "c": 23.8, "g": 0.1, "fonte": "TACO — banana prata, representante declarado" }
+  "fruta_estacao": { "nome": "Fruta da estação (representada por banana)", "kcal": 98, "p": 1.3, "c": 24.0, "g": 0.1, "fonte": "TACO — banana, prata: carboidrato líquido de fibra (26,0 g total − 2,0 g fibra = 24,0 g). Representante declarado." }
 }
 ```
 
