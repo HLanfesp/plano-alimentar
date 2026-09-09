@@ -217,11 +217,11 @@
   },
   "patinho_moido": {
     "nome": "Patinho moído cozido",
-    "kcal": 163,
-    "p": 29,
-    "c": 0,
-    "g": 5,
-    "fonte": "TACO — carne bovina, patinho, moído, cozido"
+    "kcal": 219,
+    "p": 35.9,
+    "c": 0.0,
+    "g": 7.3,
+    "fonte": "TACO — carne bovina, patinho, moído, cozido (163 kcal anterior não correspondia a cru nem cozido na TACO; valor coerente com carne_bovina_magra, que é o mesmo corte — patinho — grelhado)"
   },
   "flocao_milho": {
     "nome": "Flocão de milho (medida crua, como comprado)",
