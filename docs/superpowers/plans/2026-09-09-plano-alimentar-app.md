@@ -27,7 +27,7 @@
 
 | Arquivo | Responsabilidade |
 |---|---|
-| `dados/alimentos.json` | 51 alimentos, macro por 100 g, com campo de fonte |
+| `dados/alimentos.json` | 52 alimentos, macro por 100 g, com campo de fonte |
 | `dados/unidades.json` | Conversão de unidade natural para gramas (1 ovo = 50 g) |
 | `dados/combustivel.json` | Itens de combustível de treino (§6.3 da spec) |
 | `dados/extras.json` | Lista semente de porções prontas (§6.5 da spec) |
@@ -59,7 +59,7 @@
 - Consumes: nada.
 - Produces: `dados/alimentos.json` no formato `{ chave: { nome, kcal, p, c, g, fonte } }`, valores por 100 g. `dados/unidades.json` no formato `{ chave: gramas_por_unidade }`. De `src/nutricao.js`: `validarAlimento(alimento) -> { ok: boolean, desvio: number }`.
 
-Os 51 alimentos a catalogar, medidos do plano (número = ocorrências):
+Os 52 alimentos a catalogar, medidos do plano (número = ocorrências):
 
 ```
 whey 27 · salada_verde 25 · banana 23 · ovo 23 · pao_integral 22
@@ -1057,7 +1057,7 @@ agrupamentos visuais sugeridos, nunca selecao exclusiva."
 
 **Interfaces:**
 - Consumes: `criarArmazenamento` (Task 5), `metaDoDia` (Task 4), `calcularItens` (Task 3).
-- Produces: `resumoSemana(dias, plano, alimentos) -> { aderencia, mediaKcal, mediaP, mediaC, refeicoesMaisPuladas }`.
+- Produces: `resumoSemana(dias, plano, alimentos) -> { aderencia, mediaKcal, mediaP, mediaC, refeicoesMaisPuladas, perfisUsados }`.
 
 - [ ] **Step 1: Escrever o teste que falha**
 

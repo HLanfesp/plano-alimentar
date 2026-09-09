@@ -81,7 +81,7 @@ plano-alimentar/
 ├── manifest.json       PWA (nome, ícone, standalone)
 ├── sw.js               service worker: cache-first, funciona offline
 ├── dados/
-│   ├── alimentos.json  51 alimentos, macro por 100 g
+│   ├── alimentos.json  52 alimentos, macro por 100 g
 │   └── plano-2026-09.json  7 dias × 7 refeições × 3 opções
 └── docs/superpowers/specs/
 ```
@@ -93,7 +93,7 @@ Destes, 5 são combustível de treino fora do escopo v1 (Saltz Z2, gel Z2,
 DUX Energy Kick, gel de carboidrato, rapadura) e 3 são genéricos que
 precisam de resolução explícita ("fruta da estação", "fruta", "canela ou
 mel") — mapeados para um valor representativo declarado na base. Restam
-**51 alimentos** a catalogar. Fonte: TACO (Tabela Brasileira de Composição de Alimentos),
+**52 alimentos** a catalogar. Fonte: TACO (Tabela Brasileira de Composição de Alimentos),
 USDA como fallback para itens industrializados (whey, granola).
 
 ```json
