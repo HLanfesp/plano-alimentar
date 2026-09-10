@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { ordenarOpcoes, resumoRestante } from '../src/sugestao.js';
+import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from '../src/sugestao.js';
 
 const alimentos = {
   frango_grelhado: { nome: 'Frango', kcal: 165, p: 31, c: 0, g: 3.6, fonte: 't' },
@@ -45,4 +45,30 @@ test('meta ja batida devolve mensagem de meta cumprida', () => {
     resumoRestante({ kcal: 2600, p: 210 }, { kcal: 2507, p: 203 }, 1),
     'meta de proteína cumprida'
   );
+});
+
+test('com uma refeicao restante, a fatia e o deficit inteiro', () => {
+  const f = fatiaPorRefeicao({ kcal: 2000, p: 150 }, { kcal: 2500, p: 200 }, 1);
+  assert.deepStrictEqual(f, { kcal: 500, p: 50 });
+});
+
+test('com varias refeicoes restantes, o deficit e dividido', () => {
+  const f = fatiaPorRefeicao({ kcal: 1000, p: 50 }, { kcal: 2500, p: 200 }, 5);
+  assert.deepStrictEqual(f, { kcal: 300, p: 30 });
+});
+
+test('deficit ja zerado devolve fatia zero, nunca negativa', () => {
+  const f = fatiaPorRefeicao({ kcal: 2800, p: 220 }, { kcal: 2500, p: 200 }, 3);
+  assert.deepStrictEqual(f, { kcal: 0, p: 0 });
+});
+
+test('zero refeicoes restantes nao divide por zero', () => {
+  const f = fatiaPorRefeicao({ kcal: 2000, p: 150 }, { kcal: 2500, p: 200 }, 0);
+  assert.deepStrictEqual(f, { kcal: 500, p: 50 });
+});
+
+test('a fatia alimenta ordenarOpcoes sem deformar a escolha', () => {
+  const f = fatiaPorRefeicao({ kcal: 0, p: 0 }, { kcal: 2400, p: 360 }, 6);
+  const r = ordenarOpcoes(opcoes, f, alimentos);
+  assert.strictEqual(r[0].opcao.letra, 'B');
 });

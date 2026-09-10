@@ -20,3 +20,15 @@ export function resumoRestante(consumido, meta, refeicoesRestantes) {
   const r = refeicoesRestantes === 1 ? '1 refeição' : `${refeicoesRestantes} refeições`;
   return `faltam ${faltaP} g de proteína em ${r}`;
 }
+
+// A ordenação compara cada opção com a fatia do que ainda falta por
+// refeição não registrada — não com o déficit inteiro do dia, que faria a
+// maior opção ganhar sempre de manhã. Déficit já zerado vira fatia zero:
+// nada falta, e a comparação passa a premiar a opção mais leve.
+export function fatiaPorRefeicao(consumido, meta, refeicoesRestantes) {
+  const divisor = Math.max(refeicoesRestantes, 1);
+  return {
+    kcal: Math.max(0, meta.kcal - consumido.kcal) / divisor,
+    p: Math.max(0, meta.p - consumido.p) / divisor,
+  };
+}
