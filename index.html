@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f7f4">
+<title>Hoje — Plano Alimentar</title>
+<style>
+:root{
+  --fundo:#f5f7f4;
+  --carta:#ffffff;
+  --tinta:#10261c;
+  --tinta2:#5f6f64;
+  --linha:#e1e8e2;
+  --verde:#22c55e;
+  --verde-fundo:#e9f9ee;
+  --verde-escuro:#15803d;
+  --ambar:#f59e0b;
+  --vermelho:#ef4444;
+  --teal:#0d9488;
+  --teal-fundo:#e6f6f4;
+  --raio:18px;
+  --toque:48px;
+  --display:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",
+            "Segoe UI Variable Display",system-ui,-apple-system,sans-serif;
+  --corpo:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--fundo);color:var(--tinta);
+  font-family:var(--corpo);font-size:17px;line-height:1.4;
+  padding-bottom:calc(96px + env(safe-area-inset-bottom));
+  -webkit-tap-highlight-color:transparent;
+}
+button{font:inherit;color:inherit;margin:0;cursor:pointer}
+h1,h2,h3,h4,p{margin:0}
+.num{font-variant-numeric:tabular-nums;font-family:var(--display)}
+
+/* ---------- cabeçalho ---------- */
+.cabecalho{padding:22px 16px 14px}
+.cabecalho .data{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta2)}
+.sessao{display:flex;align-items:center;gap:12px;margin-top:6px}
+.sessao .emoji{font-size:40px;line-height:1}
+.sessao h1{font-family:var(--display);font-size:27px;line-height:1.1;font-weight:700;letter-spacing:-.02em}
+.alvos{margin-top:10px;font-size:15px;color:var(--tinta2)}
+.alvos b{font-family:var(--display);color:var(--tinta);font-weight:700}
+.aviso-perfil{
+  margin-top:10px;background:var(--verde-fundo);color:var(--verde-escuro);
+  border-radius:12px;padding:8px 12px;font-size:14px;font-weight:600;
+}
+
+/* ---------- seletor de dia ---------- */
+.dias{display:flex;gap:8px;overflow-x:auto;padding:0 16px 14px;scrollbar-width:none}
+.dias::-webkit-scrollbar{display:none}
+.dias button{
+  flex:0 0 auto;min-width:var(--toque);min-height:var(--toque);
+  border:1.5px solid var(--linha);background:var(--carta);border-radius:14px;
+  padding:0 14px;font-family:var(--display);font-weight:700;font-size:15px;
+  color:var(--tinta2);
+}
+.dias button[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.dias button[data-hoje="1"]{box-shadow:inset 0 -3px 0 var(--verde)}
+
+/* ---------- barras pegajosas ---------- */
+.barras{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--fundo) 88%,transparent);
+  backdrop-filter:saturate(160%) blur(12px);
+  -webkit-backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--linha);
+  padding:10px 16px 12px;display:grid;gap:10px;
+}
+.barra{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:baseline}
+.barra .rotulo{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta2);font-weight:700}
+.barra .valor{font-family:var(--display);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
+.barra .valor .meta{font-size:14px;font-weight:600;color:var(--tinta2)}
+/* trilho: 0–125% da meta. A marca da meta fica a 80% da largura, então
+   passar da meta é visível e continua verde — nunca vira alerta. */
+.trilho{
+  grid-column:1/-1;position:relative;height:12px;border-radius:999px;
+  background:#e7ece7;overflow:hidden;
+}
+.trilho .excedente{position:absolute;inset:0 0 0 80%;background:repeating-linear-gradient(135deg,#dfe6e0 0 3px,#e7ece7 3px 6px)}
+.trilho .cheio{position:absolute;inset:0 auto 0 0;border-radius:999px;transition:width .35s cubic-bezier(.3,1,.4,1)}
+.trilho .cheio[data-status="verde"]{background:var(--verde)}
+.trilho .cheio[data-status="amarelo"]{background:var(--ambar)}
+.trilho .cheio[data-status="vermelho"]{background:var(--vermelho)}
+.trilho .marca{position:absolute;left:80%;top:-2px;bottom:-2px;width:2px;background:var(--tinta);opacity:.55}
+.legenda-meta{font-size:11px;color:var(--tinta2);text-align:right;margin-top:-4px}
+
+/* ---------- refeições ---------- */
+main{padding:16px 16px 0;display:grid;gap:12px}
+.refeicao{background:var(--carta);border-radius:var(--raio);border:1px solid var(--linha);overflow:hidden}
+.refeicao[data-estado="completa"]{border-color:var(--verde);box-shadow:0 0 0 1px var(--verde)}
+.cabeca{
+  width:100%;min-height:64px;display:grid;
+  grid-template-columns:62px 1fr 22px;align-items:center;gap:10px;
+  background:none;border:0;padding:12px 14px;text-align:left;
+}
+.cabeca .hora{font-family:var(--display);font-weight:700;font-size:15px;color:var(--tinta2);font-variant-numeric:tabular-nums}
+.cabeca .nome{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-.01em}
+.cabeca .sub{grid-column:2;font-size:14px;color:var(--tinta2);font-variant-numeric:tabular-nums}
+.cabeca .sub[data-estado="completa"]{color:var(--verde-escuro);font-weight:650}
+.seta{justify-self:end;color:var(--tinta2);transition:transform .2s}
+.cabeca[aria-expanded="true"] .seta{transform:rotate(90deg)}
+.ponto{display:inline-block;width:9px;height:9px;border-radius:999px;margin-right:7px;vertical-align:1px;background:#cfd8d1}
+.ponto[data-estado="parcial"]{background:var(--ambar)}
+.ponto[data-estado="completa"]{background:var(--verde)}
+.tag{
+  display:inline-block;margin-left:8px;font-family:var(--corpo);font-size:12px;font-weight:700;
+  letter-spacing:.04em;padding:3px 8px;border-radius:999px;background:#eef1ee;color:var(--tinta2);
+  vertical-align:2px;
+}
+.tag[data-tipo="obrigatorio"]{background:#fef3c7;color:#92400e}
+
+.corpo{padding:0 14px 14px;border-top:1px solid var(--linha)}
+.resumo{
+  margin:12px 0;font-family:var(--display);font-weight:700;font-size:15px;
+  color:var(--verde-escuro);background:var(--verde-fundo);border-radius:12px;padding:10px 12px;
+}
+.nota{margin:12px 0 0;font-size:13px;color:var(--tinta2)}
+.opcao{margin-top:14px}
+.opcao h4{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--tinta2);margin-bottom:8px;
+}
+.opcao .letra{
+  display:grid;place-items:center;width:24px;height:24px;border-radius:8px;
+  background:#eef1ee;color:var(--tinta);font-size:14px;letter-spacing:0;
+}
+.melhor{background:var(--verde);color:#fff;border-radius:999px;padding:3px 9px;letter-spacing:.04em;font-size:11px}
+.itens{display:grid;gap:7px}
+.ing{
+  width:100%;min-height:var(--toque);display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:14px;border:1.5px solid var(--linha);
+  background:var(--carta);text-align:left;transition:background .12s,color .12s,border-color .12s;
+}
+.ing .caixa{
+  flex:0 0 auto;width:20px;height:20px;border-radius:7px;border:2px solid #c8d2cb;
+  display:grid;place-items:center;font-size:13px;color:transparent;
+}
+.ing .texto{flex:1 1 auto;font-size:16px}
+.ing .g{font-size:13px;color:var(--tinta2);font-variant-numeric:tabular-nums}
+.ing[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:#fff;font-weight:650}
+.ing[aria-pressed="true"] .caixa{background:#fff;border-color:#fff;color:var(--verde)}
+.ing[aria-pressed="true"] .g{color:rgba(255,255,255,.82)}
+.ing:active{transform:scale(.99)}
+.bruto{font-size:15px;color:var(--tinta2);padding:8px 2px}
+
+/* ---------- combustível ---------- */
+.combustivel{background:var(--carta);border-radius:var(--raio);border:1px solid var(--linha);overflow:hidden}
+.combustivel[data-destaque="1"]{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal);background:var(--teal-fundo)}
+.combustivel .cabeca .nome{color:var(--teal)}
+.comb-sub{font-size:13px;color:var(--tinta2);margin:10px 0 12px}
+.doses{display:grid;gap:8px}
+.dose{
+  width:100%;min-height:60px;display:grid;grid-template-columns:1fr auto auto;
+  align-items:center;gap:12px;padding:10px 14px;border-radius:14px;
+  border:1.5px solid var(--linha);background:var(--carta);text-align:left;
+}
+.dose .nome-dose{font-family:var(--display);font-weight:700;font-size:17px}
+.dose .sublabel{font-size:13px;color:var(--tinta2)}
+.dose .qtd{
+  font-family:var(--display);font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;
+  min-width:44px;min-height:44px;display:grid;place-items:center;border-radius:12px;
+  background:#eef1ee;color:var(--tinta2);
+}
+.dose .qtd[data-ativo="1"]{background:var(--teal);color:#fff}
+.dose .mais{min-width:44px;min-height:44px;display:grid;place-items:center;border-radius:12px;background:var(--teal);color:#fff;font-size:24px;font-family:var(--display)}
+
+/* ---------- extras ---------- */
+.extras{background:var(--carta);border-radius:var(--raio);border:1px dashed var(--linha);padding:14px}
+.extras h3{font-family:var(--display);font-size:17px;font-weight:700;margin-bottom:8px}
+.extras ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.extras li{display:flex;justify-content:space-between;font-size:15px;font-variant-numeric:tabular-nums}
+.extras .vazio{font-size:14px;color:var(--tinta2)}
+
+.rodape{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--fundo) 90%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid var(--linha);
+}
+.rodape button{
+  width:100%;min-height:56px;border:0;border-radius:16px;background:var(--tinta);color:#fff;
+  font-family:var(--display);font-size:18px;font-weight:700;
+}
+
+/* ---------- folha de extras ---------- */
+.folha{position:fixed;inset:0;z-index:40;display:none}
+.folha[data-aberta="1"]{display:block}
+.folha .veu{position:absolute;inset:0;background:rgba(16,38,28,.38)}
+.folha .painel{
+  position:absolute;left:0;right:0;bottom:0;max-height:82vh;overflow-y:auto;
+  background:var(--fundo);border-radius:22px 22px 0 0;
+  padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+  animation:sobe .22s cubic-bezier(.3,1,.4,1);
+}
+@keyframes sobe{from{transform:translateY(18px)}to{transform:none}}
+.folha h2{font-family:var(--display);font-size:21px;font-weight:700;margin-bottom:4px}
+.folha .dica{font-size:14px;color:var(--tinta2);margin-bottom:14px}
+.folha .lista{display:grid;gap:8px}
+.folha .fechar{width:100%;min-height:56px;margin-top:14px;border:0;border-radius:16px;background:var(--tinta);color:#fff;font-family:var(--display);font-size:18px;font-weight:700}
+
+:focus-visible{outline:3px solid var(--verde-escuro);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+  <header class="cabecalho" id="cabecalho"></header>
+  <nav class="dias" id="dias" aria-label="Cardápio do dia"></nav>
+  <div class="barras" id="barras" aria-live="polite"></div>
+  <main id="refeicoes"></main>
+  <div class="rodape"><button type="button" data-acao="abrir-extras">+ Extra</button></div>
+  <div class="folha" id="folha" data-aberta="0">
+    <div class="veu" data-acao="fechar-extras"></div>
+    <div class="painel" role="dialog" aria-modal="true" aria-label="Adicionar extra">
+      <h2>Extra</h2>
+      <p class="dica">Um toque adiciona ao dia. O que você mais usa fica no topo.</p>
+      <div class="lista" id="lista-extras"></div>
+      <button type="button" class="fechar" data-acao="fechar-extras">Pronto</button>
+    </div>
+  </div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
