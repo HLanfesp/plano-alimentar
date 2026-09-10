@@ -9,6 +9,7 @@ import { metaDoDia, statusMacro } from './metas.js';
 import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from './sugestao.js';
 import { criarArmazenamento } from './armazenamento.js';
 import { resumoSemana } from './semana.js';
+import { escolherPlano } from './indice.js';
 
 const CHAVES_DIA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
 const NOME_DIA = {
@@ -143,8 +144,16 @@ async function lerJSON(caminho) {
 }
 
 async function iniciar() {
+  // O nome do arquivo do mes nao fica fixo aqui: vem do indice
+  // (dados/indice.json), que lista todos os planos publicados. Assim, um
+  // mes novo e so uma entrada nova no indice — nao precisa editar este
+  // arquivo. escolherPlano() usa o mais recente que nao seja futuro.
+  const indice = await lerJSON('dados/indice.json');
+  const escolhido = escolherPlano(indice, HOJE);
+  if (!escolhido) throw new Error('nenhum plano cadastrado em dados/indice.json');
+
   const [plano, alimentos, extras, combustivel] = await Promise.all([
-    lerJSON('dados/plano-2026-09.json'),
+    lerJSON(escolhido.arquivo),
     lerJSON('dados/alimentos.json'),
     lerJSON('dados/extras.json'),
     lerJSON('dados/combustivel.json'),
