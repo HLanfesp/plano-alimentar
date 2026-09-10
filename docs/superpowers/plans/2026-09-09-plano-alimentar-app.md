@@ -333,7 +333,7 @@ Expected: FAIL — `ENOENT: dados/plano-2026-09.json`
 Run:
 ```bash
 python3 ferramentas/extrair-plano.py \
-  "/Users/hiallysonlandim/Library/Mobile Documents/com~apple~CloudDocs/01. Hiallyson Landim/07. TREINO_NUTRIÇÃO/2. Planejamento Mensal/09 SETEMBRO/Plano_Alimentar_Setembro_2026.html" \
+  "/caminho/para/Plano_Alimentar_Setembro_2026.html" \
   dados/plano-2026-09.json
 node --test testes/plano.test.js
 ```
