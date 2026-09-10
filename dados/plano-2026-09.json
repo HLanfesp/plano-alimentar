@@ -2491,7 +2491,7 @@
           "nome": "Durante o pedal",
           "hora": "a partir de 60 min",
           "opcional": false,
-          "obrigatorio": false,
+          "obrigatorio": true,
           "opcoes": [
             {
               "letra": "A",

@@ -284,7 +284,10 @@ def extrair_refeicoes(bloco_db: str, alimentos: dict, unidades: dict, desconheci
         resto_segmentos = segmentos[1:]
 
         opcional = "opcional" in mt_texto.lower()
-        obrigatorio = "obrigat" in mt_texto.lower()
+        # O plano usa "\u26a0\ufe0f" como marca de obrigatoriedade, e nem sempre
+        # acompanhado da palavra: a linha "Durante o pedal \u00b7 a partir de 60 min
+        # \u26a0\ufe0f" do s\u00e1bado traz o s\u00edmbolo sozinho. O s\u00edmbolo sozinho conta.
+        obrigatorio = "obrigat" in mt_texto.lower() or "\u26a0" in mt_texto
 
         hora = None
         for seg in resto_segmentos:

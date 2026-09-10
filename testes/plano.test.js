@@ -62,3 +62,21 @@ test('sabado tem a linha de combustivel, sem kcal', () => {
   assert.ok(r, 'sabado sem linha de combustivel');
   assert.strictEqual(r.opcoes[0].kcal_plano, null);
 });
+
+// O plano usa "⚠️" como marca de obrigatoriedade e a linha do sábado traz o
+// símbolo sozinho, sem a palavra. O extrator precisa enxergar isso — era
+// por aqui que a interface acabava inventando a etiqueta.
+test('o combustivel do sabado e obrigatorio no dado, nao na interface', () => {
+  const r = plano.dias.sab.refeicoes.find(x => x.tipo === 'combustivel');
+  assert.strictEqual(r.obrigatorio, true);
+});
+
+test('nenhum outro dia marca o combustivel como obrigatorio', () => {
+  for (const dia of DIAS) {
+    for (const r of plano.dias[dia].refeicoes) {
+      if (r.tipo === 'combustivel' && dia !== 'sab') {
+        assert.strictEqual(r.obrigatorio, false, `${dia} marcou combustivel como obrigatorio`);
+      }
+    }
+  }
+});
