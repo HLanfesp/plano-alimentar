@@ -76,14 +76,23 @@ for (const { mes, arquivo } of indice.planos) {
       assert.strictEqual(r.obrigatorio, true, `${mes}: combustivel do sabado deveria ser obrigatorio`);
     });
 
-    test(`[${mes}] nenhum outro dia marca o combustivel como obrigatorio`, () => {
+    // A versão anterior deste teste nunca executava o assert: o corpo ficava
+    // dentro de `if (r.tipo === 'combustivel' && dia !== 'sab')` e só o sábado
+    // tem refeição de combustível, então a condição era sempre falsa. Um teste
+    // que não pode falhar não é portão. Agora conta as refeições de
+    // combustível do plano inteiro e afirma o que o plano diz: existe
+    // exatamente uma, no sábado, obrigatória.
+    test(`[${mes}] existe exatamente uma refeicao de combustivel, no sabado, obrigatoria`, () => {
+      const achadas = [];
       for (const dia of DIAS) {
         for (const r of plano.dias[dia].refeicoes) {
-          if (r.tipo === 'combustivel' && dia !== 'sab') {
-            assert.strictEqual(r.obrigatorio, false, `${mes} ${dia}: marcou combustivel como obrigatorio`);
-          }
+          if (r.tipo === 'combustivel') achadas.push({ dia, obrigatorio: r.obrigatorio });
         }
       }
+      assert.strictEqual(achadas.length, 1,
+        `${mes}: esperava 1 refeicao de combustivel, achei ${achadas.length} (${achadas.map(a => a.dia).join(', ')})`);
+      assert.strictEqual(achadas[0].dia, 'sab', `${mes}: combustivel caiu em ${achadas[0].dia}, nao no sabado`);
+      assert.strictEqual(achadas[0].obrigatorio, true, `${mes}: o combustivel do sabado nao esta obrigatorio`);
     });
   });
 }

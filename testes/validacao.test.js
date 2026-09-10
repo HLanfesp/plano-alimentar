@@ -11,7 +11,8 @@
 // pesa muito mais em percentual do que o mesmo erro de 60 kcal num almoço de
 // 800 kcal, embora o impacto real no dia do usuário seja idêntico.
 //
-// Por isso este arquivo usa três critérios, todos em kcal absolutos:
+// Por isso este arquivo usa três critérios de kcal, todos em kcal absolutos
+// (mais um quarto de proteína, descrito depois deles):
 // 1. Nenhuma opção pode divergir mais que 80 kcal do valor impresso no plano
 //    — um teto absoluto que ainda pega erros grandes de dado/extração, sem
 //    explodir artificialmente em opções de baixa caloria.
@@ -122,6 +123,52 @@ for (const { mes, arquivo } of indice.planos) {
         }
       }
       assert.deepStrictEqual(fora, [], `cobertura fora da faixa 88%-112% em ${mes}:\n${fora.join('\n')}`);
+    });
+
+    // Portão de cobertura de PROTEÍNA por dia, espelhando o de kcal
+    // ------------------------------------------------------------
+    // O desvio médio relativo (teste seguinte) não é portão: ele mede o
+    // conjunto das opções e passa mesmo que um dia inteiro fique abaixo da
+    // meta. Proteína é o macro que o risco declarado do atleta ataca direto
+    // — ele teme perder músculo — então ela precisa do mesmo portão por dia
+    // e por letra que o kcal já tem: piso de 88% da meta impressa.
+    //
+    // EXCEÇÃO CONHECIDA, medida e registrada de propósito: sexta sempre-C dá
+    // 174 g contra meta de 206 g = 84,5%. Ela FALHA no piso de 88% e não foi
+    // afrouxada — o piso continua 88%. É achado para levar ao nutricionista
+    // (a opção C da sexta é pobre em proteína), não defeito do app. Fica
+    // listada aqui, nomeada, e presa ao mês em que foi medida: um mês novo
+    // não herda exceção nenhuma. Qualquer combinação NOVA abaixo de 88%
+    // quebra o teste.
+    const EXCECOES_PROTEINA = { '2026-09': ['sex C'] };
+
+    test(`[${mes}] cobertura por dia: proteina nao cai abaixo de 88% da meta em sempre A, B ou C`, () => {
+      const LETRAS = ['A', 'B', 'C'];
+      const conhecidas = new Set(EXCECOES_PROTEINA[mes] || []);
+      const novas = [];
+      const excecoesQueSumiram = new Set(conhecidas);
+      for (const [dia, d] of Object.entries(plano.dias)) {
+        for (const letra of LETRAS) {
+          let total = 0;
+          for (const r of d.refeicoes) {
+            if (r.tipo === 'combustivel') continue; // combustível não tem proteína
+            const idx = r.opcoes.findIndex((o) => o.letra === letra);
+            const opcao = idx >= 0 ? r.opcoes[idx] : r.opcoes[r.opcoes.length - 1];
+            total += calcularItens(opcao.itens, alimentos).p;
+          }
+          const pct = (total / d.meta.p) * 100;
+          const nome = `${dia} ${letra}`;
+          if (pct >= 88) continue;
+          if (conhecidas.has(nome)) { excecoesQueSumiram.delete(nome); continue; }
+          novas.push(`${mes} ${nome}: ${pct.toFixed(1)}% da meta (${Math.round(total)} de ${d.meta.p} g P)`);
+        }
+      }
+      assert.deepStrictEqual(novas, [],
+        `combinacoes NOVAS de proteina abaixo de 88% em ${mes} (o piso nao se afrouxa; leve ao nutricionista):\n${novas.join('\n')}`);
+      // Se uma exceção deixou de falhar, o plano melhorou: tire-a da lista
+      // para o portão voltar a cobrir essa combinação.
+      assert.deepStrictEqual([...excecoesQueSumiram], [],
+        `${mes}: estas excecoes ja passam dos 88% — remova de EXCECOES_PROTEINA: ${[...excecoesQueSumiram].join(', ')}`);
     });
 
     test(`[${mes}] o desvio medio de proteina fica abaixo de 8%`, () => {

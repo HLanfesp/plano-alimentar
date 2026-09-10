@@ -33,11 +33,19 @@ test('marcar duas vezes nao duplica', () => {
   assert.strictEqual(a.lerDia('2026-09-10').marcados.length, 1);
 });
 
+// Esta é a regra mais central do produto: o atleta pode comer o frango da
+// opção A com o arroz da opção B, e as duas marcações têm que coexistir na
+// mesma refeição. Contar `length === 2` não provava isso — duas gravações da
+// MESMA chave, ou uma chave sobrescrevendo a outra, passariam igual. O teste
+// agora exige as duas chaves distintas, nomeadas.
 test('ingredientes de opcoes diferentes convivem na mesma refeicao', () => {
   const a = criarArmazenamento(storageFalso());
   a.marcar('2026-09-10', 'almoco:A:frango_grelhado');
   a.marcar('2026-09-10', 'almoco:B:arroz_branco');
-  assert.strictEqual(a.lerDia('2026-09-10').marcados.length, 2);
+  const marcados = a.lerDia('2026-09-10').marcados;
+  assert.deepStrictEqual([...marcados].sort(),
+    ['almoco:A:frango_grelhado', 'almoco:B:arroz_branco']);
+  assert.strictEqual(new Set(marcados).size, 2, 'as duas chaves tem que ser distintas');
 });
 
 test('dias sao independentes', () => {
