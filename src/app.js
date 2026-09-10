@@ -1,11 +1,12 @@
 // Única camada que toca o DOM. Toda conta vive nos módulos importados:
-// nutricao (macros de itens), metas (meta do dia e status assimétrico),
-// sugestao (ordenar opções e resumo do que falta) e armazenamento
-// (persistência no localStorage). Aqui só há leitura de dados, montagem
-// de HTML e tratamento de toque.
-import { calcularItens } from './nutricao.js';
+// nutricao (macros de itens, chave do ingrediente e estado da refeição),
+// metas (meta do dia e status assimétrico), sugestao (ordenar opções,
+// resumo do que falta e fatia por refeição) e armazenamento (persistência
+// no localStorage). Aqui só há leitura de dados, montagem de HTML e
+// tratamento de toque.
+import { calcularItens, chaveIngrediente, estadoDa } from './nutricao.js';
 import { metaDoDia, statusMacro } from './metas.js';
-import { ordenarOpcoes, resumoRestante } from './sugestao.js';
+import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from './sugestao.js';
 import { criarArmazenamento } from './armazenamento.js';
 
 const CHAVES_DIA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
@@ -19,17 +20,35 @@ const ID_COMBUSTIVEL = '__combustivel';
 // da largura. Passar da meta fica visível e continua verde: o risco deste
 // atleta é déficit, não excesso.
 const TETO_TRILHO = 1.25;
+// Sinal não-cromático das barras: quem não separa verde de amarelo lê o
+// texto. Redundante com a cor de propósito, como já era nas refeições.
+const SELO_STATUS = {
+  verde: '✓ na meta',
+  amarelo: '↓ baixo',
+  vermelho: '↓↓ muito baixo',
+};
 
-const arm = criarArmazenamento(window.localStorage);
 const agora = new Date();
 const HOJE = dataISO(agora);
-const DIA_CALENDARIO = CHAVES_DIA[agora.getDay()];
+
+// Duas funções distintas e cumulativas (§6.4 da spec):
+//   dataAtiva — QUAL DATA está sendo vista e registrada (navegação);
+//   perfil    — QUAL CARDÁPIO da semana vale nessa data ("usar este dia
+//               como hoje", para quando o treino troca de dia).
+// A tela precisa deixar claro qual das duas está em jogo, então cada uma
+// tem seu próprio controle, seu próprio aviso e sua própria cor.
+let dataAtiva = HOJE;
+let perfil = null; // definido em irPara(), depois que o plano carrega
+let limiteTras = HOJE;
 
 let dados = null;
-let perfil = DIA_CALENDARIO;
 let abertas = new Set();
 
+const arm = criarArmazenamento(window.localStorage, (erro, operacao) => mostrarFalha(erro, operacao));
+
 const el = {
+  falha: document.getElementById('falha'),
+  datas: document.getElementById('datas'),
   cabecalho: document.getElementById('cabecalho'),
   dias: document.getElementById('dias'),
   barras: document.getElementById('barras'),
@@ -38,12 +57,38 @@ const el = {
   listaExtras: document.getElementById('lista-extras'),
 };
 
-// ---------- utilidades de formato ----------
+// ---------- utilidades de formato e de data ----------
 
 function dataISO(d) {
   const mm = String(d.getMonth() + 1).padStart(2, '0');
   const dd = String(d.getDate()).padStart(2, '0');
   return `${d.getFullYear()}-${mm}-${dd}`;
+}
+
+function deISO(iso) {
+  const [a, m, d] = iso.split('-').map(Number);
+  return new Date(a, m - 1, d);
+}
+
+function somarDias(iso, n) {
+  const d = deISO(iso);
+  d.setDate(d.getDate() + n);
+  return dataISO(d);
+}
+
+const diaDaSemana = iso => CHAVES_DIA[deISO(iso).getDay()];
+const exibirData = iso => deISO(iso).toLocaleDateString('pt-BR');
+
+function distanciaEmDias(iso) {
+  return Math.round((deISO(HOJE) - deISO(iso)) / 86400000);
+}
+
+function rotuloRelativo(iso) {
+  const d = distanciaEmDias(iso);
+  if (d === 0) return 'hoje';
+  if (d === 1) return 'ontem';
+  if (d === 2) return 'anteontem';
+  return `há ${d} dias`;
 }
 
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -66,11 +111,27 @@ function somarPorcao(acc, porcao, qtd) {
 
 const zero = () => ({ kcal: 0, p: 0, c: 0, g: 0 });
 const comestiveis = diaPlano => diaPlano.refeicoes.filter(r => r.tipo !== 'combustivel');
-const chaveDe = (refeicao, opcao, item) => `${refeicao.id}:${opcao.letra}:${item.alimento}`;
+const linhaCombustivel = diaPlano => diaPlano.refeicoes.find(r => r.tipo === 'combustivel') || null;
+const chaveDe = (refeicao, opcao, item) => chaveIngrediente(refeicao.id, opcao.letra, item.alimento);
 
 function minutosDaHora(hora) {
   const m = /^(\d{1,2})h(\d{2})$/.exec(String(hora).trim());
   return m ? Number(m[1]) * 60 + Number(m[2]) : null;
+}
+
+// ---------- falha de armazenamento visível ----------
+
+// Safari em navegação privada lança em setItem. Sem aviso, o atleta acha
+// que marcou e não marcou. O aviso fica na tela até ele fechar.
+function mostrarFalha(_erro, operacao) {
+  if (!el.falha) return;
+  el.falha.innerHTML = `
+    <p><b>Não foi possível ${operacao === 'ler' ? 'ler o que já estava salvo' : 'salvar neste aparelho'}.</b>
+    O que você tocar agora pode não ser guardado. No iPhone isso costuma ser
+    navegação privada ou armazenamento bloqueado: saia da janela privada e
+    recarregue.</p>
+    <button type="button" data-acao="fechar-falha">Entendi</button>`;
+  el.falha.hidden = false;
 }
 
 // ---------- carregamento ----------
@@ -90,18 +151,34 @@ async function iniciar() {
   ]);
   dados = { plano, alimentos, extras, combustivel };
 
-  const gravado = arm.lerDia(HOJE).perfil;
-  perfil = gravado && plano.dias[gravado] ? gravado : DIA_CALENDARIO;
-
-  abertas = new Set([proximaRefeicao()]);
-  if (perfil === 'sab') abertas.add(ID_COMBUSTIVEL);
+  // Para trás só até o começo do mês do plano: antes disso o cardápio
+  // carregado não é o daquele dia, e mostrá-lo seria mentira.
+  limiteTras = `${plano.mes}-01`;
+  irPara(HOJE, { render: false });
 
   document.addEventListener('click', aoTocar);
   renderizar();
 }
 
-function proximaRefeicao() {
+// Troca a data vista/registrada e recarrega o perfil gravado nela.
+function irPara(data, { render = true } = {}) {
+  dataAtiva = data;
+  const gravado = arm.lerDia(dataAtiva).perfil;
+  perfil = gravado && dados.plano.dias[gravado] ? gravado : diaDaSemana(dataAtiva);
+  abrirPadrao();
+  if (render) renderizar();
+}
+
+function abrirPadrao() {
+  abertas = new Set([refeicaoInicial()]);
+  if (linhaCombustivel(dados.plano.dias[perfil])) abertas.add(ID_COMBUSTIVEL);
+}
+
+// Em dia passado o caso real é "esqueci de marcar o jantar": abre a última
+// refeição. Hoje, abre a do relógio.
+function refeicaoInicial() {
   const lista = comestiveis(dados.plano.dias[perfil]);
+  if (dataAtiva !== HOJE) return lista[lista.length - 1].id;
   const minutosAgora = agora.getHours() * 60 + agora.getMinutes();
   const candidata = lista.find(r => {
     const m = minutosDaHora(r.hora);
@@ -114,7 +191,7 @@ function proximaRefeicao() {
 
 function calcular() {
   const diaPlano = dados.plano.dias[perfil];
-  const dia = arm.lerDia(HOJE);
+  const dia = arm.lerDia(dataAtiva);
   const meta = metaDoDia(diaPlano.meta);
   const marcados = new Set(dia.marcados);
   const total = zero();
@@ -132,39 +209,27 @@ function calcular() {
         somar(sub, calcularItens([item], dados.alimentos));
       }
     }
-    porRefeicao[refeicao.id] = { sub, marcados: contadas.size, estado: estadoDa(refeicao, marcados, contadas.size) };
+    porRefeicao[refeicao.id] = { sub, estado: estadoDa(refeicao, marcados) };
     somar(total, sub);
   }
 
   for (const e of dia.extras) somarPorcao(total, dados.extras[e.id], e.qtd);
   for (const c of dia.combustivel) somarPorcao(total, dados.combustivel[c.id], c.qtd);
 
-  const restantes = comestiveis(diaPlano).filter(r => porRefeicao[r.id].marcados === 0).length;
-  const fatia = Math.max(restantes, 1);
-  // A ordenação compara cada opção com a fatia do que falta por refeição
-  // ainda não registrada — não com o déficit inteiro do dia, que faria a
-  // maior opção ganhar sempre.
-  const restantePorRefeicao = {
-    kcal: Math.max(0, meta.kcal - total.kcal) / fatia,
-    p: Math.max(0, meta.p - total.p) / fatia,
+  const restantes = comestiveis(diaPlano).filter(r => porRefeicao[r.id].estado === 'vazia').length;
+
+  return {
+    dia, diaPlano, meta, marcados, total, porRefeicao, restantes,
+    restantePorRefeicao: fatiaPorRefeicao(total, meta, restantes),
   };
-
-  return { dia, diaPlano, meta, marcados, total, porRefeicao, restantes, restantePorRefeicao };
-}
-
-function estadoDa(refeicao, marcados, quantos) {
-  if (quantos === 0) return 'vazia';
-  const completa = refeicao.opcoes.some(opcao => {
-    const itens = opcao.itens.filter(i => i.alimento);
-    return itens.length > 0 && itens.every(i => marcados.has(chaveDe(refeicao, opcao, i)));
-  });
-  return completa ? 'completa' : 'parcial';
 }
 
 // ---------- render ----------
 
 function renderizar() {
   const e = calcular();
+  document.body.dataset.outraData = dataAtiva === HOJE ? '0' : '1';
+  renderDatas();
   renderCabecalho(e);
   renderDias();
   renderBarras(e);
@@ -172,10 +237,35 @@ function renderizar() {
   renderListaExtras();
 }
 
-function renderCabecalho({ diaPlano, meta, dia }) {
-  const trocado = perfil !== DIA_CALENDARIO;
+// Controle 1: navegar entre datas. Só toques, nenhum campo de data.
+function renderDatas() {
+  const outraData = dataAtiva !== HOJE;
+  const podeVoltar = dataAtiva > limiteTras;
+  const podeAvancar = outraData;
+  el.datas.innerHTML = `
+    <div class="datas-linha">
+      <button type="button" data-navegar="-1" ${podeVoltar ? '' : 'disabled'}
+        aria-label="Dia anterior">‹</button>
+      <span class="datas-centro">
+        <span class="datas-dia">${esc(NOME_DIA[diaDaSemana(dataAtiva)])}</span>
+        <span class="datas-num num">${esc(exibirData(dataAtiva))}</span>
+        <span class="datas-selo" data-outra="${outraData ? 1 : 0}">${esc(rotuloRelativo(dataAtiva))}</span>
+      </span>
+      <button type="button" data-navegar="1" ${podeAvancar ? '' : 'disabled'}
+        aria-label="Dia seguinte">›</button>
+    </div>
+    ${outraData ? `
+      <div class="datas-aviso" role="status">
+        <span>Você está <b>vendo e registrando ${esc(rotuloRelativo(dataAtiva))}</b>,
+          ${esc(exibirData(dataAtiva))}. O que marcar entra nesta data.</span>
+        <button type="button" data-acao="voltar-hoje">Voltar para hoje</button>
+      </div>` : ''}
+  `;
+}
+
+function renderCabecalho({ diaPlano, meta }) {
+  const trocado = perfil !== diaDaSemana(dataAtiva);
   el.cabecalho.innerHTML = `
-    <p class="data">${esc(NOME_DIA[DIA_CALENDARIO])} · ${esc(agora.toLocaleDateString('pt-BR'))}</p>
     <div class="sessao">
       <span class="emoji" aria-hidden="true">${esc(diaPlano.sessao || '')}</span>
       <h1>${esc(diaPlano.rotulo)}</h1>
@@ -183,17 +273,25 @@ function renderCabecalho({ diaPlano, meta, dia }) {
     <p class="alvos">Alvo do dia: <b class="num">${n0(meta.kcal)}</b> kcal ·
       <b class="num">${n0(meta.p)}</b> g de proteína ·
       <b class="num">${n0(meta.c)}</b> g de carbo <span title="derivado">(derivado)</span></p>
-    ${trocado || dia.perfil
-      ? `<p class="aviso-perfil">Registrando contra o cardápio de ${esc(NOME_DIA[perfil].toLowerCase())}</p>`
+    ${trocado
+      ? `<p class="aviso-perfil">Usando o cardápio de ${esc(NOME_DIA[perfil].toLowerCase())} neste dia
+           <button type="button" data-acao="soltar-perfil">desfazer</button></p>`
       : ''}
   `;
 }
 
+// Controle 2: "usar este dia como hoje" — troca o cardápio, não a data.
 function renderDias() {
-  el.dias.innerHTML = CHAVES_DIA.slice(1).concat('dom').map(d => `
-    <button type="button" data-dia="${d}" data-hoje="${d === DIA_CALENDARIO ? 1 : 0}"
-      aria-pressed="${d === perfil}">${esc(CURTO_DIA[d])}</button>
-  `).join('');
+  const doCalendario = diaDaSemana(dataAtiva);
+  el.dias.innerHTML = `
+    <p class="dias-titulo">Cardápio usado ${esc(rotuloRelativo(dataAtiva))}
+      <span>toque se o treino trocou de dia</span></p>
+    <div class="dias-tira">
+      ${CHAVES_DIA.slice(1).concat('dom').map(d => `
+        <button type="button" data-dia="${d}" data-calendario="${d === doCalendario ? 1 : 0}"
+          aria-pressed="${d === perfil}">${esc(CURTO_DIA[d])}</button>
+      `).join('')}
+    </div>`;
 }
 
 function renderBarras({ total, meta }) {
@@ -209,7 +307,8 @@ function barra(rotulo, consumido, meta, unidade, nota) {
   const largura = meta > 0 ? Math.min(consumido / meta, TETO_TRILHO) / TETO_TRILHO * 100 : 0;
   return `
     <div class="barra">
-      <span class="rotulo">${esc(rotulo)}${nota ? ` · ${esc(nota)}` : ''}</span>
+      <span class="rotulo">${esc(rotulo)}${nota ? ` · ${esc(nota)}` : ''}
+        <span class="selo-status" data-status="${status}">${esc(SELO_STATUS[status])}</span></span>
       <span class="valor num">${n0(consumido)}<span class="meta"> / ${n0(meta)}${unidade}</span></span>
       <div class="trilho" role="img"
         aria-label="${esc(rotulo)}: ${n0(consumido)} de ${n0(meta)}${unidade}, ${status}">
@@ -244,11 +343,6 @@ function cartaoRefeicao(e, refeicao) {
     ? ordenarOpcoes(refeicao.opcoes, e.restantePorRefeicao, dados.alimentos).map(o => o.opcao)
     : refeicao.opcoes;
 
-  const etiquetas = [
-    refeicao.obrigatorio ? '<span class="tag" data-tipo="obrigatorio">⚠️ obrigatório</span>' : '',
-    refeicao.opcional ? '<span class="tag">opcional</span>' : '',
-  ].join('');
-
   const subtitulo = naoRegistrada
     ? 'nada marcado'
     : `${n0(sub.kcal)} kcal · ${n0(sub.p)} g P${estado === 'completa' ? ' · completa' : ' · parcial'}`;
@@ -266,12 +360,20 @@ function cartaoRefeicao(e, refeicao) {
     <section class="refeicao" data-estado="${estado}">
       <button type="button" class="cabeca" data-refeicao="${esc(refeicao.id)}" aria-expanded="${aberta}">
         <span class="hora num">${esc(refeicao.hora)}</span>
-        <span class="nome">${esc(refeicao.nome)}${etiquetas}</span>
+        <span class="nome">${esc(refeicao.nome)}${etiquetas(refeicao)}</span>
         <span class="sub" data-estado="${estado}"><span class="ponto" data-estado="${estado}"></span>${esc(subtitulo)}</span>
         <span class="seta" aria-hidden="true">›</span>
       </button>
       ${corpo}
     </section>`;
+}
+
+// As etiquetas saem do dado, nunca de regra escrita na interface.
+function etiquetas(refeicao) {
+  return [
+    refeicao && refeicao.obrigatorio ? '<span class="tag" data-tipo="obrigatorio">⚠️ obrigatório</span>' : '',
+    refeicao && refeicao.opcional ? '<span class="tag">opcional</span>' : '',
+  ].join('');
 }
 
 function blocoOpcao(e, refeicao, opcao, melhor) {
@@ -302,7 +404,9 @@ function blocoOpcao(e, refeicao, opcao, melhor) {
 }
 
 function secaoCombustivel(e, refeicaoPlano) {
-  const sabado = perfil === 'sab';
+  // Destaque e etiqueta vêm do plano: o dia que tem linha de combustível é
+  // o dia do pedal longo, e "obrigatório" é campo do dado.
+  const destaque = refeicaoPlano != null;
   const aberta = abertas.has(ID_COMBUSTIVEL);
   const usados = new Map(e.dia.combustivel.map(c => [c.id, c.qtd]));
   const consumido = zero();
@@ -311,15 +415,11 @@ function secaoCombustivel(e, refeicaoPlano) {
 
   const doses = Object.entries(dados.combustivel).map(([id, item]) => {
     const qtd = usados.get(id) || 0;
-    return `
-      <button type="button" class="dose" data-dose="${esc(id)}">
-        <span>
-          <span class="nome-dose">${esc(item.nome)}</span><br>
-          <span class="sublabel">${esc(item.sublabel)} · ${n0(item.kcal)} kcal · ${n0(item.c)} g C</span>
-        </span>
-        <span class="qtd num" data-ativo="${qtd > 0 ? 1 : 0}">${qtd}×</span>
-        <span class="mais" aria-hidden="true">+</span>
-      </button>`;
+    return linhaContador({
+      id, nome: item.nome,
+      sublabel: `${item.sublabel} · ${n0(item.kcal)} kcal · ${n0(item.c)} g C`,
+      qtd, atributoMais: 'data-dose', atributoMenos: 'data-remover-dose', cor: 'teal',
+    });
   }).join('');
 
   const brutos = refeicaoPlano
@@ -327,19 +427,41 @@ function secaoCombustivel(e, refeicaoPlano) {
     : '';
 
   return `
-    <section class="combustivel" data-destaque="${sabado ? 1 : 0}">
+    <section class="combustivel" data-destaque="${destaque ? 1 : 0}">
       <button type="button" class="cabeca" data-refeicao="${ID_COMBUSTIVEL}" aria-expanded="${aberta}">
         <span class="hora num">${esc(refeicaoPlano ? refeicaoPlano.hora : 'se pedalar')}</span>
-        <span class="nome">Combustível de treino${sabado ? '<span class="tag" data-tipo="obrigatorio">⚠️ obrigatório</span>' : ''}</span>
+        <span class="nome">Combustível de treino${etiquetas(refeicaoPlano)}</span>
         <span class="sub" data-estado="${algum ? 'parcial' : 'vazia'}"><span class="ponto" data-estado="${algum ? 'completa' : 'vazia'}"></span>${algum ? `${n0(consumido.kcal)} kcal · ${n0(consumido.c)} g C` : 'nada marcado'}</span>
         <span class="seta" aria-hidden="true">›</span>
       </button>
       ${aberta ? `<div class="corpo">
-        <p class="comb-sub">Saltz: 1 dose/h · ~1000 mg sódio/h. Cada toque conta mais uma.</p>
+        <p class="comb-sub">Saltz: 1 dose/h · ~1000 mg sódio/h. Um toque no + conta mais uma; no − desfaz.</p>
         <div class="doses">${doses}</div>
         ${brutos ? `<p class="nota">No plano: </p>${brutos}` : ''}
       </div>` : ''}
     </section>`;
+}
+
+// Linha com contador: + para somar, − para desfazer. O − só aparece quando
+// há algo para desfazer, e tem 48 px de lado como todo alvo de toque.
+function linhaContador({ id, nome, sublabel, qtd, atributoMais, atributoMenos, cor }) {
+  const menos = qtd > 0
+    ? `<button type="button" class="contador-menos" ${atributoMenos}="${esc(id)}"
+         aria-label="Remover uma unidade de ${esc(nome)}">−</button>`
+    : '';
+  return `
+    <div class="dose" data-cor="${cor}">
+      <button type="button" class="dose-mais" ${atributoMais}="${esc(id)}"
+        aria-label="Adicionar ${esc(nome)}">
+        <span>
+          <span class="nome-dose">${esc(nome)}</span><br>
+          <span class="sublabel">${esc(sublabel)}</span>
+        </span>
+        <span class="qtd num" data-ativo="${qtd > 0 ? 1 : 0}">${qtd}×</span>
+        <span class="mais" aria-hidden="true">+</span>
+      </button>
+      ${menos}
+    </div>`;
 }
 
 function secaoExtras({ dia }) {
@@ -347,13 +469,18 @@ function secaoExtras({ dia }) {
     .filter(x => dados.extras[x.id])
     .map(x => {
       const item = dados.extras[x.id];
-      return `<li><span>${esc(item.nome)} ${x.qtd > 1 ? `<b>${x.qtd}×</b>` : ''}</span>
-        <span class="num">${n0(item.kcal * x.qtd)} kcal</span></li>`;
+      return linhaContador({
+        id: x.id, nome: item.nome,
+        sublabel: `${n0(item.kcal * x.qtd)} kcal · ${n0(item.p * x.qtd)} g P`,
+        qtd: x.qtd, atributoMais: 'data-extra', atributoMenos: 'data-remover-extra', cor: 'tinta',
+      });
     }).join('');
   return `
     <section class="extras">
-      <h3>Extras do dia</h3>
-      ${linhas ? `<ul>${linhas}</ul>` : '<p class="vazio">Nada fora do plano hoje. Use “+ Extra” se comer algo a mais.</p>'}
+      <h3>Extras ${esc(rotuloRelativo(dataAtiva))}</h3>
+      ${linhas
+        ? `<div class="doses">${linhas}</div>`
+        : '<p class="vazio">Nada fora do plano nesta data. Use “+ Extra” se comer algo a mais.</p>'}
     </section>`;
 }
 
@@ -366,7 +493,7 @@ function renderListaExtras() {
   el.listaExtras.innerHTML = Object.entries(dados.extras)
     .sort((a, b) => (uso[b[0]] || 0) - (uso[a[0]] || 0))
     .map(([id, item]) => `
-      <button type="button" class="dose" data-extra="${esc(id)}">
+      <button type="button" class="dose-mais solo" data-extra="${esc(id)}">
         <span>
           <span class="nome-dose">${esc(item.nome)}</span><br>
           <span class="sublabel">${esc(item.sublabel)} · ${n0(item.kcal)} kcal · ${n0(item.p)} g P</span>
@@ -379,31 +506,48 @@ function renderListaExtras() {
 // ---------- toque ----------
 
 function aoTocar(evento) {
-  const alvo = evento.target.closest('[data-chave],[data-refeicao],[data-dia],[data-dose],[data-extra],[data-acao]');
+  const alvo = evento.target.closest(
+    '[data-chave],[data-refeicao],[data-dia],[data-dose],[data-remover-dose],' +
+    '[data-extra],[data-remover-extra],[data-navegar],[data-acao]');
   if (!alvo) return;
+  if (alvo.disabled) return;
+  const d = alvo.dataset;
 
-  if (alvo.dataset.chave) {
+  if (d.chave) {
     const marcado = alvo.getAttribute('aria-pressed') === 'true';
-    if (marcado) arm.desmarcar(HOJE, alvo.dataset.chave);
-    else arm.marcar(HOJE, alvo.dataset.chave);
+    if (marcado) arm.desmarcar(dataAtiva, d.chave);
+    else arm.marcar(dataAtiva, d.chave);
     return renderizar();
   }
-  if (alvo.dataset.refeicao) {
-    const id = alvo.dataset.refeicao;
-    if (abertas.has(id)) abertas.delete(id); else abertas.add(id);
+  if (d.refeicao) {
+    if (abertas.has(d.refeicao)) abertas.delete(d.refeicao); else abertas.add(d.refeicao);
     return renderizar();
   }
-  if (alvo.dataset.dia) {
-    perfil = alvo.dataset.dia;
-    arm.definirPerfil(HOJE, perfil);
-    abertas = new Set([proximaRefeicao()]);
-    if (perfil === 'sab') abertas.add(ID_COMBUSTIVEL);
+  if (d.navegar) {
+    const destino = somarDias(dataAtiva, Number(d.navegar));
+    if (destino < limiteTras || destino > HOJE) return;
+    return irPara(destino);
+  }
+  if (d.dia) {
+    perfil = d.dia;
+    arm.definirPerfil(dataAtiva, perfil);
+    abrirPadrao();
     return renderizar();
   }
-  if (alvo.dataset.dose) { arm.addCombustivel(HOJE, alvo.dataset.dose); return renderizar(); }
-  if (alvo.dataset.extra) { arm.addExtra(HOJE, alvo.dataset.extra); return renderizar(); }
-  if (alvo.dataset.acao === 'abrir-extras') { el.folha.dataset.aberta = '1'; return; }
-  if (alvo.dataset.acao === 'fechar-extras') { el.folha.dataset.aberta = '0'; return; }
+  if (d.removerDose) { arm.removerCombustivel(dataAtiva, d.removerDose); return renderizar(); }
+  if (d.dose) { arm.addCombustivel(dataAtiva, d.dose); return renderizar(); }
+  if (d.removerExtra) { arm.removerExtra(dataAtiva, d.removerExtra); return renderizar(); }
+  if (d.extra) { arm.addExtra(dataAtiva, d.extra); return renderizar(); }
+  if (d.acao === 'voltar-hoje') return irPara(HOJE);
+  if (d.acao === 'soltar-perfil') {
+    perfil = diaDaSemana(dataAtiva);
+    arm.definirPerfil(dataAtiva, null);
+    abrirPadrao();
+    return renderizar();
+  }
+  if (d.acao === 'abrir-extras') { el.folha.dataset.aberta = '1'; return; }
+  if (d.acao === 'fechar-extras') { el.folha.dataset.aberta = '0'; return; }
+  if (d.acao === 'fechar-falha') { el.falha.hidden = true; return; }
 }
 
 iniciar().catch(erro => {

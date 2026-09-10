@@ -38,7 +38,7 @@ h1,h2,h3,h4,p{margin:0}
 .num{font-variant-numeric:tabular-nums;font-family:var(--display)}
 
 /* ---------- cabeçalho ---------- */
-.cabecalho{padding:22px 16px 14px}
+.cabecalho{padding:14px 16px 0}
 .cabecalho .data{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta2)}
 .sessao{display:flex;align-items:center;gap:12px;margin-top:6px}
 .sessao .emoji{font-size:40px;line-height:1}
@@ -47,20 +47,78 @@ h1,h2,h3,h4,p{margin:0}
 .alvos b{font-family:var(--display);color:var(--tinta);font-weight:700}
 .aviso-perfil{
   margin-top:10px;background:var(--verde-fundo);color:var(--verde-escuro);
-  border-radius:12px;padding:8px 12px;font-size:14px;font-weight:600;
+  border:1.5px solid var(--verde);border-radius:12px;padding:8px 8px 8px 12px;
+  font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;
+  flex-wrap:wrap;justify-content:space-between;
+}
+.aviso-perfil button{
+  min-height:var(--toque);padding:0 16px;border:0;border-radius:12px;
+  background:var(--verde-escuro);color:#fff;font-family:var(--display);font-weight:700;font-size:15px;
 }
 
-/* ---------- seletor de dia ---------- */
-.dias{display:flex;gap:8px;overflow-x:auto;padding:0 16px 14px;scrollbar-width:none}
-.dias::-webkit-scrollbar{display:none}
-.dias button{
+/* ---------- aviso de falha ao salvar ---------- */
+/* Falhar em silêncio é o pior defeito possível: ele acha que marcou e não
+   marcou. O aviso cobre o topo e só sai com um toque. */
+.falha{
+  position:sticky;top:0;z-index:60;background:#fef2f2;border-bottom:2px solid var(--vermelho);
+  color:#7f1d1d;padding:12px 16px;font-size:14px;display:grid;gap:10px;
+}
+.falha[hidden]{display:none}
+.falha b{color:#7f1d1d}
+.falha button{
+  min-height:var(--toque);border:0;border-radius:12px;background:var(--vermelho);color:#fff;
+  font-family:var(--display);font-weight:700;font-size:16px;padding:0 18px;justify-self:start;
+}
+
+/* ---------- navegação entre datas (QUAL DIA) ---------- */
+/* Dois controles distintos e de cor distinta: aqui se escolhe a DATA
+   (âmbar quando não é hoje); logo abaixo, o CARDÁPIO (verde). */
+.datas{padding:14px 16px 0}
+.datas-linha{
+  display:grid;grid-template-columns:var(--toque) 1fr var(--toque);align-items:center;gap:10px;
+  background:var(--carta);border:1.5px solid var(--linha);border-radius:16px;padding:6px;
+}
+.datas-linha button{
+  min-width:var(--toque);min-height:var(--toque);border:0;border-radius:12px;
+  background:#eef1ee;color:var(--tinta);font-family:var(--display);font-size:26px;line-height:1;
+}
+.datas-linha button[disabled]{opacity:.3}
+.datas-centro{display:grid;justify-items:center;gap:1px;line-height:1.15}
+.datas-dia{font-family:var(--display);font-weight:700;font-size:17px}
+.datas-num{font-size:13px;color:var(--tinta2)}
+.datas-selo{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tinta2);
+}
+.datas-selo[data-outra="1"]{color:#92400e}
+.datas-aviso{
+  margin-top:10px;background:#fef3c7;border:1.5px solid #f59e0b;border-radius:14px;
+  padding:10px 12px;font-size:14px;color:#7c4a07;display:grid;gap:8px;
+}
+.datas-aviso button{
+  min-height:var(--toque);border:0;border-radius:12px;background:#92400e;color:#fff;
+  font-family:var(--display);font-weight:700;font-size:16px;
+}
+/* Fora de hoje, uma faixa âmbar acompanha a tela inteira. */
+body[data-outra-data="1"] main{border-left:3px solid #f59e0b;border-radius:3px}
+
+/* ---------- seletor de cardápio (QUAL DIA DA SEMANA) ---------- */
+.dias{padding:14px 16px 14px}
+.dias-titulo{
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta2);
+  font-weight:700;margin-bottom:8px;
+}
+.dias-titulo span{display:block;letter-spacing:0;text-transform:none;font-weight:400;font-size:13px}
+.dias-tira{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.dias-tira::-webkit-scrollbar{display:none}
+.dias-tira button{
   flex:0 0 auto;min-width:var(--toque);min-height:var(--toque);
   border:1.5px solid var(--linha);background:var(--carta);border-radius:14px;
   padding:0 14px;font-family:var(--display);font-weight:700;font-size:15px;
   color:var(--tinta2);
 }
-.dias button[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:#fff}
-.dias button[data-hoje="1"]{box-shadow:inset 0 -3px 0 var(--verde)}
+.dias-tira button[aria-pressed="true"]{background:var(--verde-escuro);border-color:var(--verde-escuro);color:#fff}
+.dias-tira button[data-calendario="1"]{box-shadow:inset 0 -3px 0 var(--verde)}
 
 /* ---------- barras pegajosas ---------- */
 .barras{
@@ -73,6 +131,15 @@ h1,h2,h3,h4,p{margin:0}
 }
 .barra{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:baseline}
 .barra .rotulo{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta2);font-weight:700}
+/* Sinal não-cromático: texto curto redundante com a cor, do mesmo jeito que
+   as refeições já traziam "· completa". Quem não separa verde de amarelo lê. */
+.selo-status{
+  margin-left:7px;letter-spacing:.02em;text-transform:none;font-size:12px;font-weight:700;
+  padding:1px 7px;border-radius:999px;background:#eef1ee;color:var(--tinta2);
+}
+.selo-status[data-status="verde"]{background:var(--verde-fundo);color:var(--verde-escuro)}
+.selo-status[data-status="amarelo"]{background:#fef3c7;color:#92400e}
+.selo-status[data-status="vermelho"]{background:#fee2e2;color:#991b1b}
 .barra .valor{font-family:var(--display);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
 .barra .valor .meta{font-size:14px;font-weight:600;color:var(--tinta2)}
 /* trilho: 0–125% da meta. A marca da meta fica a 80% da largura, então
@@ -84,8 +151,12 @@ h1,h2,h3,h4,p{margin:0}
 .trilho .excedente{position:absolute;inset:0 0 0 80%;background:repeating-linear-gradient(135deg,#dfe6e0 0 3px,#e7ece7 3px 6px)}
 .trilho .cheio{position:absolute;inset:0 auto 0 0;border-radius:999px;transition:width .35s cubic-bezier(.3,1,.4,1)}
 .trilho .cheio[data-status="verde"]{background:var(--verde)}
-.trilho .cheio[data-status="amarelo"]{background:var(--ambar)}
-.trilho .cheio[data-status="vermelho"]{background:var(--vermelho)}
+.trilho .cheio[data-status="amarelo"]{
+  background:repeating-linear-gradient(135deg,var(--ambar) 0 5px,#d98706 5px 10px);
+}
+.trilho .cheio[data-status="vermelho"]{
+  background:repeating-linear-gradient(135deg,var(--vermelho) 0 3px,#c42b2b 3px 6px);
+}
 .trilho .marca{position:absolute;left:80%;top:-2px;bottom:-2px;width:2px;background:var(--tinta);opacity:.55}
 .legenda-meta{font-size:11px;color:var(--tinta2);text-align:right;margin-top:-4px}
 
@@ -155,26 +226,39 @@ main{padding:16px 16px 0;display:grid;gap:12px}
 .combustivel .cabeca .nome{color:var(--teal)}
 .comb-sub{font-size:13px;color:var(--tinta2);margin:10px 0 12px}
 .doses{display:grid;gap:8px}
-.dose{
-  width:100%;min-height:60px;display:grid;grid-template-columns:1fr auto auto;
+/* A linha é um par de alvos: o corpo soma (+), o botão separado desfaz (−).
+   Ambos com 48 px de lado — um toque a mais às 5h da manhã tem volta. */
+.dose{display:flex;gap:8px;align-items:stretch}
+.dose-mais{
+  flex:1 1 auto;min-height:60px;display:grid;grid-template-columns:1fr auto auto;
   align-items:center;gap:12px;padding:10px 14px;border-radius:14px;
   border:1.5px solid var(--linha);background:var(--carta);text-align:left;
 }
-.dose .nome-dose{font-family:var(--display);font-weight:700;font-size:17px}
-.dose .sublabel{font-size:13px;color:var(--tinta2)}
-.dose .qtd{
+.dose-mais.solo{width:100%}
+.nome-dose{font-family:var(--display);font-weight:700;font-size:17px}
+.sublabel{font-size:13px;color:var(--tinta2)}
+.qtd{
   font-family:var(--display);font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;
-  min-width:44px;min-height:44px;display:grid;place-items:center;border-radius:12px;
+  min-width:var(--toque);min-height:var(--toque);display:grid;place-items:center;border-radius:12px;
   background:#eef1ee;color:var(--tinta2);
 }
-.dose .qtd[data-ativo="1"]{background:var(--teal);color:#fff}
-.dose .mais{min-width:44px;min-height:44px;display:grid;place-items:center;border-radius:12px;background:var(--teal);color:#fff;font-size:24px;font-family:var(--display)}
+.mais{
+  min-width:var(--toque);min-height:var(--toque);display:grid;place-items:center;border-radius:12px;
+  background:var(--teal);color:#fff;font-size:24px;font-family:var(--display);
+}
+.dose[data-cor="teal"] .qtd[data-ativo="1"]{background:var(--teal);color:#fff}
+.dose[data-cor="tinta"] .qtd[data-ativo="1"]{background:var(--tinta);color:#fff}
+.dose[data-cor="tinta"] .mais{background:var(--tinta)}
+.dose-mais.solo .qtd[data-ativo="1"]{background:var(--teal);color:#fff}
+.contador-menos{
+  flex:0 0 auto;min-width:var(--toque);min-height:var(--toque);
+  border:1.5px solid var(--linha);border-radius:14px;background:var(--carta);
+  font-family:var(--display);font-size:26px;line-height:1;color:var(--tinta);
+}
 
 /* ---------- extras ---------- */
 .extras{background:var(--carta);border-radius:var(--raio);border:1px dashed var(--linha);padding:14px}
 .extras h3{font-family:var(--display);font-size:17px;font-weight:700;margin-bottom:8px}
-.extras ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.extras li{display:flex;justify-content:space-between;font-size:15px;font-variant-numeric:tabular-nums}
 .extras .vazio{font-size:14px;color:var(--tinta2)}
 
 .rodape{
@@ -210,8 +294,10 @@ main{padding:16px 16px 0;display:grid;gap:12px}
 </style>
 </head>
 <body>
+  <div class="falha" id="falha" role="alert" hidden></div>
+  <nav class="datas" id="datas" aria-label="Data que está sendo registrada"></nav>
   <header class="cabecalho" id="cabecalho"></header>
-  <nav class="dias" id="dias" aria-label="Cardápio do dia"></nav>
+  <nav class="dias" id="dias" aria-label="Cardápio usado nesta data"></nav>
   <div class="barras" id="barras" aria-live="polite"></div>
   <main id="refeicoes"></main>
   <div class="rodape"><button type="button" data-acao="abrir-extras">+ Extra</button></div>
