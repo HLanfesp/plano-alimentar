@@ -4,7 +4,7 @@
 // resumo do que falta e fatia por refeição) e armazenamento (persistência
 // no localStorage). Aqui só há leitura de dados, montagem de HTML e
 // tratamento de toque.
-import { calcularItens, chaveIngrediente, estadoDa, somarPorcao, somarExtrasDia } from './nutricao.js';
+import { calcularItens, chaveIngrediente, estadoDa, somarPorcao, somarExtrasDia, conflitosCombustivel } from './nutricao.js';
 import { metaDoDia, statusMacro } from './metas.js';
 import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from './sugestao.js';
 import { criarArmazenamento } from './armazenamento.js';
@@ -229,6 +229,7 @@ function calcular() {
   return {
     dia, diaPlano, meta, marcados, total, porRefeicao, restantes,
     restantePorRefeicao: fatiaPorRefeicao(total, meta, restantes),
+    conflitosCombustivel: conflitosCombustivel(dia, dados.combustivel),
   };
 }
 
@@ -557,17 +558,38 @@ function secaoCombustivel(e, refeicaoPlano) {
   for (const [id, qtd] of usados) somarPorcao(consumido, dados.combustivel[id], qtd);
   const algum = [...usados.values()].some(q => q > 0);
 
+  // Os três itens não são empilháveis: `hora_pedal` já contém Energy Kick e
+  // Saltz (§ conflitosCombustivel em nutricao.js). O "+" do lado conflitante
+  // fica desativado e o motivo aparece escrito na linha — dobrar o carbo em
+  // silêncio é o defeito que o app existe para não repetir.
+  const { bloqueados, sobrepostos, temSobreposicao } = e.conflitosCombustivel;
+
   const doses = Object.entries(dados.combustivel).map(([id, item]) => {
     const qtd = usados.get(id) || 0;
+    const ocupante = bloqueados.get(id);
+    const motivo = ocupante
+      ? (dados.combustivel[ocupante].inclui || []).includes(id)
+        ? `Já está dentro de “${dados.combustivel[ocupante].nome}” — não some os dois.`
+        : `“${dados.combustivel[ocupante].nome}” já está contado aqui — não some os dois.`
+      : '';
     return linhaContador({
       id, nome: item.nome,
       sublabel: `${item.sublabel} · ${n0(item.kcal)} kcal · ${n0(item.c)} g C`,
       qtd, atributoMais: 'data-dose', atributoMenos: 'data-remover-dose', cor: 'teal',
+      textoQtd: `${qtd}× ${rotuloRelativo(dataAtiva)}`,
+      bloqueado: Boolean(ocupante), motivo,
+      alerta: sobrepostos.has(id),
     });
   }).join('');
 
   const brutos = refeicaoPlano
     ? refeicaoPlano.opcoes.map(o => `<p class="bruto">${esc(o.letra)}: ${esc(o.itens.map(i => i.raw || '').join(' + '))}</p>`).join('')
+    : '';
+
+  const aviso = temSobreposicao
+    ? `<p class="aviso-dupla" role="status"><b>Isto está contando duas vezes.</b>
+         Energy Kick e Saltz <b>já estão dentro da hora de pedal</b> — não some os dois.
+         Use o − para desfazer um dos lados.</p>`
     : '';
 
   return `
@@ -580,6 +602,9 @@ function secaoCombustivel(e, refeicaoPlano) {
       </button>
       ${aberta ? `<div class="corpo">
         <p class="comb-sub">Saltz: 1 dose/h · ~1000 mg sódio/h. Um toque no + conta mais uma; no − desfaz.</p>
+        <p class="nota">Energy Kick e Saltz <b>já estão dentro da hora de pedal</b> — não some os dois.
+          Conte a hora de pedal <b>ou</b> os sachês, nunca os dois.</p>
+        ${aviso}
         <div class="doses">${doses}</div>
         ${brutos ? `<p class="nota">No plano: </p>${brutos}` : ''}
       </div>` : ''}
@@ -588,24 +613,38 @@ function secaoCombustivel(e, refeicaoPlano) {
 
 // Linha com contador: + para somar, − para desfazer. O − só aparece quando
 // há algo para desfazer, e tem 48 px de lado como todo alvo de toque.
-function linhaContador({ id, nome, sublabel, qtd, atributoMais, atributoMenos, cor }) {
+// `textoQtd` existe porque o mesmo visual aparece em dois lugares com
+// significados diferentes: a quantidade DESTA data e o total acumulado de
+// todos os dias (§ folha "+ Extra"). O rótulo diz qual é.
+// `bloqueado`/`motivo` servem ao combustível: o + que dobraria a conta fica
+// desativado, com o motivo escrito ao lado — não só no código.
+function linhaContador({
+  id, nome, sublabel, qtd, atributoMais, atributoMenos, cor,
+  textoQtd, bloqueado = false, motivo = '', alerta = false,
+}) {
   const menos = qtd > 0
     ? `<button type="button" class="contador-menos" ${atributoMenos}="${esc(id)}"
          aria-label="Remover uma unidade de ${esc(nome)}">−</button>`
     : '';
+  const rotuloQtd = textoQtd != null ? textoQtd : `${qtd}×`;
+  const linhaMotivo = motivo
+    ? `<p class="dose-motivo" data-alerta="${alerta ? 1 : 0}">${esc(motivo)}</p>`
+    : '';
   return `
-    <div class="dose" data-cor="${cor}">
+    <div class="dose" data-cor="${cor}" data-bloqueado="${bloqueado ? 1 : 0}" data-alerta="${alerta ? 1 : 0}">
       <button type="button" class="dose-mais" ${atributoMais}="${esc(id)}"
-        aria-label="Adicionar ${esc(nome)}">
+        ${bloqueado ? 'disabled aria-disabled="true"' : ''}
+        aria-label="${bloqueado ? `${esc(nome)} indisponível: ${esc(motivo)}` : `Adicionar ${esc(nome)}`}">
         <span>
           <span class="nome-dose">${esc(nome)}</span><br>
           <span class="sublabel">${esc(sublabel)}</span>
         </span>
-        <span class="qtd num" data-ativo="${qtd > 0 ? 1 : 0}">${qtd}×</span>
+        <span class="qtd num" data-ativo="${qtd > 0 ? 1 : 0}">${esc(rotuloQtd)}</span>
         <span class="mais" aria-hidden="true">+</span>
       </button>
       ${menos}
-    </div>`;
+    </div>
+    ${linhaMotivo}`;
 }
 
 function secaoExtras({ dia }) {
@@ -617,6 +656,7 @@ function secaoExtras({ dia }) {
         id: x.id, nome: item.nome,
         sublabel: `${n0(item.kcal * x.qtd)} kcal · ${n0(item.p * x.qtd)} g P`,
         qtd: x.qtd, atributoMais: 'data-extra', atributoMenos: 'data-remover-extra', cor: 'tinta',
+        textoQtd: `${x.qtd}× ${rotuloRelativo(dataAtiva)}`,
       });
     }).join('');
   return `
@@ -628,6 +668,11 @@ function secaoExtras({ dia }) {
     </section>`;
 }
 
+// O "N×" desta folha NÃO é o mesmo da seção "Extras" do dia: aqui é o total
+// acumulado de todos os dias, usado para ordenar por frequência. Lá é a
+// quantidade DAQUELA data. Mesmo visual, significados diferentes — então
+// cada um diz por escrito qual é ("total 3×" contra "2× hoje"), senão o
+// atleta lê "já registrei hoje" e deixa de registrar.
 function renderListaExtras() {
   const uso = {};
   const exportado = arm.exportar();
@@ -642,7 +687,7 @@ function renderListaExtras() {
           <span class="nome-dose">${esc(item.nome)}</span><br>
           <span class="sublabel">${esc(item.sublabel)} · ${n0(item.kcal)} kcal · ${n0(item.p)} g P</span>
         </span>
-        <span class="qtd num" data-ativo="${uso[id] ? 1 : 0}">${uso[id] || 0}×</span>
+        <span class="qtd num total" data-ativo="${uso[id] ? 1 : 0}">total ${uso[id] || 0}×</span>
         <span class="mais" aria-hidden="true">+</span>
       </button>`).join('');
 }
@@ -683,7 +728,15 @@ function aoTocar(evento) {
     return renderizar();
   }
   if (d.removerDose) { arm.removerCombustivel(dataAtiva, d.removerDose); return renderizar(); }
-  if (d.dose) { arm.addCombustivel(dataAtiva, d.dose); return renderizar(); }
+  if (d.dose) {
+    // Mesma regra do render, aplicada de novo no toque: o `disabled` é
+    // aparência, a regra é que manda. Somar aqui dobraria o carbo da hora
+    // de pedal — é o defeito que não pode voltar por um caminho lateral.
+    const conflitos = conflitosCombustivel(arm.lerDia(dataAtiva), dados.combustivel);
+    if (conflitos.bloqueados.has(d.dose)) return;
+    arm.addCombustivel(dataAtiva, d.dose);
+    return renderizar();
+  }
   if (d.removerExtra) { arm.removerExtra(dataAtiva, d.removerExtra); return renderizar(); }
   if (d.extra) { arm.addExtra(dataAtiva, d.extra); return renderizar(); }
   if (d.acao === 'voltar-hoje') return irPara(HOJE);

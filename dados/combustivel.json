@@ -1,8 +1,9 @@
 {
   "hora_pedal": {
     "nome": "+1h de pedal",
-    "sublabel": "gel + Energy Kick + Saltz · 1 dose/h",
+    "sublabel": "a hora inteira do plano · equivale a Energy Kick + Saltz",
     "kcal": 180, "p": 0, "c": 45, "sodio_mg": 1000,
+    "inclui": ["energy_kick", "saltz"],
     "fonte": "Média das 3 opções do plano (~50/45/40 g carbo/h)"
   },
   "energy_kick": {

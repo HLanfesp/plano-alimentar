@@ -75,3 +75,42 @@ export function estadoDa(refeicao, marcados) {
   if (!algum) return 'vazia';
   return completa ? 'completa' : 'parcial';
 }
+
+// Dupla contagem do combustível de treino
+// ---------------------------------------
+// Os itens de `combustivel.json` NÃO são independentes entre si. `hora_pedal`
+// é a própria linha "Durante o pedal" do cardápio, e Energy Kick + Saltz
+// somados dão praticamente o mesmo número (137 + 44 = 181 kcal contra 180;
+// 30 + 11 = 41 g C contra 45). Tocar nos três uma vez daria 361 kcal e 86 g
+// de carbo para uma hora de pedal que vale 180 kcal e 45 g — o dobro.
+// A orientação do plano é explícita: "gel + Energy Kick + Saltz já são a
+// linha 'Durante o pedal' do cardápio — não somam ao resto do dia". Era o
+// erro que o atleta já cometia na vida real; o app não pode repeti-lo.
+// Qual item contém quais vem do dado (campo `inclui`), não de regra escrita
+// aqui: se o cardápio do mês mudar o composto, só o JSON muda.
+export function conflitosCombustivel(dia, combustivel) {
+  const qtds = new Map((dia.combustivel || []).map(c => [c.id, c.qtd || 0]));
+  const ativo = id => (qtds.get(id) || 0) > 0;
+
+  const pares = [];
+  for (const [composto, item] of Object.entries(combustivel || {})) {
+    for (const contido of item.inclui || []) {
+      if (combustivel[contido]) pares.push([composto, contido]);
+    }
+  }
+
+  const bloqueados = new Map(); // id que NÃO pode somar -> id que já ocupa a conta
+  const sobrepostos = new Set(); // itens que já estão somando duas vezes
+  for (const [composto, contido] of pares) {
+    if (ativo(composto)) bloqueados.set(contido, composto);
+    if (ativo(contido)) bloqueados.set(composto, contido);
+    if (ativo(composto) && ativo(contido)) {
+      sobrepostos.add(composto);
+      sobrepostos.add(contido);
+    }
+  }
+  // Quem já está registrado não se bloqueia: o bloqueio é só do "+".
+  for (const id of [...bloqueados.keys()]) if (ativo(id)) bloqueados.delete(id);
+
+  return { bloqueados, sobrepostos, temSobreposicao: sobrepostos.size > 0 };
+}

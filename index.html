@@ -290,6 +290,18 @@ main{padding:16px 16px 0;display:grid;gap:12px}
 .dose[data-cor="tinta"] .qtd[data-ativo="1"]{background:var(--tinta);color:#fff}
 .dose[data-cor="tinta"] .mais{background:var(--tinta)}
 .dose-mais.solo .qtd[data-ativo="1"]{background:var(--teal);color:#fff}
+.qtd.total{font-size:14px;padding:0 10px}
+/* Dose bloqueada: o + que dobraria a conta não pode ser tocado, e o motivo
+   fica escrito logo abaixo da linha — em palavras do plano, não no código. */
+.dose[data-bloqueado="1"] .dose-mais{opacity:.55;border-style:dashed}
+.dose[data-bloqueado="1"] .mais{background:#c9d2cc;color:#fff}
+.dose-motivo{font-size:13px;line-height:1.35;color:var(--tinta2);padding:0 4px 2px}
+.dose-motivo[data-alerta="1"]{color:#8a2b12;font-weight:600}
+.dose[data-alerta="1"] .dose-mais{border-color:#c4501f}
+.aviso-dupla{
+  margin:0 0 12px;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.4;
+  background:#fdece4;border:1.5px solid #c4501f;color:#6d2410;
+}
 .contador-menos{
   flex:0 0 auto;min-width:var(--toque);min-height:var(--toque);
   border:1.5px solid var(--linha);border-radius:14px;background:var(--carta);
@@ -349,7 +361,8 @@ main{padding:16px 16px 0;display:grid;gap:12px}
     <div class="veu" data-acao="fechar-extras"></div>
     <div class="painel" role="dialog" aria-modal="true" aria-label="Adicionar extra">
       <h2>Extra</h2>
-      <p class="dica">Um toque adiciona ao dia. O que você mais usa fica no topo.</p>
+      <p class="dica">Um toque adiciona ao dia. O que você mais usa fica no topo —
+        o número aqui é o <b>total de todos os dias</b>, não o de hoje.</p>
       <div class="lista" id="lista-extras"></div>
       <button type="button" class="fechar" data-acao="fechar-extras">Pronto</button>
     </div>
