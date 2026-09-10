@@ -60,16 +60,30 @@ números do plano. Testado com valores TACO em duas opções reais:
 
 Desvio abaixo de 2%. A abordagem se sustenta.
 
-**Critério de aceite:** ao gerar `plano-setembro.json`, cada uma das 147
-opções tem seu kcal e proteína calculados comparados ao valor impresso no
-plano. Nenhuma opção pode divergir mais de 8%; a média não pode passar de
-4%. Opções fora da faixa indicam erro de gramagem ou de valor na base e
-devem ser corrigidas antes do app ir ao ar.
+**Critério de aceite (absoluto e por dia).** O critério relativo por opção
+(≤8% por opção, média ≤4%) foi **revogado**: ele media a unidade errada. O
+app nunca mostra uma opção isolada para o atleta decidir — ele mostra o
+TOTAL DO DIA, e é em kcal do dia que um erro o faz comer menos. O critério
+relativo também punia opções pequenas: 60 kcal de erro numa ceia de 190
+"erram" 32%, número alarmante, enquanto os mesmos 60 kcal num almoço de 800
+"erram" 7,5% — impacto idêntico no dia, alarme desproporcional. Por isso a
+unidade é kcal absoluto, e o portão que importa é por dia.
+
+Implementado em `testes/validacao.test.js`, sobre todos os planos do índice:
+
+1. Nenhuma opção diverge mais de **80 kcal** do valor impresso no plano.
+2. O desvio absoluto médio das opções fica em até **25 kcal**.
+3. **Cobertura por dia** (o critério central): para cada um dos 7 dias e
+   cada combinação de letras (sempre A, sempre B, sempre C — como alguém
+   segue o plano na prática), o total do dia cai entre **88% e 112%** da
+   meta impressa.
+4. **Cobertura de proteína por dia**, mesmo piso de **88%**, com exceções
+   conhecidas nomeadas no teste (setembro: sexta sempre-C, 84,5%) —
+   registradas como achado para o nutricionista, sem afrouxar o piso.
 
 A linha "Durante o pedal" do sábado é a única refeição sem kcal impresso e
-fica fora dessa comparação. Em seu lugar, um teste separado: sábado
-completo (uma opção por refeição + 2h de combustível) deve cair a menos de
-6% dos 2952 kcal da meta.
+fica fora da comparação por opção. No teste de cobertura por dia ela entra
+como constante: 2 h × 180 kcal/h = 360 kcal somados ao sábado.
 
 ## 5. Arquitetura
 
@@ -294,7 +308,14 @@ do dia, separados do plano, e somam normalmente nas barras.
 
 ### 6.6 Semana
 
-- Aderência ao plano em % (ingredientes marcados / previstos).
+- Aderência ao plano em % = **refeições completas / refeições previstas**.
+  (A definição antiga, "ingredientes marcados / previstos", foi trocada pela
+  do código: refeição completa é a unidade que o atleta reconhece — ele
+  pensa "tomei o café", não "marquei 3 de 4 ingredientes". Uma refeição está
+  completa quando ao menos uma de suas opções teve todos os itens marcados.)
+  Refeições marcadas `opcional: true` ficam **fora do denominador** e fora
+  da lista de mais puladas: o plano diz para não forçar o lanche da manhã,
+  então pular não é falha de aderência.
 - Médias de kcal, proteína e carbo vs meta, por dia e da semana.
 - Quais refeições o atleta mais pula — o dado que o plano precisa para se
   corrigir (o texto já suspeita do lanche das 10h e do pré-natação).
@@ -323,12 +344,17 @@ sincronização em nuvem na v1.
 
 ## 8. Testes
 
-Sem framework. Um arquivo `testes.html` que roda no navegador e imprime
-resultados, cobrindo a lógica pura (calculadora de macros, ordenação de
-opções, derivação de meta) — a camada onde erro é silencioso e caro:
+Sem framework e sem navegador: os testes são módulos ES em `testes/` e
+rodam com `node --test testes/*.test.js`. (Não existe `testes.html` — a
+ideia de uma página de testes no navegador foi abandonada; o runner do
+Node já vem com o ambiente e não exige servidor.) Cobrem a lógica pura
+(calculadora de macros, ordenação de opções, derivação de meta) — a camada
+onde erro é silencioso e caro:
 
-1. **Validação do plano (seção 4):** as 147 opções, desvio individual
-   ≤8% e médio ≤4%. Este é o teste mais importante do projeto.
+1. **Validação do plano (seção 4):** as opções de todos os planos do
+   índice, contra os quatro critérios absolutos/por dia acima (80 kcal por
+   opção, 25 kcal de média, 88%–112% de kcal por dia, 88% de proteína por
+   dia). Este é o teste mais importante do projeto.
 2. **Soma de ingredientes:** marcar itens de A e B na mesma refeição soma
    corretamente e não conta nada duas vezes.
 3. **Derivação de carbo:** os 7 dias produzem os valores da seção 5.3.

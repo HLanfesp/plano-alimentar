@@ -226,9 +226,15 @@ O app rotula essa meta como **"(derivada)"** para deixar claro que ela não veio
 
 ## Limitações (com honestidade)
 
-**Teste em iPhone físico ainda não foi feito.** Funciona em iOS no Safari, confirmado em simulador. Mas não foi testado em um iPhone de verdade — se algo der errado só no seu aparelho, pode ser algo específico que a gente não previu.
+**Nunca foi aberto num iPhone, nem em simulador.** Toda a verificação foi feita no Chrome do desktop, em viewport 375×812, inclusive o modo offline (servidor derrubado, app continua abrindo pelo service worker). Safari de iOS não foi testado — nem em simulador, nem em hardware. Onde isso tende a doer primeiro: `localStorage` em navegação privada (daí o aviso de falha de armazenamento), o comportamento do service worker e os 100vh com a barra do Safari.
 
 **Gel Z2 não tem rótulo conferido.** Ele está no combustível de treino como parte do composto "+1h de pedal", mas isolado não é item — porque o rótulo não foi verificado. Se o nutricionista confirmar o valor depois, a gente adiciona.
+
+**As opções C ficam ~5% abaixo da meta, de forma sistemática.** Seguindo sempre a opção C, a cobertura média do dia é 94,9% da meta, contra ~100% das opções A e B — cerca de **130 kcal/dia a menos** que o prescrito. Na proteína o pior caso é sexta sempre-C: 174 g contra meta de 206 g (84,5%). Isso passa dentro dos portões de teste de propósito, registrado como exceção nomeada em `testes/validacao.test.js`. Não é defeito do app: é achado para levar ao nutricionista. Quem prefere a C por gosto deve saber que está comendo menos do que o plano pede — e o risco declarado deste atleta é déficit.
+
+**Mililitro é convertido como se fosse grama (densidade 1:1).** O app trata `10 ml` como `10 g`. Para água e caldos dá no mesmo; para óleo, não: azeite tem 0,92 g/ml, então cada ~10 ml de azeite **superestima ~7 kcal**. O erro é pequeno por refeição, mas é na direção ruim — barra mais verde do que a realidade.
+
+**Extras e combustível de treino não trazem gordura nos dados.** Os arquivos `dados/extras.json` e `dados/combustivel.json` só têm kcal, proteína e carboidrato. Como a meta de carbo é derivada assumindo que 25% das kcal vêm da gordura (ver acima), o que foi comido fora do cardápio não participa dessa premissa: num dia de muito extra ou muito pedal, a meta de carbo exibida está um pouco mais frouxa do que a conta sugere. A tela Semana diz isso em uma linha, ao lado da nota de meta derivada.
 
 **Base nutricional mescla tabela com rótulo.** Alguns ingredientes vêm da TACO (Tabela Brasileira de Composição de Alimentos), outros da média de rótulos (whey, granola), outros do USDA. Cada item em `dados/alimentos.json` tem um campo `fonte` que diz de onde veio — se você abrir o arquivo JSON, consegue ver. Não é ciência de precisão, mas é referência honesta.
 
