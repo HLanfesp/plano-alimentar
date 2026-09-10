@@ -8,6 +8,7 @@ import { calcularItens, chaveIngrediente, estadoDa } from './nutricao.js';
 import { metaDoDia, statusMacro } from './metas.js';
 import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from './sugestao.js';
 import { criarArmazenamento } from './armazenamento.js';
+import { resumoSemana } from './semana.js';
 
 const CHAVES_DIA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
 const NOME_DIA = {
@@ -40,6 +41,7 @@ const HOJE = dataISO(agora);
 let dataAtiva = HOJE;
 let perfil = null; // definido em irPara(), depois que o plano carrega
 let limiteTras = HOJE;
+let tela = 'hoje'; // 'hoje' ou 'semana'
 
 let dados = null;
 let abertas = new Set();
@@ -55,7 +57,14 @@ const el = {
   refeicoes: document.getElementById('refeicoes'),
   folha: document.getElementById('folha'),
   listaExtras: document.getElementById('lista-extras'),
+  abas: document.getElementById('abas'),
+  telaHoje: document.getElementById('tela-hoje'),
+  telaSemana: document.getElementById('tela-semana'),
+  rodape: document.getElementById('rodape'),
 };
+
+// Quantos dias a tela Semana olha para trás, incluindo hoje.
+const JANELA_SEMANA = 7;
 
 // ---------- utilidades de formato e de data ----------
 
@@ -227,6 +236,12 @@ function calcular() {
 // ---------- render ----------
 
 function renderizar() {
+  renderAbas();
+  el.telaHoje.hidden = tela !== 'hoje';
+  el.telaSemana.hidden = tela !== 'semana';
+  el.rodape.hidden = tela !== 'hoje';
+  if (tela === 'semana') return renderSemana();
+
   const e = calcular();
   document.body.dataset.outraData = dataAtiva === HOJE ? '0' : '1';
   renderDatas();
@@ -235,6 +250,109 @@ function renderizar() {
   renderBarras(e);
   renderRefeicoes(e);
   renderListaExtras();
+}
+
+function renderAbas() {
+  el.abas.innerHTML = `
+    <button type="button" data-tela="hoje" aria-selected="${tela === 'hoje'}">Hoje</button>
+    <button type="button" data-tela="semana" aria-selected="${tela === 'semana'}">Semana</button>
+  `;
+}
+
+// ---------- tela Semana ----------
+
+// Janela de 7 dias terminando hoje, lida do que já está gravado no
+// armazenamento. `resumoSemana` mede cada dia contra o perfil que ele
+// gravou (§ perfil manda sobre o calendário), não contra o dia real.
+function diasDaJanela() {
+  const exportado = arm.exportar();
+  const inicio = somarDias(HOJE, -(JANELA_SEMANA - 1));
+  const diasSemana = {};
+  for (const [data, registro] of Object.entries(exportado.dias)) {
+    if (data >= inicio && data <= HOJE) diasSemana[data] = registro;
+  }
+  return diasSemana;
+}
+
+function renderSemana() {
+  const diasSemana = diasDaJanela();
+  const resumo = resumoSemana(diasSemana, dados.plano, dados.alimentos);
+
+  // Meta média da janela: a média do que cada dia registrado prescrevia,
+  // usando o perfil que valeu naquele dia (troca de cardápio incluída).
+  const perfisContados = Object.values(resumo.perfisUsados).filter(p => dados.plano.dias[p]);
+  const metaMedia = perfisContados.length > 0
+    ? perfisContados.reduce((acc, p) => {
+        const m = metaDoDia(dados.plano.dias[p].meta);
+        acc.kcal += m.kcal; acc.p += m.p; acc.c += m.c;
+        return acc;
+      }, zero())
+    : zero();
+  if (perfisContados.length > 0) {
+    metaMedia.kcal /= perfisContados.length;
+    metaMedia.p /= perfisContados.length;
+    metaMedia.c /= perfisContados.length;
+  }
+
+  const puladas = resumo.refeicoesMaisPuladas.filter(r => r.vezes > 0).slice(0, 5);
+
+  el.telaSemana.innerHTML = `
+    <section class="semana-cartao">
+      <h2>Aderência nos últimos ${JANELA_SEMANA} dias</h2>
+      <p class="semana-aderencia">${n0(resumo.aderencia)}%<span>das refeições do plano, completas</span></p>
+    </section>
+    <section class="semana-cartao">
+      <h2>Médias do dia vs. meta</h2>
+      <div class="semana-grid">
+        ${semanaMetrica('kcal', resumo.mediaKcal, metaMedia.kcal, '')}
+        ${semanaMetrica('proteína', resumo.mediaP, metaMedia.p, ' g')}
+        ${semanaMetrica('carbo', resumo.mediaC, metaMedia.c, ' g')}
+      </div>
+      <p class="semana-nota">A meta de carbo é <b>derivada</b>: o plano só prescreve kcal e
+        proteína, e o carbo sai do que sobra das kcal depois da proteína e de uma
+        gordura assumida em 25%. Não é número do nutricionista, é conta do app.</p>
+    </section>
+    <section class="semana-cartao">
+      <h2>Refeições mais puladas</h2>
+      ${puladas.length > 0
+        ? `<div class="semana-lista">${puladas.map(r => `
+            <div class="semana-linha">
+              <span>${esc(r.nome)}</span>
+              <span class="vezes num">${r.vezes}×</span>
+            </div>`).join('')}</div>`
+        : '<p class="semana-vazio">Nenhuma refeição ficou de fora nesta janela.</p>'}
+    </section>
+    <section class="semana-cartao">
+      <h2>Exportar</h2>
+      <p class="semana-nota">Baixa tudo o que foi registrado neste aparelho — marcações,
+        extras, combustível e trocas de perfil — para o nutricionista calibrar o plano do
+        mês seguinte pelo consumo real.</p>
+      <button type="button" class="semana-exportar" data-acao="exportar-json">Exportar JSON</button>
+    </section>
+  `;
+}
+
+function exportarJSON() {
+  const exportado = arm.exportar();
+  const texto = JSON.stringify(exportado, null, 2);
+  const blob = new Blob([texto], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `plano-alimentar-${HOJE}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function semanaMetrica(rotulo, valor, meta, unidade) {
+  return `
+    <div class="semana-metrica">
+      <span class="rotulo">${esc(rotulo)}</span>
+      <span class="valor num">${n0(valor)}${unidade}</span>
+      <span class="meta num">meta ${n0(meta)}${unidade}</span>
+    </div>`;
 }
 
 // Controle 1: navegar entre datas. Só toques, nenhum campo de data.
@@ -508,11 +626,15 @@ function renderListaExtras() {
 function aoTocar(evento) {
   const alvo = evento.target.closest(
     '[data-chave],[data-refeicao],[data-dia],[data-dose],[data-remover-dose],' +
-    '[data-extra],[data-remover-extra],[data-navegar],[data-acao]');
+    '[data-extra],[data-remover-extra],[data-navegar],[data-acao],[data-tela]');
   if (!alvo) return;
   if (alvo.disabled) return;
   const d = alvo.dataset;
 
+  if (d.tela) {
+    tela = d.tela;
+    return renderizar();
+  }
   if (d.chave) {
     const marcado = alvo.getAttribute('aria-pressed') === 'true';
     if (marcado) arm.desmarcar(dataAtiva, d.chave);
@@ -548,6 +670,7 @@ function aoTocar(evento) {
   if (d.acao === 'abrir-extras') { el.folha.dataset.aberta = '1'; return; }
   if (d.acao === 'fechar-extras') { el.folha.dataset.aberta = '0'; return; }
   if (d.acao === 'fechar-falha') { el.falha.hidden = true; return; }
+  if (d.acao === 'exportar-json') { exportarJSON(); return; }
 }
 
 iniciar().catch(erro => {

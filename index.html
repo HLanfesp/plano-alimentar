@@ -102,6 +102,38 @@ h1,h2,h3,h4,p{margin:0}
 /* Fora de hoje, uma faixa âmbar acompanha a tela inteira. */
 body[data-outra-data="1"] main{border-left:3px solid #f59e0b;border-radius:3px}
 
+/* ---------- abas (Hoje / Semana) ---------- */
+.abas{display:flex;gap:8px;padding:14px 16px 0}
+.abas button{
+  flex:1 1 0;min-height:var(--toque);border:1.5px solid var(--linha);background:var(--carta);
+  border-radius:14px;font-family:var(--display);font-weight:700;font-size:16px;color:var(--tinta2);
+}
+.abas button[aria-selected="true"]{background:var(--tinta);border-color:var(--tinta);color:#fff}
+
+/* ---------- tela Semana ---------- */
+#tela-semana{padding:16px 16px 0;display:grid;gap:12px}
+.semana-cartao{background:var(--carta);border-radius:var(--raio);border:1px solid var(--linha);padding:16px}
+.semana-cartao h2{font-family:var(--display);font-size:19px;font-weight:700;margin-bottom:10px}
+.semana-aderencia{font-family:var(--display);font-size:40px;font-weight:700;color:var(--verde-escuro)}
+.semana-aderencia span{font-size:16px;color:var(--tinta2);font-weight:600;margin-left:6px}
+.semana-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.semana-metrica{background:var(--verde-fundo);border-radius:14px;padding:10px;text-align:center}
+.semana-metrica .rotulo{display:block;font-size:12px;color:var(--verde-escuro);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.semana-metrica .valor{font-family:var(--display);font-size:19px;font-weight:700;margin-top:4px}
+.semana-metrica .meta{font-size:12px;color:var(--tinta2);display:block;margin-top:2px}
+.semana-lista{display:grid;gap:8px;margin-top:4px}
+.semana-linha{
+  display:flex;justify-content:space-between;align-items:center;padding:10px 12px;
+  border:1.5px solid var(--linha);border-radius:12px;font-size:15px;
+}
+.semana-linha .vezes{font-family:var(--display);font-weight:700;color:#92400e}
+.semana-vazio{font-size:14px;color:var(--tinta2)}
+.semana-nota{font-size:13px;color:var(--tinta2);margin-top:10px}
+.semana-exportar{
+  width:100%;min-height:56px;border:0;border-radius:16px;background:var(--verde-escuro);color:#fff;
+  font-family:var(--display);font-size:17px;font-weight:700;margin-top:4px;
+}
+
 /* ---------- seletor de cardápio (QUAL DIA DA SEMANA) ---------- */
 .dias{padding:14px 16px 14px}
 .dias-titulo{
@@ -295,12 +327,16 @@ main{padding:16px 16px 0;display:grid;gap:12px}
 </head>
 <body>
   <div class="falha" id="falha" role="alert" hidden></div>
-  <nav class="datas" id="datas" aria-label="Data que está sendo registrada"></nav>
-  <header class="cabecalho" id="cabecalho"></header>
-  <nav class="dias" id="dias" aria-label="Cardápio usado nesta data"></nav>
-  <div class="barras" id="barras" aria-live="polite"></div>
-  <main id="refeicoes"></main>
-  <div class="rodape"><button type="button" data-acao="abrir-extras">+ Extra</button></div>
+  <nav class="abas" id="abas" aria-label="Tela"></nav>
+  <div id="tela-hoje">
+    <nav class="datas" id="datas" aria-label="Data que está sendo registrada"></nav>
+    <header class="cabecalho" id="cabecalho"></header>
+    <nav class="dias" id="dias" aria-label="Cardápio usado nesta data"></nav>
+    <div class="barras" id="barras" aria-live="polite"></div>
+    <main id="refeicoes"></main>
+  </div>
+  <main id="tela-semana" hidden></main>
+  <div class="rodape" id="rodape"><button type="button" data-acao="abrir-extras">+ Extra</button></div>
   <div class="folha" id="folha" data-aberta="0">
     <div class="veu" data-acao="fechar-extras"></div>
     <div class="painel" role="dialog" aria-modal="true" aria-label="Adicionar extra">
