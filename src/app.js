@@ -4,7 +4,7 @@
 // resumo do que falta e fatia por refeição) e armazenamento (persistência
 // no localStorage). Aqui só há leitura de dados, montagem de HTML e
 // tratamento de toque.
-import { calcularItens, chaveIngrediente, estadoDa } from './nutricao.js';
+import { calcularItens, chaveIngrediente, estadoDa, somarPorcao, somarExtrasDia } from './nutricao.js';
 import { metaDoDia, statusMacro } from './metas.js';
 import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from './sugestao.js';
 import { criarArmazenamento } from './armazenamento.js';
@@ -106,15 +106,6 @@ const gramas = v => (Number.isInteger(v) ? v : Math.round(v)) + ' g';
 
 function somar(acc, macros) {
   acc.kcal += macros.kcal; acc.p += macros.p; acc.c += macros.c; acc.g += macros.g || 0;
-  return acc;
-}
-
-function somarPorcao(acc, porcao, qtd) {
-  if (!porcao) return acc;
-  acc.kcal += (porcao.kcal || 0) * qtd;
-  acc.p += (porcao.p || 0) * qtd;
-  acc.c += (porcao.c || 0) * qtd;
-  acc.g += (porcao.g || 0) * qtd;
   return acc;
 }
 
@@ -222,8 +213,7 @@ function calcular() {
     somar(total, sub);
   }
 
-  for (const e of dia.extras) somarPorcao(total, dados.extras[e.id], e.qtd);
-  for (const c of dia.combustivel) somarPorcao(total, dados.combustivel[c.id], c.qtd);
+  somarExtrasDia(total, dia, dados.extras, dados.combustivel);
 
   const restantes = comestiveis(diaPlano).filter(r => porRefeicao[r.id].estado === 'vazia').length;
 
@@ -274,9 +264,36 @@ function diasDaJanela() {
   return diasSemana;
 }
 
+// Extras e combustível da janela, nos mesmos dias que `resumoSemana` contou
+// (um dia só entra se o perfil gravado nele tiver plano — § perfisUsados).
+// `resumoSemana` não pode ganhar essa conta porque sua assinatura não muda;
+// é a mesma regra de `calcular()` na tela Hoje, só que somada ao longo da
+// janela em vez de um único dia.
+function extrasDaJanela(diasSemana, perfisUsados, plano) {
+  const total = zero();
+  let dias = 0;
+  for (const [data, registro] of Object.entries(diasSemana)) {
+    if (!plano.dias[perfisUsados[data]]) continue;
+    dias += 1;
+    somarExtrasDia(total, registro, dados.extras, dados.combustivel);
+  }
+  return { total, dias };
+}
+
 function renderSemana() {
   const diasSemana = diasDaJanela();
   const resumo = resumoSemana(diasSemana, dados.plano, dados.alimentos);
+
+  // As médias de kcal/proteína/carbo de `resumo` só contam o cardápio
+  // prescrito (de propósito — é o que alimenta `aderencia` e as refeições
+  // puladas). Extras e combustível comidos fora do plano somam aqui por
+  // cima, senão a tela Semana subestima o consumo real de quem comeu fora
+  // do cardápio — e o risco declarado do atleta é déficit, não superávit.
+  const extrasSemana = extrasDaJanela(diasSemana, resumo.perfisUsados, dados.plano);
+  const divisorExtras = Math.max(extrasSemana.dias, 1);
+  const mediaKcal = resumo.mediaKcal + Math.round(extrasSemana.total.kcal / divisorExtras);
+  const mediaP = resumo.mediaP + Math.round(extrasSemana.total.p / divisorExtras);
+  const mediaC = resumo.mediaC + Math.round(extrasSemana.total.c / divisorExtras);
 
   // Meta média da janela: a média do que cada dia registrado prescrevia,
   // usando o perfil que valeu naquele dia (troca de cardápio incluída).
@@ -304,9 +321,9 @@ function renderSemana() {
     <section class="semana-cartao">
       <h2>Médias do dia vs. meta</h2>
       <div class="semana-grid">
-        ${semanaMetrica('kcal', resumo.mediaKcal, metaMedia.kcal, '')}
-        ${semanaMetrica('proteína', resumo.mediaP, metaMedia.p, ' g')}
-        ${semanaMetrica('carbo', resumo.mediaC, metaMedia.c, ' g')}
+        ${semanaMetrica('kcal', mediaKcal, metaMedia.kcal, '')}
+        ${semanaMetrica('proteína', mediaP, metaMedia.p, ' g')}
+        ${semanaMetrica('carbo', mediaC, metaMedia.c, ' g')}
       </div>
       <p class="semana-nota">A meta de carbo é <b>derivada</b>: o plano só prescreve kcal e
         proteína, e o carbo sai do que sobra das kcal depois da proteína e de uma

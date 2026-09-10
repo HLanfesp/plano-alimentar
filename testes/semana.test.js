@@ -36,3 +36,27 @@ test('o perfil trocado manda sobre o dia do calendario', () => {
   const r = resumoSemana(dias, plano, alimentos);
   assert.strictEqual(r.perfisUsados['2026-09-09'], 'seg');
 });
+
+// resumoSemana mede aderência ao cardápio prescrito de propósito: extras e
+// combustível comidos fora do plano NÃO entram aqui (quem soma isso é a
+// tela Semana, em app.js, via somarExtrasDia de nutricao.js). Este teste
+// trava essa fronteira — um dia com extras e combustível não-vazios não
+// pode mudar aderência nem médias desta função.
+test('extras e combustivel nao-vazios nao mudam aderencia nem medias de resumoSemana', () => {
+  const diasVazios = { '2026-09-07': { marcados: ['pre:A:banana'], extras: [], combustivel: [], perfil: null } };
+  const diasComExtras = {
+    '2026-09-07': {
+      marcados: ['pre:A:banana'],
+      extras: [{ id: 'qualquer_coisa', qtd: 5 }],
+      combustivel: [{ id: 'outra_coisa', qtd: 3 }],
+      perfil: null,
+    },
+  };
+  const semExtras = resumoSemana(diasVazios, plano, alimentos);
+  const comExtras = resumoSemana(diasComExtras, plano, alimentos);
+  assert.strictEqual(comExtras.aderencia, semExtras.aderencia);
+  assert.strictEqual(comExtras.mediaKcal, semExtras.mediaKcal);
+  assert.strictEqual(comExtras.mediaP, semExtras.mediaP);
+  assert.strictEqual(comExtras.mediaC, semExtras.mediaC);
+  assert.deepStrictEqual(comExtras.refeicoesMaisPuladas, semExtras.refeicoesMaisPuladas);
+});

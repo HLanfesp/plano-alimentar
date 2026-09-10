@@ -32,6 +32,29 @@ export function chaveIngrediente(refeicaoId, letra, alimento) {
   return `${refeicaoId}:${letra}:${alimento}`;
 }
 
+// Soma uma porção inteira (extra ou combustível) ao acumulador, multiplicada
+// pela quantidade de porções — `extras.json`/`combustivel.json` já vêm por
+// porção, não por 100 g, então aqui não tem fator de gramagem como em
+// `calcularItens`.
+export function somarPorcao(acc, porcao, qtd) {
+  if (!porcao) return acc;
+  acc.kcal += (porcao.kcal || 0) * qtd;
+  acc.p += (porcao.p || 0) * qtd;
+  acc.c += (porcao.c || 0) * qtd;
+  if ('g' in acc) acc.g += (porcao.g || 0) * qtd;
+  return acc;
+}
+
+// Soma ao acumulador os extras e o combustível registrados num dia. Usada
+// tanto pela tela Hoje (`calcular`, em app.js) quanto pela tela Semana (soma
+// da janela de 7 dias) — é a regra de "o que o atleta comeu além do plano",
+// e precisa valer nas duas telas por igual.
+export function somarExtrasDia(acc, dia, extras, combustivel) {
+  for (const e of dia.extras || []) somarPorcao(acc, extras[e.id], e.qtd);
+  for (const c of dia.combustivel || []) somarPorcao(acc, combustivel[c.id], c.qtd);
+  return acc;
+}
+
 // Estado de uma refeição diante do que está marcado. "completa" quer dizer
 // que ao menos uma opção teve todos os seus itens marcados — itens sem
 // `alimento` (as linhas cruas do combustível) não contam para nada.
