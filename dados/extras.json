@@ -1,0 +1,92 @@
+{
+  "pao_de_queijo": {
+    "nome": "Pão de queijo",
+    "sublabel": "unidade",
+    "kcal": 140, "p": 3, "c": 15,
+    "fonte": "Estimativa de porção comercial típica (unidade ~40 g), escalada da TACO (pão de queijo ~320 kcal/100 g)"
+  },
+  "fatia_pizza": {
+    "nome": "Fatia de pizza",
+    "sublabel": "fatia média",
+    "kcal": 270, "p": 11, "c": 30,
+    "fonte": "Estimativa de porção comercial típica (fatia ~100 g, pizza de mussarela/calabresa)"
+  },
+  "cerveja_lata": {
+    "nome": "Cerveja",
+    "sublabel": "lata 350 ml",
+    "kcal": 150, "p": 1, "c": 10,
+    "fonte": "Rótulo médio de mercado (lata 350 ml, lager ~5% ABV)"
+  },
+  "vinho_taca": {
+    "nome": "Vinho",
+    "sublabel": "taça 150 ml",
+    "kcal": 125, "p": 0, "c": 4,
+    "fonte": "Rótulo médio de mercado (taça 150 ml, vinho tinto seco ~13% ABV)"
+  },
+  "acai_300ml": {
+    "nome": "Açaí",
+    "sublabel": "300 ml, sem acréscimos",
+    "kcal": 300, "p": 2, "c": 45,
+    "fonte": "Estimativa de porção comercial típica (copo 300 ml, açaí puro batido com guaraná/xarope)"
+  },
+  "brigadeiro": {
+    "nome": "Brigadeiro",
+    "sublabel": "unidade",
+    "kcal": 90, "p": 1, "c": 12,
+    "fonte": "Estimativa de porção comercial típica (unidade ~20 g)"
+  },
+  "pastel": {
+    "nome": "Pastel",
+    "sublabel": "unidade de feira",
+    "kcal": 290, "p": 6, "c": 28,
+    "fonte": "Estimativa de porção comercial típica (pastel de feira, unidade ~80 g, frito)"
+  },
+  "coxinha": {
+    "nome": "Coxinha",
+    "sublabel": "unidade média",
+    "kcal": 210, "p": 8, "c": 18,
+    "fonte": "Estimativa de porção comercial típica (coxinha média, unidade ~70 g)"
+  },
+  "chocolate_barra_25g": {
+    "nome": "Chocolate ao leite",
+    "sublabel": "barra 25 g",
+    "kcal": 135, "p": 1, "c": 14,
+    "fonte": "Rótulo médio de mercado (barra 25 g, chocolate ao leite)"
+  },
+  "sorvete_bola": {
+    "nome": "Sorvete",
+    "sublabel": "1 bola",
+    "kcal": 120, "p": 2, "c": 15,
+    "fonte": "Estimativa de porção comercial típica (1 bola ~60 g, sorvete cremoso)"
+  },
+  "refrigerante_lata_350ml": {
+    "nome": "Refrigerante",
+    "sublabel": "lata 350 ml",
+    "kcal": 140, "p": 0, "c": 35,
+    "fonte": "Rótulo médio de mercado (lata 350 ml, refrigerante de cola)"
+  },
+  "salgado_padaria": {
+    "nome": "Salgado de padaria",
+    "sublabel": "unidade",
+    "kcal": 220, "p": 6, "c": 20,
+    "fonte": "Estimativa de porção comercial típica (salgado frito/assado de padaria, unidade ~60 g)"
+  },
+  "tapioca_simples": {
+    "nome": "Tapioca simples",
+    "sublabel": "unidade, sem recheio",
+    "kcal": 120, "p": 0, "c": 28,
+    "fonte": "Estimativa de porção comercial típica (tapioca simples, ~100 g de goma hidratada), escalada da TACO"
+  },
+  "pao_frances_manteiga": {
+    "nome": "Pão francês com manteiga",
+    "sublabel": "unidade + manteiga",
+    "kcal": 220, "p": 4, "c": 29,
+    "fonte": "Pão (unidade ~50 g) escalado da TACO + manteiga (~10 g) de rótulo médio de mercado"
+  },
+  "pipoca_cinema_media": {
+    "nome": "Pipoca de cinema",
+    "sublabel": "balde médio, amanteigada",
+    "kcal": 300, "p": 5, "c": 35,
+    "fonte": "Estimativa de porção comercial típica (balde médio ~80 g, assumindo topping de manteiga padrão de cinema)"
+  }
+}

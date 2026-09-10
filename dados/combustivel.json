@@ -1,0 +1,20 @@
+{
+  "hora_pedal": {
+    "nome": "+1h de pedal",
+    "sublabel": "gel + Energy Kick + Saltz · 1 dose/h",
+    "kcal": 180, "p": 0, "c": 45, "sodio_mg": 1000,
+    "fonte": "Média das 3 opções do plano (~50/45/40 g carbo/h)"
+  },
+  "energy_kick": {
+    "nome": "DUX Energy Kick",
+    "sublabel": "sachê 30 g",
+    "kcal": 137, "p": 0, "c": 30,
+    "fonte": "Rótulo conferido em 07/Set/2026"
+  },
+  "saltz": {
+    "nome": "Saltz Z2",
+    "sublabel": "dose 15 g · 1000 mg sódio",
+    "kcal": 44, "p": 0, "c": 11, "sodio_mg": 1000,
+    "fonte": "Rótulo conferido em 07/Set/2026"
+  }
+}
