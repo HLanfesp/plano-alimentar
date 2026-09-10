@@ -99,13 +99,20 @@ Rode os testes (todos devem passar):
 node --test testes/*.test.js
 ```
 
-Você deve ver:
-```
-ℹ pass 84
-ℹ fail 0
-```
+Os testes percorrem `dados/indice.json`, não um arquivo fixo: assim que você registrar o plano de outubro no índice (passo 2), ele passa a ser validado junto com os demais, automaticamente. Para cada plano do índice, os testes garantem:
 
-Se algum teste falhar, há um erro na extração ou nos dados. Leia a mensagem de erro — ela aponta o problema.
+- estrutura: 7 dias, 49 refeições, 147 opções
+- todo ingrediente resolve em `dados/alimentos.json` e tem gramagem > 0
+- a linha de combustível do sábado existe e não tem kcal própria
+- refeições opcionais/obrigatórias (pré-natação, lanche da manhã, combustível do sábado) estão marcadas corretamente
+- nenhuma opção diverge mais de 80 kcal do valor impresso no plano
+- o desvio absoluto médio de kcal fica em até 25 kcal
+- seguir sempre a opção A, sempre B ou sempre C fecha a meta diária de kcal entre 88% e 112%
+- o desvio médio de proteína fica abaixo de 8%
+
+Só os valores numéricos específicos de setembro (as metas de kcal daquele mês, as opções de referência da spec) ficam fixados em setembro — são dados daquele mês, não critério para os demais.
+
+Se algum teste falhar, a mensagem mostra de qual mês veio a falha (ex: `[2026-10] ...`) e o que não bateu. Leia a mensagem de erro — ela aponta o problema.
 
 ### 5. Commit e push
 
@@ -137,7 +144,7 @@ O app tem 84 testes de núcleo (cálculos de macro, validação do plano, persis
 
 ```
 plano-alimentar/
-├── index.html              o app todo em um arquivo: HTML + CSS + JS
+├── index.html              casco HTML + CSS; o JavaScript vive em src/*.js
 ├── manifest.json           declaração PWA (ícone, nome, modo standalone)
 ├── sw.js                   service worker (cache, offline, estratégia de rede)
 │
