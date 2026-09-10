@@ -101,6 +101,8 @@ function rotuloRelativo(iso) {
   return `há ${d} dias`;
 }
 
+const listar = nomes => nomes.length <= 1 ? (nomes[0] || '')
+  : `${nomes.slice(0, -1).join(', ')} e ${nomes[nomes.length - 1]}`;
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const n0 = v => Math.round(v).toLocaleString('pt-BR');
 const gramas = v => (Number.isInteger(v) ? v : Math.round(v)) + ' g';
@@ -328,8 +330,8 @@ function renderSemana() {
       <h2>Aderência nos últimos ${JANELA_SEMANA} dias</h2>
       <p class="semana-aderencia">${n0(resumo.aderencia)}%<span>das refeições do plano, completas</span></p>
       <p class="semana-nota">Refeições <b>opcionais não contam</b>${resumo.opcionaisIgnoradas.length > 0
-        ? ` (${esc(resumo.opcionaisIgnoradas.join(', '))})` : ''} — o plano diz para não forçar
-        o lanche da manhã, então pular não é falha de aderência.</p>
+        ? ` (${esc(resumo.opcionaisIgnoradas.join(', '))})` : ''}: o plano diz para não forçar
+        essa refeição, então pular não é falha de aderência.</p>
     </section>
     <section class="semana-cartao">
       <h2>Médias do dia vs. meta</h2>
@@ -573,11 +575,15 @@ function secaoCombustivel(e, refeicaoPlano) {
   const doses = Object.entries(dados.combustivel).map(([id, item]) => {
     const qtd = usados.get(id) || 0;
     const ocupante = bloqueados.get(id);
-    const motivo = ocupante
-      ? (dados.combustivel[ocupante].inclui || []).includes(id)
-        ? `Já está dentro de “${dados.combustivel[ocupante].nome}” — não some os dois.`
-        : `“${dados.combustivel[ocupante].nome}” já está contado aqui — não some os dois.`
-      : '';
+    // O motivo nomeia os dois lados: quem está bloqueado e o que já ocupa a
+    // conta. Se o bloqueado é o composto, lista os itens dele já marcados.
+    const contidosAtivos = (item.inclui || [])
+      .filter(outro => (usados.get(outro) || 0) > 0)
+      .map(outro => dados.combustivel[outro].nome);
+    const motivo = !ocupante ? ''
+      : contidosAtivos.length > 0
+        ? `${listar(contidosAtivos)} já ${contidosAtivos.length > 1 ? 'estão' : 'está'} contado${contidosAtivos.length > 1 ? 's' : ''} aqui — não some os dois.`
+        : `Já está dentro de “${dados.combustivel[ocupante].nome}” — não some os dois.`;
     return linhaContador({
       id, nome: item.nome,
       sublabel: `${item.sublabel} · ${n0(item.kcal)} kcal · ${n0(item.c)} g C`,
