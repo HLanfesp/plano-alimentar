@@ -13,6 +13,16 @@ function diaDaSemana(iso) {
 
 const comestiveis = diaPlano => diaPlano.refeicoes.filter(r => r.tipo !== 'combustivel');
 
+// Refeição `opcional: true` não entra na conta de aderência nem na lista de
+// mais puladas. O plano do nutricionista é explícito: "Lanche da manhã =
+// opcional. Só faça se o pós-treino das 7h não segurar até o almoço. (...)
+// Não é para forçar essa refeição." Ela está marcada opcional em 6 dos 7
+// dias; contá-la no denominador travava a aderência em 87,5% para quem
+// segue o plano corretamente, e colava "Lanche da manhã" eternamente no
+// topo dos mais pulados. O que o atleta de fato COMEU nela continua somando
+// nas médias — subestimar o consumo é a direção grave.
+const contaNaAderencia = refeicao => refeicao.opcional !== true;
+
 const zero = () => ({ kcal: 0, p: 0, c: 0 });
 
 function somar(acc, macros) {
@@ -27,6 +37,7 @@ export function resumoSemana(dias, plano, alimentos) {
   let diasContados = 0;
   const somaMacros = zero();
   const puladasPorRefeicao = new Map(); // id -> { nome, vezes }
+  const opcionaisIgnoradas = new Set(); // nomes das refeições fora da conta
 
   for (const [data, registro] of Object.entries(dias)) {
     const perfilUsado = registro.perfil && plano.dias[registro.perfil]
@@ -42,14 +53,19 @@ export function resumoSemana(dias, plano, alimentos) {
     const refeicoes = comestiveis(diaPlano);
 
     for (const refeicao of refeicoes) {
-      totalRefeicoes += 1;
       const estado = estadoDa(refeicao, marcados);
-      if (estado === 'completa') totalCompletas += 1;
 
-      if (!puladasPorRefeicao.has(refeicao.id)) {
-        puladasPorRefeicao.set(refeicao.id, { nome: refeicao.nome, vezes: 0 });
+      if (contaNaAderencia(refeicao)) {
+        totalRefeicoes += 1;
+        if (estado === 'completa') totalCompletas += 1;
+
+        if (!puladasPorRefeicao.has(refeicao.id)) {
+          puladasPorRefeicao.set(refeicao.id, { nome: refeicao.nome, vezes: 0 });
+        }
+        if (estado === 'vazia') puladasPorRefeicao.get(refeicao.id).vezes += 1;
+      } else {
+        opcionaisIgnoradas.add(refeicao.nome);
       }
-      if (estado === 'vazia') puladasPorRefeicao.get(refeicao.id).vezes += 1;
 
       for (const opcao of refeicao.opcoes) {
         for (const item of opcao.itens) {
@@ -74,6 +90,7 @@ export function resumoSemana(dias, plano, alimentos) {
     mediaP: diasContados > 0 ? Math.round(somaMacros.p / divisor) : 0,
     mediaC: diasContados > 0 ? Math.round(somaMacros.c / divisor) : 0,
     refeicoesMaisPuladas,
+    opcionaisIgnoradas: [...opcionaisIgnoradas],
     perfisUsados,
   };
 }

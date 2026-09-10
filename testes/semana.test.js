@@ -60,3 +60,56 @@ test('extras e combustivel nao-vazios nao mudam aderencia nem medias de resumoSe
   assert.strictEqual(comExtras.mediaC, semExtras.mediaC);
   assert.deepStrictEqual(comExtras.refeicoesMaisPuladas, semExtras.refeicoesMaisPuladas);
 });
+
+// I5: refeição `opcional: true` fora da conta de aderência e dos mais pulados
+// ---------------------------------------------------------------------------
+// O plano diz textualmente "Lanche da manhã = opcional. (...) Não é para
+// forçar essa refeição", e ela é opcional em 6 dos 7 dias. Contando-a no
+// denominador, pular só o opcional todo dia travava a aderência em 87,5% e
+// colava "Lanche da manhã" no topo dos mais pulados para sempre. O que o
+// atleta COMEU nela continua somando nas médias — subestimar o consumo é a
+// direção grave.
+const planoComOpcional = {
+  dias: {
+    seg: {
+      meta: { kcal: 2507, p: 203 },
+      refeicoes: [
+        { id: 'pre', nome: 'Pré-treino', opcoes: [{ letra: 'A', itens: [{ alimento: 'banana', g: 100 }] }] },
+        { id: 'lanche', nome: 'Lanche da manhã', opcional: true, opcoes: [{ letra: 'A', itens: [{ alimento: 'banana', g: 100 }] }] },
+        { id: 'ceia', nome: 'Ceia', opcoes: [{ letra: 'A', itens: [{ alimento: 'banana', g: 100 }] }] },
+      ],
+    },
+  },
+};
+
+test('pular so o opcional nao derruba a aderencia de 100%', () => {
+  const dias = {
+    '2026-09-07': { marcados: ['pre:A:banana', 'ceia:A:banana'], extras: [], combustivel: [], perfil: null },
+  };
+  const r = resumoSemana(dias, planoComOpcional, alimentos);
+  assert.strictEqual(r.aderencia, 100);
+});
+
+test('o opcional pulado nao aparece na lista de mais puladas', () => {
+  const dias = { '2026-09-07': { marcados: ['pre:A:banana'], extras: [], combustivel: [], perfil: null } };
+  const r = resumoSemana(dias, planoComOpcional, alimentos);
+  const nomes = r.refeicoesMaisPuladas.map(x => x.nome);
+  assert.ok(!nomes.includes('Lanche da manhã'), `opcional entrou nos pulados: ${nomes.join(', ')}`);
+  const puladas = r.refeicoesMaisPuladas.filter(x => x.vezes > 0).map(x => x.nome);
+  assert.deepStrictEqual(puladas, ['Ceia']);
+});
+
+test('a tela sabe quais refeicoes ficaram fora da conta', () => {
+  const dias = { '2026-09-07': { marcados: [], extras: [], combustivel: [], perfil: null } };
+  const r = resumoSemana(dias, planoComOpcional, alimentos);
+  assert.deepStrictEqual(r.opcionaisIgnoradas, ['Lanche da manhã']);
+});
+
+// O opcional sai da ADERÊNCIA, não das MÉDIAS: se ele comeu, isso conta.
+test('o que foi comido no opcional continua somando nas medias', () => {
+  const semOpcional = { '2026-09-07': { marcados: ['pre:A:banana'], extras: [], combustivel: [], perfil: null } };
+  const comOpcional = { '2026-09-07': { marcados: ['pre:A:banana', 'lanche:A:banana'], extras: [], combustivel: [], perfil: null } };
+  const a = resumoSemana(semOpcional, planoComOpcional, alimentos);
+  const b = resumoSemana(comOpcional, planoComOpcional, alimentos);
+  assert.strictEqual(b.mediaKcal, a.mediaKcal + 92);
+});

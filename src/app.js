@@ -327,6 +327,9 @@ function renderSemana() {
     <section class="semana-cartao">
       <h2>Aderência nos últimos ${JANELA_SEMANA} dias</h2>
       <p class="semana-aderencia">${n0(resumo.aderencia)}%<span>das refeições do plano, completas</span></p>
+      <p class="semana-nota">Refeições <b>opcionais não contam</b>${resumo.opcionaisIgnoradas.length > 0
+        ? ` (${esc(resumo.opcionaisIgnoradas.join(', '))})` : ''} — o plano diz para não forçar
+        o lanche da manhã, então pular não é falha de aderência.</p>
     </section>
     <section class="semana-cartao">
       <h2>Médias do dia vs. meta</h2>
@@ -338,6 +341,9 @@ function renderSemana() {
       <p class="semana-nota">A meta de carbo é <b>derivada</b>: o plano só prescreve kcal e
         proteína, e o carbo sai do que sobra das kcal depois da proteína e de uma
         gordura assumida em 25%. Não é número do nutricionista, é conta do app.</p>
+      <p class="semana-nota">Extras e combustível de treino <b>não trazem gordura nos dados</b>,
+        então ficam fora dessa premissa de 25%: num dia de muito extra ou muito pedal, a meta
+        de carbo está um pouco mais frouxa do que a conta sugere.</p>
     </section>
     <section class="semana-cartao">
       <h2>Refeições mais puladas</h2>
