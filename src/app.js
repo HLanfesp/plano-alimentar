@@ -694,3 +694,12 @@ iniciar().catch(erro => {
   el.refeicoes.innerHTML = `<section class="extras"><h3>Não foi possível abrir o dia</h3>
     <p class="vazio">${esc(erro.message)}. Sirva a pasta com um servidor local: <b>python3 -m http.server 8000</b>.</p></section>`;
 });
+
+// PWA: registra o service worker que guarda o app em cache para abrir
+// sem rede (5h da manhã antes do treino, 22h na ceia). Se o registro
+// falhar (ex.: navegador sem suporte), o app continua funcionando online.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}

@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f7f4">
+<link rel="manifest" href="manifest.json">
+<!-- O Safari do iPhone não lê manifest.json para o modo "adicionar à
+     tela de início" — precisa destas duas tags para abrir em modo
+     standalone (sem barra do Safari) e usar o ícone certo. -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Plano">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icone-192.png">
 <title>Hoje — Plano Alimentar</title>
 <style>
 :root{
