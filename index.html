@@ -71,6 +71,10 @@ h1,h2,h3,h4,p{margin:0}
   position:sticky;top:0;z-index:60;background:#fef2f2;border-bottom:2px solid var(--vermelho);
   color:#7f1d1d;padding:12px 16px;font-size:14px;display:grid;gap:10px;
 }
+/* `hidden` precisa vencer qualquer display definido abaixo (ex.: #tela-semana
+   é grid). Sem isto, os cartões do Resumo ficavam desenhados por baixo da
+   tela Hoje depois de trocar de aba. Achado em 24/Set/2026. */
+[hidden]{display:none!important}
 .falha[hidden]{display:none}
 .falha b{color:#7f1d1d}
 .falha button{
@@ -141,6 +145,17 @@ body[data-outra-data="1"] main{border-left:3px solid #f59e0b;border-radius:3px}
   width:100%;min-height:56px;border:0;border-radius:16px;background:var(--verde-escuro);color:#fff;
   font-family:var(--display);font-size:17px;font-weight:700;margin-top:4px;
 }
+
+/* ---------- resumo: Semana | Mês e restaurar backup ---------- */
+.periodo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.periodo button{
+  min-height:var(--toque);border-radius:14px;border:1px solid var(--linha,#d9e2dc);background:#fff;
+  font-family:var(--display);font-size:16px;font-weight:700;color:var(--tinta2);
+}
+.periodo button[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:#fff}
+.aviso-backup{font-size:14px;border-radius:12px;padding:10px 12px;margin:10px 0 4px}
+.aviso-backup[data-tipo="ok"]{background:var(--verde-fundo);color:var(--verde-escuro)}
+.aviso-backup[data-tipo="erro"]{background:#fef2f2;color:#991b1b}
 
 /* ---------- seletor de cardápio (QUAL DIA DA SEMANA) ---------- */
 .dias{padding:14px 16px 14px}

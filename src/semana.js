@@ -11,6 +11,20 @@ function diaDaSemana(iso) {
   return CHAVES_DIA[new Date(ano, mes - 1, dia).getDay()];
 }
 
+// Janela do resumo: 'semana' = os 7 dias terminando em `hoje`; 'mes' = do
+// dia 1 do mês de `hoje` até `hoje`. Datas locais em AAAA-MM-DD, sem fuso.
+function isoLocal(dt) {
+  const m = String(dt.getMonth() + 1).padStart(2, '0');
+  const d = String(dt.getDate()).padStart(2, '0');
+  return `${dt.getFullYear()}-${m}-${d}`;
+}
+
+export function janelaDoPeriodo(periodo, hoje) {
+  const [ano, mes, dia] = hoje.split('-').map(Number);
+  if (periodo === 'mes') return { inicio: `${hoje.slice(0, 7)}-01`, fim: hoje };
+  return { inicio: isoLocal(new Date(ano, mes - 1, dia - 6)), fim: hoje };
+}
+
 const comestiveis = diaPlano => diaPlano.refeicoes.filter(r => r.tipo !== 'combustivel');
 
 // Refeição `opcional: true` não entra na conta de aderência nem na lista de
@@ -53,7 +67,7 @@ export function resumoSemana(dias, plano, alimentos) {
     const refeicoes = comestiveis(diaPlano);
 
     for (const refeicao of refeicoes) {
-      const estado = estadoDa(refeicao, marcados);
+      const estado = estadoDa(refeicao, marcados, alimentos);
 
       if (contaNaAderencia(refeicao)) {
         totalRefeicoes += 1;

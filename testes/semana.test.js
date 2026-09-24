@@ -113,3 +113,22 @@ test('o que foi comido no opcional continua somando nas medias', () => {
   const b = resumoSemana(comOpcional, planoComOpcional, alimentos);
   assert.strictEqual(b.mediaKcal, a.mediaKcal + 92);
 });
+
+// Janela do resumo (24/Set/2026): além dos últimos 7 dias, o mês do calendário.
+import { janelaDoPeriodo } from '../src/semana.js';
+
+test('a janela da semana sao os 7 dias terminando hoje', () => {
+  assert.deepStrictEqual(janelaDoPeriodo('semana', '2026-09-24'), { inicio: '2026-09-18', fim: '2026-09-24' });
+});
+
+test('a janela da semana atravessa virada de mes', () => {
+  assert.deepStrictEqual(janelaDoPeriodo('semana', '2026-10-03'), { inicio: '2026-09-27', fim: '2026-10-03' });
+});
+
+test('a janela do mes vai do dia 1 ate hoje', () => {
+  assert.deepStrictEqual(janelaDoPeriodo('mes', '2026-09-24'), { inicio: '2026-09-01', fim: '2026-09-24' });
+});
+
+test('no dia 1 a janela do mes e so o proprio dia', () => {
+  assert.deepStrictEqual(janelaDoPeriodo('mes', '2026-10-01'), { inicio: '2026-10-01', fim: '2026-10-01' });
+});

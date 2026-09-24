@@ -8,7 +8,7 @@ import { calcularItens, chaveIngrediente, estadoDa, somarPorcao, somarExtrasDia,
 import { metaDoDia, statusMacro } from './metas.js';
 import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from './sugestao.js';
 import { criarArmazenamento } from './armazenamento.js';
-import { resumoSemana } from './semana.js';
+import { resumoSemana, janelaDoPeriodo } from './semana.js';
 import { escolherPlano } from './indice.js';
 
 const CHAVES_DIA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
@@ -43,6 +43,8 @@ let dataAtiva = HOJE;
 let perfil = null; // definido em irPara(), depois que o plano carrega
 let limiteTras = HOJE;
 let tela = 'hoje'; // 'hoje' ou 'semana'
+let periodo = 'semana'; // janela do resumo: 'semana' (7 dias) ou 'mes' (do dia 1 até hoje)
+let avisoBackup = null; // resultado do último "Importar backup", mostrado no cartão
 
 let dados = null;
 let abertas = new Set();
@@ -220,7 +222,7 @@ function calcular() {
         somar(sub, calcularItens([item], dados.alimentos));
       }
     }
-    porRefeicao[refeicao.id] = { sub, estado: estadoDa(refeicao, marcados) };
+    porRefeicao[refeicao.id] = { sub, estado: estadoDa(refeicao, marcados, dados.alimentos) };
     somar(total, sub);
   }
 
@@ -257,7 +259,7 @@ function renderizar() {
 function renderAbas() {
   el.abas.innerHTML = `
     <button type="button" data-tela="hoje" aria-selected="${tela === 'hoje'}">Hoje</button>
-    <button type="button" data-tela="semana" aria-selected="${tela === 'semana'}">Semana</button>
+    <button type="button" data-tela="semana" aria-selected="${tela === 'semana'}">Resumo</button>
   `;
 }
 
@@ -268,12 +270,52 @@ function renderAbas() {
 // gravou (§ perfil manda sobre o calendário), não contra o dia real.
 function diasDaJanela() {
   const exportado = arm.exportar();
-  const inicio = somarDias(HOJE, -(JANELA_SEMANA - 1));
+  const { inicio, fim } = janelaDoPeriodo(periodo, HOJE);
   const diasSemana = {};
   for (const [data, registro] of Object.entries(exportado.dias)) {
-    if (data >= inicio && data <= HOJE) diasSemana[data] = registro;
+    if (data >= inicio && data <= fim) diasSemana[data] = registro;
   }
   return diasSemana;
+}
+
+const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho',
+  'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+
+function tituloDoPeriodo() {
+  if (periodo === 'mes') return `em ${MESES[Number(HOJE.slice(5, 7)) - 1]}`;
+  return `nos últimos ${JANELA_SEMANA} dias`;
+}
+
+// Importar backup: cria o seletor de arquivo na hora do toque (o iOS só abre
+// o seletor dentro de um gesto do usuário) e nunca sobrescreve um dia que já
+// existe no aparelho — ver armazenamento.importar().
+function importarBackup() {
+  const entrada = document.createElement('input');
+  entrada.type = 'file';
+  entrada.accept = 'application/json,.json';
+  entrada.addEventListener('change', () => {
+    const arquivo = entrada.files && entrada.files[0];
+    if (!arquivo) return;
+    const leitor = new FileReader();
+    leitor.onload = () => {
+      let backup;
+      try { backup = JSON.parse(leitor.result); } catch { backup = null; }
+      const r = arm.importar(backup);
+      if (!r.ok) {
+        avisoBackup = { tipo: 'erro', texto: r.erro };
+      } else {
+        const partes = [`${r.restaurados} ${r.restaurados === 1 ? 'dia restaurado' : 'dias restaurados'}`];
+        if (r.mantidos) partes.push(`${r.mantidos} já ${r.mantidos === 1 ? 'existia' : 'existiam'} no aparelho e ${r.mantidos === 1 ? 'foi mantido' : 'foram mantidos'} como estava${r.mantidos === 1 ? '' : 'm'}`);
+        if (r.invalidos) partes.push(`${r.invalidos} com data inválida ${r.invalidos === 1 ? 'foi ignorado' : 'foram ignorados'}`);
+        if (r.falhas) partes.push(`${r.falhas} não ${r.falhas === 1 ? 'pôde' : 'puderam'} ser gravado${r.falhas === 1 ? '' : 's'}`);
+        avisoBackup = { tipo: r.falhas ? 'erro' : 'ok', texto: partes.join('; ') + '.' };
+      }
+      renderizar();
+    };
+    leitor.onerror = () => { avisoBackup = { tipo: 'erro', texto: 'Não foi possível ler o arquivo.' }; renderizar(); };
+    leitor.readAsText(arquivo);
+  });
+  entrada.click();
 }
 
 // Extras e combustível da janela, nos mesmos dias que `resumoSemana` contou
@@ -325,10 +367,17 @@ function renderSemana() {
 
   const puladas = resumo.refeicoesMaisPuladas.filter(r => r.vezes > 0).slice(0, 5);
 
+  const registrados = Object.keys(resumo.perfisUsados).length;
   el.telaSemana.innerHTML = `
+    <div class="periodo" role="group" aria-label="Período do resumo">
+      <button type="button" data-periodo="semana" aria-pressed="${periodo === 'semana'}">Semana</button>
+      <button type="button" data-periodo="mes" aria-pressed="${periodo === 'mes'}">Mês</button>
+    </div>
     <section class="semana-cartao">
-      <h2>Aderência nos últimos ${JANELA_SEMANA} dias</h2>
-      <p class="semana-aderencia">${n0(resumo.aderencia)}%<span>das refeições do plano, completas</span></p>
+      <h2>Aderência ${tituloDoPeriodo()}</h2>
+      <p class="semana-aderencia">${n0(resumo.aderencia)}%<span>das refeições do plano, completas · ${registrados} ${registrados === 1 ? 'dia registrado' : 'dias registrados'}</span></p>
+      <p class="semana-nota">Refeição <b>completa</b> = uma opção inteira, ou uma mistura de opções que
+        chegou a <b>90% das kcal e da proteína</b> previstas para ela.</p>
       <p class="semana-nota">Refeições <b>opcionais não contam</b>${resumo.opcionaisIgnoradas.length > 0
         ? ` (${esc(resumo.opcionaisIgnoradas.join(', '))})` : ''}: o plano diz para não forçar
         essa refeição, então pular não é falha de aderência.</p>
@@ -363,6 +412,13 @@ function renderSemana() {
         extras, combustível e trocas de perfil — para o nutricionista calibrar o plano do
         mês seguinte pelo consumo real.</p>
       <button type="button" class="semana-exportar" data-acao="exportar-json">Exportar JSON</button>
+    </section>
+    <section class="semana-cartao">
+      <h2>Restaurar backup</h2>
+      <p class="semana-nota">Traz de volta um arquivo exportado antes. Só acrescenta os dias que
+        faltam neste aparelho — <b>um dia que já existe nunca é substituído</b>.</p>
+      ${avisoBackup ? `<p class="aviso-backup" data-tipo="${avisoBackup.tipo}" role="status">${esc(avisoBackup.texto)}</p>` : ''}
+      <button type="button" class="semana-exportar" data-acao="importar-json">Importar backup</button>
     </section>
   `;
 }
@@ -709,13 +765,17 @@ function renderListaExtras() {
 function aoTocar(evento) {
   const alvo = evento.target.closest(
     '[data-chave],[data-refeicao],[data-dia],[data-dose],[data-remover-dose],' +
-    '[data-extra],[data-remover-extra],[data-navegar],[data-acao],[data-tela]');
+    '[data-extra],[data-remover-extra],[data-navegar],[data-acao],[data-tela],[data-periodo]');
   if (!alvo) return;
   if (alvo.disabled) return;
   const d = alvo.dataset;
 
   if (d.tela) {
     tela = d.tela;
+    return renderizar();
+  }
+  if (d.periodo) {
+    periodo = d.periodo;
     return renderizar();
   }
   if (d.chave) {
@@ -762,6 +822,7 @@ function aoTocar(evento) {
   if (d.acao === 'fechar-extras') { el.folha.dataset.aberta = '0'; return; }
   if (d.acao === 'fechar-falha') { el.falha.hidden = true; return; }
   if (d.acao === 'exportar-json') { exportarJSON(); return; }
+  if (d.acao === 'importar-json') { importarBackup(); return; }
 }
 
 iniciar().catch(erro => {
