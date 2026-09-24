@@ -59,7 +59,53 @@ export function somarExtrasDia(acc, dia, extras, combustivel) {
 // que ao menos uma opção teve todos os seus itens marcados — itens sem
 // `alimento` (as linhas cruas do combustível) não contam para nada.
 // Marcar itens de A e de B sem fechar nenhuma das duas é "parcial".
-export function estadoDa(refeicao, marcados) {
+// Refeição completa pelos valores (24/Set/2026)
+// -----------------------------------------------
+// O atleta mistura ingredientes de opções diferentes da mesma refeição — é a
+// razão de o app existir. A regra original só fechava a refeição quando TODOS
+// os itens de UMA opção estavam marcados; nos 16 primeiros dias de uso real,
+// 48 de 110 refeições ficaram "parciais", várias com 105–146% do previsto.
+//
+// Agora há dois caminhos para "completa":
+//   1. uma opção inteira marcada (o que o plano prescreve nunca vira parcial);
+//   2. o consumido na refeição bate LIMIAR_REFEICAO das kcal E da proteína do
+//      alvo da refeição — a média das opções, que o plano desenha equivalentes.
+// 90% é o mesmo corte que deixa a barra do dia verde (src/metas.js).
+//
+// Refeições de carbo (pré-treino) têm alvo de proteína de décimos de grama;
+// exigir 90% disso deixaria qualquer mistura "parcial" por arredondamento.
+// Abaixo de PROTEINA_MINIMA_ALVO gramas, só as kcal decidem.
+//
+// Sem `alimentos`, vale só o caminho 1 (compatível com chamadores antigos).
+export const LIMIAR_REFEICAO = 0.9;
+const PROTEINA_MINIMA_ALVO = 5;
+
+const resolviveis = (opcao, alimentos) =>
+  opcao.itens.filter(i => i.alimento && (!alimentos || alimentos[i.alimento]));
+
+export function alvoDaRefeicao(refeicao, alimentos) {
+  const opcoes = refeicao.opcoes
+    .map(o => resolviveis(o, alimentos))
+    .filter(itens => itens.length > 0)
+    .map(itens => calcularItens(itens, alimentos));
+  if (opcoes.length === 0) return { kcal: 0, p: 0 };
+  return {
+    kcal: opcoes.reduce((s, x) => s + x.kcal, 0) / opcoes.length,
+    p: opcoes.reduce((s, x) => s + x.p, 0) / opcoes.length,
+  };
+}
+
+function consumidoNaRefeicao(refeicao, marcados, alimentos) {
+  const itens = [];
+  for (const opcao of refeicao.opcoes) {
+    for (const item of resolviveis(opcao, alimentos)) {
+      if (marcados.has(chaveIngrediente(refeicao.id, opcao.letra, item.alimento))) itens.push(item);
+    }
+  }
+  return calcularItens(itens, alimentos);
+}
+
+export function estadoDa(refeicao, marcados, alimentos) {
   let algum = false;
   let completa = false;
   for (const opcao of refeicao.opcoes) {
@@ -73,7 +119,15 @@ export function estadoDa(refeicao, marcados) {
     if (quantos === itens.length) completa = true;
   }
   if (!algum) return 'vazia';
-  return completa ? 'completa' : 'parcial';
+  if (completa) return 'completa';
+  if (!alimentos) return 'parcial';
+
+  const alvo = alvoDaRefeicao(refeicao, alimentos);
+  if (alvo.kcal <= 0) return 'parcial';
+  const comido = consumidoNaRefeicao(refeicao, marcados, alimentos);
+  const kcalOk = comido.kcal >= alvo.kcal * LIMIAR_REFEICAO;
+  const proteinaOk = alvo.p < PROTEINA_MINIMA_ALVO || comido.p >= alvo.p * LIMIAR_REFEICAO;
+  return kcalOk && proteinaOk ? 'completa' : 'parcial';
 }
 
 // Dupla contagem do combustível de treino
