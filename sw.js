@@ -25,7 +25,7 @@
 // desses outros apps tambem. O "activate" abaixo so toca em caches cujo
 // nome comeca com este prefixo.
 const PREFIXO_CACHE = "plano-alimentar-";
-const CACHE_NOME = PREFIXO_CACHE + "v1";
+const CACHE_NOME = PREFIXO_CACHE + "v2";
 
 // Tempo maximo de espera pela rede nos arquivos de dados antes de cair
 // pro cache. Evita travar a tela numa conexao presente mas lenta/instavel
@@ -57,7 +57,14 @@ self.addEventListener("install", (evento) => {
   evento.waitUntil(
     caches
       .open(CACHE_NOME)
-      .then((cache) => cache.addAll(ARQUIVOS_PARA_CACHE))
+      // `cache: "reload"` busca direto no servidor, pulando o cache HTTP do
+      // navegador. O GitHub Pages manda guardar cada arquivo por 10 minutos
+      // (max-age=600); sem isto, uma versão nova instalada dentro dessa
+      // janela encheria o cache novo com arquivos VELHOS — e o app ficaria
+      // preso neles até a atualização seguinte. Achado em 24/Set/2026.
+      .then((cache) =>
+        cache.addAll(ARQUIVOS_PARA_CACHE.map((url) => new Request(url, { cache: "reload" })))
+      )
       .then(() => self.skipWaiting())
   );
 });
@@ -86,7 +93,9 @@ function buscarComTimeout(request) {
       () => reject(new Error("tempo limite de rede excedido")),
       TEMPO_LIMITE_REDE_MS
     );
-    fetch(request).then(
+    // `no-cache`: revalida com o servidor (ETag) em vez de aceitar a cópia de
+    // até 10 minutos do cache HTTP — um plano ou extra novo aparece na hora.
+    fetch(request, { cache: "no-cache" }).then(
       (resposta) => {
         clearTimeout(temporizador);
         resolve(resposta);
