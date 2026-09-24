@@ -1,6 +1,16 @@
 const PREFIXO = 'pa:';
 const VAZIO = () => ({ marcados: [], extras: [], combustivel: [], perfil: null });
 
+// Uma data de backup só é aceita se for uma data real no formato AAAA-MM-DD.
+function dataValida(iso) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return false;
+  const [a, m, d] = iso.split('-').map(Number);
+  const dt = new Date(a, m - 1, d);
+  return dt.getFullYear() === a && dt.getMonth() === m - 1 && dt.getDate() === d;
+}
+
+const ehObjeto = x => x !== null && typeof x === 'object' && !Array.isArray(x);
+
 // `aoFalhar` existe porque o alvo é o Safari do iPhone, que lança em
 // `setItem` na navegação privada (e pode lançar até em `getItem` quando o
 // site está bloqueado). Falhar em silêncio seria o pior defeito possível:
@@ -103,6 +113,33 @@ export function criarArmazenamento(storage, aoFalhar = () => {}) {
         if (k && k.startsWith(PREFIXO)) dias[k.slice(PREFIXO.length)] = ler(k.slice(PREFIXO.length));
       }
       return { versao: 1, geradoEm: new Date().toISOString(), dias };
+    },
+
+    // Restaura um backup exportado. REGRA DE OURO: nunca sobrescreve um dia
+    // que já existe no aparelho — só acrescenta os que faltam. Um backup antigo
+    // jamais apaga registro mais novo, e importar duas vezes não duplica nada.
+    // Devolve a contagem para a tela dizer exatamente o que aconteceu.
+    importar(backup) {
+      if (!ehObjeto(backup) || !ehObjeto(backup.dias)) {
+        return { ok: false, erro: 'Este arquivo não é um backup do Plano Alimentar.' };
+      }
+      const r = { ok: true, restaurados: 0, mantidos: 0, invalidos: 0, falhas: 0 };
+      for (const [data, registro] of Object.entries(backup.dias)) {
+        if (!dataValida(data) || !ehObjeto(registro)) { r.invalidos += 1; continue; }
+        let existe;
+        try {
+          existe = storage.getItem(PREFIXO + data) !== null;
+        } catch (erro) {
+          avisar(erro, 'ler');
+          r.falhas += 1;
+          continue;
+        }
+        if (existe) { r.mantidos += 1; continue; }
+        const dia = { ...VAZIO(), ...registro };
+        if (gravar(data, dia)) r.restaurados += 1;
+        else r.falhas += 1;
+      }
+      return r;
     },
   };
 }

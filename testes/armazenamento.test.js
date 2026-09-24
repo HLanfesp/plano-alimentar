@@ -172,3 +172,92 @@ test('uma escrita bem-sucedida nao dispara aviso', () => {
   assert.strictEqual(a.marcar('2026-09-10', 'ceia:A:whey_isolado'), true);
   assert.deepStrictEqual(avisos, []);
 });
+
+// ---------------------------------------------------------------------------
+// Importar backup (24/Set/2026). O app exportava mas não sabia importar: o
+// JSON de backup não tinha como voltar para dentro. Regra de ouro: importar
+// NUNCA sobrescreve um dia que já existe no aparelho — só acrescenta os que
+// faltam. Um backup antigo jamais apaga registro mais novo.
+// ---------------------------------------------------------------------------
+
+const backup = {
+  versao: 1,
+  geradoEm: '2026-09-24T21:20:20.968Z',
+  dias: {
+    '2026-09-10': { marcados: ['ceia:A:whey_isolado'], extras: [{ id: 'pao_de_queijo', qtd: 2 }], combustivel: [], perfil: null },
+    '2026-09-12': { marcados: ['almoco:A:arroz_branco'], extras: [], combustivel: [{ id: 'hora_pedal', qtd: 2 }], perfil: null },
+  },
+};
+
+test('importar restaura os dias que faltam no aparelho', () => {
+  const a = criarArmazenamento(storageFalso());
+  const r = a.importar(backup);
+  assert.strictEqual(r.ok, true);
+  assert.strictEqual(r.restaurados, 2);
+  assert.deepStrictEqual(a.lerDia('2026-09-10'), backup.dias['2026-09-10']);
+  assert.deepStrictEqual(a.lerDia('2026-09-12').combustivel, [{ id: 'hora_pedal', qtd: 2 }]);
+});
+
+test('importar NUNCA sobrescreve um dia que ja existe no aparelho', () => {
+  const a = criarArmazenamento(storageFalso());
+  a.marcar('2026-09-10', 'almoco:B:tilapia'); // registro mais novo, feito no aparelho
+  const r = a.importar(backup);
+  assert.strictEqual(r.mantidos, 1);
+  assert.strictEqual(r.restaurados, 1);
+  assert.deepStrictEqual(a.lerDia('2026-09-10').marcados, ['almoco:B:tilapia']);
+});
+
+test('importar o mesmo backup duas vezes nao duplica nada', () => {
+  const a = criarArmazenamento(storageFalso());
+  a.importar(backup);
+  const r = a.importar(backup);
+  assert.strictEqual(r.restaurados, 0);
+  assert.strictEqual(r.mantidos, 2);
+  assert.deepStrictEqual(a.lerDia('2026-09-10').extras, [{ id: 'pao_de_queijo', qtd: 2 }]);
+});
+
+test('exportar e importar em outro aparelho reproduz os mesmos dias', () => {
+  const origem = criarArmazenamento(storageFalso());
+  origem.marcar('2026-09-15', 'almoco:A:feijao');
+  origem.addExtra('2026-09-15', 'pao_de_queijo');
+  origem.definirPerfil('2026-09-16', 'ter');
+  const destino = criarArmazenamento(storageFalso());
+  destino.importar(origem.exportar());
+  assert.deepStrictEqual(destino.exportar().dias, origem.exportar().dias);
+});
+
+test('arquivo que nao e backup e recusado sem gravar nada', () => {
+  for (const ruim of [null, 'texto', 42, {}, { dias: 'x' }, { dias: [] }]) {
+    const s = storageFalso();
+    const a = criarArmazenamento(s);
+    const r = a.importar(ruim);
+    assert.strictEqual(r.ok, false, `aceitou ${JSON.stringify(ruim)}`);
+    assert.ok(r.erro && r.erro.length > 0);
+    assert.strictEqual(s.length, 0);
+  }
+});
+
+test('data invalida no backup e ignorada e contada, sem derrubar o resto', () => {
+  const a = criarArmazenamento(storageFalso());
+  const r = a.importar({ dias: { 'lixo': { marcados: [] }, '2026-13-40': { marcados: [] }, '2026-09-10': backup.dias['2026-09-10'] } });
+  assert.strictEqual(r.ok, true);
+  assert.strictEqual(r.restaurados, 1);
+  assert.strictEqual(r.invalidos, 2);
+});
+
+test('registro incompleto no backup ganha os campos que faltam', () => {
+  const a = criarArmazenamento(storageFalso());
+  a.importar({ dias: { '2026-09-10': { marcados: ['ceia:A:whey_isolado'] } } });
+  assert.deepStrictEqual(a.lerDia('2026-09-10'), { marcados: ['ceia:A:whey_isolado'], extras: [], combustivel: [], perfil: null });
+});
+
+test('falha de gravacao durante o import e relatada, nao escondida', () => {
+  const s = storageFalso();
+  s.setItem = () => { throw new Error('QuotaExceededError'); };
+  let avisos = 0;
+  const a = criarArmazenamento(s, () => { avisos += 1; });
+  const r = a.importar(backup);
+  assert.strictEqual(r.restaurados, 0);
+  assert.strictEqual(r.falhas, 2);
+  assert.ok(avisos > 0);
+});
