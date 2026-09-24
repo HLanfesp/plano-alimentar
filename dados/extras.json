@@ -15,22 +15,6 @@
     "c": 30,
     "fonte": "Estimativa de porção comercial típica (fatia ~100 g, pizza de mussarela/calabresa)"
   },
-  "cerveja_lata": {
-    "nome": "Cerveja",
-    "sublabel": "lata 350 ml",
-    "kcal": 150,
-    "p": 1,
-    "c": 10,
-    "fonte": "Rótulo médio de mercado (lata 350 ml, lager ~5% ABV); restante calórico (~14 g de álcool) vem do álcool, não de gordura"
-  },
-  "vinho_taca": {
-    "nome": "Vinho",
-    "sublabel": "taça 150 ml",
-    "kcal": 125,
-    "p": 0,
-    "c": 4,
-    "fonte": "Rótulo médio de mercado (taça 150 ml, vinho tinto seco ~13% ABV); restante calórico (~15,6 g de álcool) vem do álcool, não de gordura"
-  },
   "brigadeiro": {
     "nome": "Brigadeiro",
     "sublabel": "unidade",
@@ -70,14 +54,6 @@
     "p": 2,
     "c": 15,
     "fonte": "Estimativa de porção comercial típica (1 bola ~60 g, sorvete cremoso)"
-  },
-  "refrigerante_lata_350ml": {
-    "nome": "Refrigerante",
-    "sublabel": "lata 350 ml",
-    "kcal": 140,
-    "p": 0,
-    "c": 35,
-    "fonte": "Rótulo médio de mercado (lata 350 ml, refrigerante de cola)"
   },
   "salgado_padaria": {
     "nome": "Salgado de padaria",
@@ -126,5 +102,100 @@
     "p": 6,
     "c": 90,
     "fonte": "Estimativa de porção comercial típica (copo 300 ml, açaí com granola e leite condensado, preparação padrão de loja)"
+  },
+  "barra_nutrata_whey_grego": {
+    "nome": "Barra Nutrata Whey Grego Bar",
+    "sublabel": "barra 40 g",
+    "kcal": 170,
+    "p": 11,
+    "c": 15,
+    "g": 7.3,
+    "fonte": "Rótulo Nutrata informado pelo atleta em 24/Set/2026 (porção 40 g: 169–172 kcal, 11 g P, 15 g C, 7,2–7,5 g gordura, 0,9 g fibra; varia 2–3 kcal por sabor)"
+  },
+  "barra_bold": {
+    "nome": "Barra Bold",
+    "sublabel": "barra 40 g · 14 g de proteína",
+    "kcal": 153,
+    "p": 14,
+    "c": 12.5,
+    "g": 5.7,
+    "fonte": "Rótulo Bold Snacks informado pelo atleta em 24/Set/2026 (porção 40 g: 153–154 kcal, 14 g P, 12–13 g C, 5,5–5,9 g gordura, zero açúcar adicionado; varia 1–2 g por sabor)"
+  },
+  "iogurte_grego_pote": {
+    "nome": "Iogurte grego",
+    "sublabel": "pote 170 g",
+    "kcal": 164.9,
+    "p": 15.3,
+    "c": 6.8,
+    "g": 8.5,
+    "alimento": "iogurte_grego",
+    "porcao_g": 170,
+    "fonte": "Calculado da base do app: 170 g de 'iogurte_grego' (Rótulo médio — iogurte grego natural integral (média de mercado entre marcas, não produto específico conferido)). Item que o atleta mais marca nos lanches."
+  },
+  "iogurte_natural_pote": {
+    "nome": "Iogurte natural",
+    "sublabel": "pote 200 g",
+    "kcal": 102.0,
+    "p": 7.0,
+    "c": 9.4,
+    "g": 4.0,
+    "alimento": "iogurte_natural",
+    "porcao_g": 200,
+    "fonte": "Calculado da base do app: 200 g de 'iogurte_natural' (TACO — iogurte, natural, integral). Item que o atleta mais marca nos lanches."
+  },
+  "whey_dose": {
+    "nome": "Whey",
+    "sublabel": "dose 30 g",
+    "kcal": 120.0,
+    "p": 24.0,
+    "c": 2.4,
+    "g": 1.8,
+    "alimento": "whey",
+    "porcao_g": 30,
+    "fonte": "Calculado da base do app: 30 g de 'whey' (Rótulo médio — whey protein concentrado (média de mercado entre marcas, não produto específico conferido)). Item que o atleta mais marca nos lanches."
+  },
+  "ovo_unidade": {
+    "nome": "Ovo cozido",
+    "sublabel": "unidade ~50 g",
+    "kcal": 71.5,
+    "p": 6.5,
+    "c": 0.8,
+    "g": 4.8,
+    "alimento": "ovo",
+    "porcao_g": 50,
+    "fonte": "Calculado da base do app: 50 g de 'ovo' (TACO (cozido)). Item que o atleta mais marca nos lanches."
+  },
+  "banana_unidade": {
+    "nome": "Banana",
+    "sublabel": "unidade ~100 g",
+    "kcal": 98.0,
+    "p": 1.3,
+    "c": 24.0,
+    "g": 0.1,
+    "alimento": "banana",
+    "porcao_g": 100,
+    "fonte": "Calculado da base do app: 100 g de 'banana' (TACO — banana, prata: carboidrato líquido de fibra (26,0 g carboidrato total na tabela − 2,0 g fibra = 24,0 g)). Item que o atleta mais marca nos lanches."
+  },
+  "pao_integral_fatia": {
+    "nome": "Pão integral",
+    "sublabel": "fatia 25 g",
+    "kcal": 63.2,
+    "p": 2.4,
+    "c": 12.5,
+    "g": 0.8,
+    "alimento": "pao_integral",
+    "porcao_g": 25,
+    "fonte": "Calculado da base do app: 25 g de 'pao_integral' (TACO — pão, de forma, integral). Item que o atleta mais marca nos lanches."
+  },
+  "pasta_amendoim_colher": {
+    "nome": "Pasta de amendoim",
+    "sublabel": "colher de sopa 15 g",
+    "kcal": 88.2,
+    "p": 3.8,
+    "c": 3.0,
+    "g": 7.5,
+    "alimento": "pasta_amendoim",
+    "porcao_g": 15,
+    "fonte": "Calculado da base do app: 15 g de 'pasta_amendoim' (Rótulo médio — pasta de amendoim integral (média de mercado entre marcas, não produto específico conferido)). Item que o atleta mais marca nos lanches."
   }
 }
