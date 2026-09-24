@@ -23,14 +23,32 @@ Nada do que você marca entra em nuvem, nunca. Nem servidor, nem sincronização
 
 ### Aviso: limpar os dados do Safari apaga tudo
 
-Se você for em Configurações → Safari → Limpar Histórico e Dados do Website, o app esquece tudo que você registrou. Use antes de fazer uma limpeza:
+Se você for em Configurações → Safari → Limpar Histórico e Dados do Website, o app esquece tudo que você registrou. Faça um backup de vez em quando — uma vez por semana é suficiente:
 
 1. Abra o app
-2. Vá para a aba "Semana"
-3. Toque em "Exportar JSON" no fim da tela
-4. Salve o arquivo
+2. Vá para a aba "Resumo"
+3. Toque em "Exportar JSON"
+4. Salve o arquivo (no app Arquivos ou no iCloud)
 
-Esse arquivo é um backup. Guarde se quiser, mas não é necessário para o app funcionar — é só para referência ou para passar dados para o nutricionista rever o plano do mês seguinte.
+### Como restaurar um backup
+
+Se os dados sumirem, ou se você trocar de iPhone:
+
+1. Abra o app
+2. Vá para a aba "Resumo"
+3. Toque em "Importar backup" e escolha o arquivo
+
+O app só acrescenta os dias que faltam. **Um dia que já existe no aparelho nunca é substituído** — então importar um backup antigo não apaga nada do que você registrou depois dele, e importar duas vezes não duplica nada. No fim ele diz quantos dias restaurou.
+
+O mesmo arquivo serve para passar ao nutricionista o seu consumo real do mês.
+
+### Quando uma refeição conta como completa
+
+De dois jeitos: você marcou **todos os itens de uma opção** (A, B ou C), ou misturou ingredientes de opções diferentes e chegou a **90% das kcal e 90% da proteína** previstas para aquela refeição. O alvo da refeição é a média das opções. Em refeições de carboidrato, como o pré-treino, só as kcal contam, porque o alvo de proteína ali é de décimos de grama.
+
+### Semana ou mês
+
+Na aba "Resumo", os botões **Semana** e **Mês** trocam o período: os últimos 7 dias, ou do dia 1 do mês até hoje.
 
 ## Para quem atualizar o plano do mês
 
@@ -134,7 +152,7 @@ Pronto. O app descobre o novo plano na próxima vez que alguém abrir ou recarre
 node --test testes/*.test.js
 ```
 
-O app tem 84 testes de núcleo (cálculos de macro, validação do plano, persistência). Todos devem passar antes de publicar.
+O app tem 128 testes de núcleo (cálculos de macro, validação do plano, persistência). Todos devem passar antes de publicar.
 
 **Não use** `node --test testes/` (sem `*.test.js`). Isso falha com MODULE_NOT_FOUND neste ambiente.
 
@@ -162,14 +180,14 @@ plano-alimentar/
 │   ├── alimentos.json      base de 52 ingredientes com macro por 100g
 │   ├── unidades.json       unidade natural de cada ingrediente (1 banana, 1 ovo, etc)
 │   ├── combustivel.json    itens de treino de endurance (Energy Kick, Saltz, etc)
-│   ├── extras.json         porções prontas (pão de queijo, cerveja, pizza, etc)
+│   ├── extras.json         porções prontas (barras de proteína, iogurte, whey, pão de queijo, etc)
 │   └── plano-2026-0X.json  cardápio do mês (gerado pelo extrator)
 │
 ├── ferramentas/
 │   └── extrair-plano.py    script que converte HTML do nutricionista em JSON
 │
 ├── testes/
-│   ├── *.test.js           84 testes de núcleo (Node.js nativo, sem framework)
+│   ├── *.test.js           128 testes de núcleo (Node.js nativo, sem framework)
 │   └── dados/              arquivos JSON dos testes
 │
 └── docs/superpowers/specs/
@@ -188,7 +206,7 @@ plano-alimentar/
 
 **`armazenamento.js`** — salva e lê em `localStorage` o que você marcou. Uma chave por dia (ex: `pa:2026-09-10`). Preserva o histórico mesmo depois que você troca de dia.
 
-**`semana.js`** — resumo dos últimos 7 dias: aderência em %, médias de macro vs meta, qual refeição você mais pula. Usado na tela "Semana".
+**`semana.js`** — resumo da semana (últimos 7 dias) ou do mês (dia 1 até hoje): aderência em %, médias de macro vs meta, qual refeição você mais pula. Usado na aba "Resumo".
 
 **`indice.js`** — lê `dados/indice.json` e escolhe qual plano mensal usar. Regra: o mês mais novo que não seja futuro em relação a hoje. Se todos forem futuros, usa o mais antigo disponível.
 
@@ -234,7 +252,7 @@ O app rotula essa meta como **"(derivada)"** para deixar claro que ela não veio
 
 **Mililitro é convertido como se fosse grama (densidade 1:1).** O app trata `10 ml` como `10 g`. Para água e caldos dá no mesmo; para óleo, não: azeite tem 0,92 g/ml, então cada ~10 ml de azeite **superestima ~7 kcal**. O erro é pequeno por refeição, mas é na direção ruim — barra mais verde do que a realidade.
 
-**Extras e combustível de treino não trazem gordura nos dados.** Os arquivos `dados/extras.json` e `dados/combustivel.json` só têm kcal, proteína e carboidrato. Como a meta de carbo é derivada assumindo que 25% das kcal vêm da gordura (ver acima), o que foi comido fora do cardápio não participa dessa premissa: num dia de muito extra ou muito pedal, a meta de carbo exibida está um pouco mais frouxa do que a conta sugere. A tela Semana diz isso em uma linha, ao lado da nota de meta derivada.
+**Extras e combustível de treino não trazem gordura nos dados.** Os arquivos `dados/extras.json` e `dados/combustivel.json` só têm kcal, proteína e carboidrato. Como a meta de carbo é derivada assumindo que 25% das kcal vêm da gordura (ver acima), o que foi comido fora do cardápio não participa dessa premissa: num dia de muito extra ou muito pedal, a meta de carbo exibida está um pouco mais frouxa do que a conta sugere. A aba Resumo diz isso em uma linha, ao lado da nota de meta derivada.
 
 **Base nutricional mescla tabela com rótulo.** Alguns ingredientes vêm da TACO (Tabela Brasileira de Composição de Alimentos), outros da média de rótulos (whey, granola), outros do USDA. Cada item em `dados/alimentos.json` tem um campo `fonte` que diz de onde veio — se você abrir o arquivo JSON, consegue ver. Não é ciência de precisão, mas é referência honesta.
 
