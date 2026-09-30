@@ -132,3 +132,23 @@ test('a janela do mes vai do dia 1 ate hoje', () => {
 test('no dia 1 a janela do mes e so o proprio dia', () => {
   assert.deepStrictEqual(janelaDoPeriodo('mes', '2026-10-01'), { inicio: '2026-10-01', fim: '2026-10-01' });
 });
+
+// Virada do mês: a janela da Semana cruza setembro e outubro. Cada dia tem
+// de ser lido com o cardápio do seu mês — senão uma marcação de setembro
+// ("pos_corrida") não acha a refeição em outubro ("pos_treino") e zera.
+test('janela que cruza a virada do mes le cada dia com o plano do seu mes', () => {
+  const setembro = { dias: { qua: { meta: { kcal: 100, p: 1 }, refeicoes: [
+    { id: 'pos_corrida', nome: 'Pós-corrida', opcoes: [{ letra: 'A', itens: [{ alimento: 'banana', g: 100 }] }] },
+  ] } } };
+  const outubro = { dias: { qui: { meta: { kcal: 100, p: 1 }, refeicoes: [
+    { id: 'pos_treino', nome: 'Pós-treino', opcoes: [{ letra: 'A', itens: [{ alimento: 'banana', g: 100 }] }] },
+  ] } } };
+  const planoDe = data => (data.startsWith('2026-09') ? setembro : outubro);
+  const dias = {
+    '2026-09-30': { marcados: ['pos_corrida:A:banana'], extras: [], combustivel: [], perfil: null },
+    '2026-10-01': { marcados: ['pos_treino:A:banana'], extras: [], combustivel: [], perfil: null },
+  };
+  const r = resumoSemana(dias, planoDe, alimentos);
+  assert.strictEqual(r.aderencia, 100);
+  assert.strictEqual(r.mediaKcal, 92);
+});

@@ -162,35 +162,50 @@ async function iniciar() {
     lerJSON('dados/extras.json'),
     lerJSON('dados/combustivel.json'),
   ]);
-  dados = { plano, alimentos, extras, combustivel };
 
-  // Para trás só até o começo do mês do plano: antes disso o cardápio
-  // carregado não é o daquele dia, e mostrá-lo seria mentira.
-  limiteTras = `${plano.mes}-01`;
+  // Os planos dos outros meses também são carregados: um dia de setembro
+  // tem de ser lido com o cardápio de setembro, senão, na virada do mês, a
+  // tela Semana (que cruza os dois meses) somaria as marcações de setembro
+  // contra refeições de outubro — e as que mudaram de nome zerariam.
+  // Se algum mês antigo falhar ao carregar, o app segue só com o atual.
+  const planos = { [plano.mes]: plano };
+  const outros = (indice.planos || []).filter(p => p.mes !== escolhido.mes && p.mes <= escolhido.mes);
+  const lidos = await Promise.allSettled(outros.map(p => lerJSON(p.arquivo)));
+  lidos.forEach(r => { if (r.status === 'fulfilled' && r.value && r.value.mes) planos[r.value.mes] = r.value; });
+  dados = { plano, planos, alimentos, extras, combustivel };
+
+  // Para trás só até o começo do mês mais antigo com plano carregado: antes
+  // disso não há cardápio daquele dia, e mostrar outro seria mentira.
+  limiteTras = `${Object.keys(planos).sort()[0]}-01`;
   irPara(HOJE, { render: false });
 
   document.addEventListener('click', aoTocar);
   renderizar();
 }
 
+// Plano que valia na data (AAAA-MM-DD): o do próprio mês, ou o atual.
+function planoDe(data) {
+  return (dados.planos && dados.planos[String(data).slice(0, 7)]) || dados.plano;
+}
+
 // Troca a data vista/registrada e recarrega o perfil gravado nela.
 function irPara(data, { render = true } = {}) {
   dataAtiva = data;
   const gravado = arm.lerDia(dataAtiva).perfil;
-  perfil = gravado && dados.plano.dias[gravado] ? gravado : diaDaSemana(dataAtiva);
+  perfil = gravado && planoDe(dataAtiva).dias[gravado] ? gravado : diaDaSemana(dataAtiva);
   abrirPadrao();
   if (render) renderizar();
 }
 
 function abrirPadrao() {
   abertas = new Set([refeicaoInicial()]);
-  if (linhaCombustivel(dados.plano.dias[perfil])) abertas.add(ID_COMBUSTIVEL);
+  if (linhaCombustivel(planoDe(dataAtiva).dias[perfil])) abertas.add(ID_COMBUSTIVEL);
 }
 
 // Em dia passado o caso real é "esqueci de marcar o jantar": abre a última
 // refeição. Hoje, abre a do relógio.
 function refeicaoInicial() {
-  const lista = comestiveis(dados.plano.dias[perfil]);
+  const lista = comestiveis(planoDe(dataAtiva).dias[perfil]);
   if (dataAtiva !== HOJE) return lista[lista.length - 1].id;
   const minutosAgora = agora.getHours() * 60 + agora.getMinutes();
   const candidata = lista.find(r => {
@@ -203,7 +218,7 @@ function refeicaoInicial() {
 // ---------- estado calculado do dia ----------
 
 function calcular() {
-  const diaPlano = dados.plano.dias[perfil];
+  const diaPlano = planoDe(dataAtiva).dias[perfil];
   const dia = arm.lerDia(dataAtiva);
   const meta = metaDoDia(diaPlano.meta);
   const marcados = new Set(dia.marcados);
@@ -323,11 +338,11 @@ function importarBackup() {
 // `resumoSemana` não pode ganhar essa conta porque sua assinatura não muda;
 // é a mesma regra de `calcular()` na tela Hoje, só que somada ao longo da
 // janela em vez de um único dia.
-function extrasDaJanela(diasSemana, perfisUsados, plano) {
+function extrasDaJanela(diasSemana, perfisUsados) {
   const total = zero();
   let dias = 0;
   for (const [data, registro] of Object.entries(diasSemana)) {
-    if (!plano.dias[perfisUsados[data]]) continue;
+    if (!planoDe(data).dias[perfisUsados[data]]) continue;
     dias += 1;
     somarExtrasDia(total, registro, dados.extras, dados.combustivel);
   }
@@ -336,14 +351,14 @@ function extrasDaJanela(diasSemana, perfisUsados, plano) {
 
 function renderSemana() {
   const diasSemana = diasDaJanela();
-  const resumo = resumoSemana(diasSemana, dados.plano, dados.alimentos);
+  const resumo = resumoSemana(diasSemana, planoDe, dados.alimentos);
 
   // As médias de kcal/proteína/carbo de `resumo` só contam o cardápio
   // prescrito (de propósito — é o que alimenta `aderencia` e as refeições
   // puladas). Extras e combustível comidos fora do plano somam aqui por
   // cima, senão a tela Semana subestima o consumo real de quem comeu fora
   // do cardápio — e o risco declarado do atleta é déficit, não superávit.
-  const extrasSemana = extrasDaJanela(diasSemana, resumo.perfisUsados, dados.plano);
+  const extrasSemana = extrasDaJanela(diasSemana, resumo.perfisUsados);
   const divisorExtras = Math.max(extrasSemana.dias, 1);
   const mediaKcal = resumo.mediaKcal + Math.round(extrasSemana.total.kcal / divisorExtras);
   const mediaP = resumo.mediaP + Math.round(extrasSemana.total.p / divisorExtras);
@@ -351,10 +366,12 @@ function renderSemana() {
 
   // Meta média da janela: a média do que cada dia registrado prescrevia,
   // usando o perfil que valeu naquele dia (troca de cardápio incluída).
-  const perfisContados = Object.values(resumo.perfisUsados).filter(p => dados.plano.dias[p]);
+  const perfisContados = Object.entries(resumo.perfisUsados)
+    .map(([data, p]) => planoDe(data).dias[p])
+    .filter(Boolean);
   const metaMedia = perfisContados.length > 0
-    ? perfisContados.reduce((acc, p) => {
-        const m = metaDoDia(dados.plano.dias[p].meta);
+    ? perfisContados.reduce((acc, diaPlano) => {
+        const m = metaDoDia(diaPlano.meta);
         acc.kcal += m.kcal; acc.p += m.p; acc.c += m.c;
         return acc;
       }, zero())

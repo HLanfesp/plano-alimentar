@@ -1,0 +1,3571 @@
+{
+ "mes": "2026-10",
+ "titulo": "Outubro 2026",
+ "dias": {
+  "seg": {
+   "rotulo": "Segunda — Musculação Upper A (Empurrar)",
+   "sessao": "🏋️",
+   "meta": {
+    "kcal": 2522,
+    "p": 210
+   },
+   "refeicoes": [
+    {
+     "id": "pre_treino",
+     "nome": "Pré-treino",
+     "hora": "05h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 160,
+       "p_plano": 1,
+       "itens": [
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "mel",
+         "g": 20
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 171,
+       "p_plano": 9,
+       "itens": [
+        {
+         "alimento": "aveia",
+         "g": 30
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 150
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 168,
+       "p_plano": 0,
+       "itens": [
+        {
+         "alimento": "goma_tapioca",
+         "g": 35
+        },
+        {
+         "alimento": "geleia",
+         "g": 20
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pos_treino",
+     "nome": "Pós-treino",
+     "hora": "07h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 505,
+       "p_plano": 37,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 200,
+         "rotulo": "4 ovos"
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 35
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 524,
+       "p_plano": 37,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "aveia",
+         "g": 65
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 523,
+       "p_plano": 30,
+       "itens": [
+        {
+         "alimento": "flocao_milho",
+         "g": 50
+        },
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "queijo_coalho",
+         "g": 40
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche_da_manha",
+     "nome": "Lanche da manhã",
+     "hora": "10h00",
+     "opcional": true,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 250,
+       "p_plano": 18,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "castanha_caju",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 211,
+       "p_plano": 13,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 100,
+         "rotulo": "2 ovos"
+        },
+        {
+         "alimento": "maca",
+         "g": 130,
+         "rotulo": "1 maçã"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 209,
+       "p_plano": 28,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 35
+        },
+        {
+         "alimento": "pera",
+         "g": 130,
+         "rotulo": "1 pera"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "almoco",
+     "nome": "Almoço",
+     "hora": "12h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 656,
+       "p_plano": 54,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 135
+        },
+        {
+         "alimento": "arroz_integral",
+         "g": 190
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 718,
+       "p_plano": 65,
+       "itens": [
+        {
+         "alimento": "patinho_moido",
+         "g": 145
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 195
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 120
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 650,
+       "p_plano": 64,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 230
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 250
+        },
+        {
+         "alimento": "brocolis",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 15
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche",
+     "nome": "Lanche",
+     "hora": "17h30",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 308,
+       "p_plano": 39,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 110
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 296,
+       "p_plano": 25,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "aveia",
+         "g": 25
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 328,
+       "p_plano": 17,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 100,
+         "rotulo": "2 ovos"
+        },
+        {
+         "alimento": "goma_tapioca",
+         "g": 40
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 20
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "jantar",
+     "nome": "Jantar",
+     "hora": "20h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 455,
+       "p_plano": 41,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 110
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 155
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 433,
+       "p_plano": 34,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 200,
+         "rotulo": "4 ovos"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 25
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 25,
+         "rotulo": "1 fatia de pão integral"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 460,
+       "p_plano": 45,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 160
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 250
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ceia",
+     "nome": "Ceia",
+     "hora": "22h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 165,
+       "p_plano": 29,
+       "itens": [
+        {
+         "alimento": "whey_isolado",
+         "g": 25
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 188,
+       "p_plano": 19,
+       "itens": [
+        {
+         "alimento": "queijo_cottage",
+         "g": 170
+        },
+        {
+         "alimento": "mel",
+         "g": 7,
+         "rotulo": "canela ou mel (1 c. chá)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 188,
+       "p_plano": 24,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 15,
+         "rotulo": "pasta de amendoim (1 c. sopa)"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "ter": {
+   "rotulo": "Terça — Bike Qualidade + 🏊 Natação (almoço)",
+   "sessao": "🚴🏊",
+   "meta": {
+    "kcal": 2738,
+    "p": 213
+   },
+   "refeicoes": [
+    {
+     "id": "pre_treino",
+     "nome": "Pré-treino",
+     "hora": "05h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 192,
+       "p_plano": 5,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "geleia",
+         "g": 25
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 208,
+       "p_plano": 4,
+       "itens": [
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "aveia",
+         "g": 20
+        },
+        {
+         "alimento": "mel",
+         "g": 10
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 196,
+       "p_plano": 4,
+       "itens": [
+        {
+         "alimento": "pao_frances",
+         "g": 50
+        },
+        {
+         "alimento": "mel",
+         "g": 15
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pos_treino",
+     "nome": "Pós-treino",
+     "hora": "07h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 539,
+       "p_plano": 46,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "whey",
+         "g": 25
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 543,
+       "p_plano": 33,
+       "itens": [
+        {
+         "alimento": "aveia",
+         "g": 50
+        },
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "mel",
+         "g": 20
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 505,
+       "p_plano": 41,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 200
+        },
+        {
+         "alimento": "granola",
+         "g": 60
+        },
+        {
+         "alimento": "whey",
+         "g": 35
+        },
+        {
+         "alimento": "morango",
+         "g": 100
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pre_natacao",
+     "nome": "Pré-natação",
+     "hora": "10h30",
+     "opcional": false,
+     "obrigatorio": true,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 321,
+       "p_plano": 18,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "granola",
+         "g": 15
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 301,
+       "p_plano": 11,
+       "itens": [
+        {
+         "alimento": "queijo_minas",
+         "g": 40
+        },
+        {
+         "alimento": "torrada_integral",
+         "g": 24,
+         "rotulo": "3 torradas integrais"
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 323,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "atum_agua",
+         "g": 85
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "almoco",
+     "nome": "Almoço pós-natação",
+     "hora": "13h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 760,
+       "p_plano": 56,
+       "itens": [
+        {
+         "alimento": "carne_bovina_magra",
+         "g": 140
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 724,
+       "p_plano": 65,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 200
+        },
+        {
+         "alimento": "mandioca",
+         "g": 230
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 728,
+       "p_plano": 75,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 200
+        },
+        {
+         "alimento": "macarrao_integral",
+         "g": 200
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 100
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 80
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche",
+     "nome": "Lanche",
+     "hora": "17h30",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 313,
+       "p_plano": 10,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 15
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 308,
+       "p_plano": 32,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "aveia",
+         "g": 35
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 279,
+       "p_plano": 22,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 200
+        },
+        {
+         "alimento": "granola",
+         "g": 30
+        },
+        {
+         "alimento": "whey",
+         "g": 15
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "jantar",
+     "nome": "Jantar",
+     "hora": "20h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 477,
+       "p_plano": 41,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 110
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 190
+        },
+        {
+         "alimento": "vagem_cenoura",
+         "g": 150
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 442,
+       "p_plano": 29,
+       "itens": [
+        {
+         "alimento": "salmao",
+         "g": 130
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 200
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 508,
+       "p_plano": 46,
+       "itens": [
+        {
+         "alimento": "patinho_moido",
+         "g": 110
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 150
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ceia",
+     "nome": "Ceia",
+     "hora": "22h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 200,
+       "p_plano": 22,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 150
+        },
+        {
+         "alimento": "whey",
+         "g": 10
+        },
+        {
+         "alimento": "morango",
+         "g": 50
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 185,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "morango",
+         "g": 50
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 163,
+       "p_plano": 24,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 170
+        },
+        {
+         "alimento": "whey_isolado",
+         "g": 20
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "qua": {
+   "rotulo": "Quarta — Musculação Lower (Perna) + 🏊 Natação (noite)",
+   "sessao": "🏋️🏊",
+   "meta": {
+    "kcal": 2655,
+    "p": 217
+   },
+   "refeicoes": [
+    {
+     "id": "pre_treino",
+     "nome": "Pré-treino",
+     "hora": "05h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 166,
+       "p_plano": 5,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "geleia",
+         "g": 15
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 182,
+       "p_plano": 9,
+       "itens": [
+        {
+         "alimento": "aveia",
+         "g": 25
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 150
+        },
+        {
+         "alimento": "mel",
+         "g": 10
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 175,
+       "p_plano": 1,
+       "itens": [
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "mel",
+         "g": 25
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pos_treino",
+     "nome": "Pós-treino",
+     "hora": "07h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 576,
+       "p_plano": 36,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 200,
+         "rotulo": "4 ovos"
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 25
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 564,
+       "p_plano": 42,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 30
+        },
+        {
+         "alimento": "aveia",
+         "g": 70
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 515,
+       "p_plano": 28,
+       "itens": [
+        {
+         "alimento": "goma_tapioca",
+         "g": 55
+        },
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 45
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche_da_manha",
+     "nome": "Lanche da manhã",
+     "hora": "10h00",
+     "opcional": true,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 274,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 30
+        },
+        {
+         "alimento": "maca",
+         "g": 130,
+         "rotulo": "1 maçã"
+        },
+        {
+         "alimento": "amendoa",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 258,
+       "p_plano": 17,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "noz",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 217,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 30
+        },
+        {
+         "alimento": "torrada_integral",
+         "g": 24,
+         "rotulo": "3 torradas integrais"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "almoco",
+     "nome": "Almoço",
+     "hora": "12h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 736,
+       "p_plano": 71,
+       "itens": [
+        {
+         "alimento": "patinho_moido",
+         "g": 160
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "lentilha",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 730,
+       "p_plano": 68,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 180
+        },
+        {
+         "alimento": "arroz_integral",
+         "g": 190
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 671,
+       "p_plano": 50,
+       "itens": [
+        {
+         "alimento": "carne_bovina_magra",
+         "g": 150
+        },
+        {
+         "alimento": "mandioca",
+         "g": 200
+        },
+        {
+         "alimento": "couve_refogada",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pre_natacao",
+     "nome": "Pré-natação",
+     "hora": "16h00",
+     "opcional": false,
+     "obrigatorio": true,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 316,
+       "p_plano": 25,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "aveia",
+         "g": 30
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 310,
+       "p_plano": 32,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 90
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 25,
+         "rotulo": "1 fatia de pão integral"
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 298,
+       "p_plano": 22,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 200
+        },
+        {
+         "alimento": "granola",
+         "g": 35
+        },
+        {
+         "alimento": "whey",
+         "g": 15
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "jantar_pos_natacao",
+     "nome": "Jantar pós-natação",
+     "hora": "20h30",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 497,
+       "p_plano": 42,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 130
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 484,
+       "p_plano": 42,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 110
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 180
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 80
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 431,
+       "p_plano": 43,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 130
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 200
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ceia",
+     "nome": "Ceia",
+     "hora": "22h30",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 188,
+       "p_plano": 22,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 170
+        },
+        {
+         "alimento": "whey",
+         "g": 20
+        },
+        {
+         "alimento": "mel",
+         "g": 7,
+         "rotulo": "canela ou mel (1 c. chá)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 188,
+       "p_plano": 19,
+       "itens": [
+        {
+         "alimento": "queijo_cottage",
+         "g": 170
+        },
+        {
+         "alimento": "mel",
+         "g": 7,
+         "rotulo": "canela ou mel (1 c. chá)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 188,
+       "p_plano": 24,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 15,
+         "rotulo": "pasta de amendoim (1 c. sopa)"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "qui": {
+   "rotulo": "Quinta — Bike Leve (manhã) + 🏃 Corrida Qualidade (tarde)",
+   "sessao": "🚴🏃",
+   "meta": {
+    "kcal": 2566,
+    "p": 203
+   },
+   "refeicoes": [
+    {
+     "id": "pre_treino",
+     "nome": "Pré-treino",
+     "hora": "05h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 171,
+       "p_plano": 9,
+       "itens": [
+        {
+         "alimento": "aveia",
+         "g": 30
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 150
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 168,
+       "p_plano": 0,
+       "itens": [
+        {
+         "alimento": "goma_tapioca",
+         "g": 35
+        },
+        {
+         "alimento": "geleia",
+         "g": 20
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 181,
+       "p_plano": 4,
+       "itens": [
+        {
+         "alimento": "pao_frances",
+         "g": 50
+        },
+        {
+         "alimento": "mel",
+         "g": 10
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pos_treino",
+     "nome": "Pós-treino",
+     "hora": "07h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 495,
+       "p_plano": 36,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 200
+        },
+        {
+         "alimento": "granola",
+         "g": 45
+        },
+        {
+         "alimento": "whey",
+         "g": 30
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 542,
+       "p_plano": 30,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "pao_frances",
+         "g": 50
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 30
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 523,
+       "p_plano": 30,
+       "itens": [
+        {
+         "alimento": "flocao_milho",
+         "g": 50
+        },
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "queijo_coalho",
+         "g": 40
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche_da_manha",
+     "nome": "Lanche da manhã",
+     "hora": "10h00",
+     "opcional": true,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 225,
+       "p_plano": 26,
+       "itens": [
+        {
+         "alimento": "atum_agua",
+         "g": 85
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 225,
+       "p_plano": 16,
+       "itens": [
+        {
+         "alimento": "queijo_cottage",
+         "g": 130
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 238,
+       "p_plano": 29,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 35
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "almoco",
+     "nome": "Almoço",
+     "hora": "12h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 689,
+       "p_plano": 50,
+       "itens": [
+        {
+         "alimento": "carne_bovina_magra",
+         "g": 125
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 170
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 666,
+       "p_plano": 62,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 180
+        },
+        {
+         "alimento": "inhame",
+         "g": 240
+        },
+        {
+         "alimento": "couve_refogada",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 667,
+       "p_plano": 63,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 150
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "grao_de_bico",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pre_corrida",
+     "nome": "Pré-corrida",
+     "hora": "16h00",
+     "opcional": false,
+     "obrigatorio": true,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 276,
+       "p_plano": 6,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "geleia",
+         "g": 20
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 250,
+       "p_plano": 9,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 170
+        },
+        {
+         "alimento": "granola",
+         "g": 30
+        },
+        {
+         "alimento": "mel",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 293,
+       "p_plano": 2,
+       "itens": [
+        {
+         "alimento": "goma_tapioca",
+         "g": 45
+        },
+        {
+         "alimento": "mel",
+         "g": 15
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "jantar_pos_corrida",
+     "nome": "Jantar pós-corrida",
+     "hora": "20h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 515,
+       "p_plano": 51,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 150
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 250
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 545,
+       "p_plano": 58,
+       "itens": [
+        {
+         "alimento": "patinho_moido",
+         "g": 130
+        },
+        {
+         "alimento": "macarrao_integral",
+         "g": 160
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 100
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 80
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 516,
+       "p_plano": 49,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 170
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 150
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ceia",
+     "nome": "Ceia",
+     "hora": "22h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 165,
+       "p_plano": 29,
+       "itens": [
+        {
+         "alimento": "whey_isolado",
+         "g": 25
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 185,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "morango",
+         "g": 50
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 163,
+       "p_plano": 24,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 170
+        },
+        {
+         "alimento": "whey_isolado",
+         "g": 20
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "sex": {
+   "rotulo": "Sexta — Musculação Upper B (Puxar) + 🏊 Natação (tarde)",
+   "sessao": "🏋️🏊",
+   "meta": {
+    "kcal": 2622,
+    "p": 205
+   },
+   "refeicoes": [
+    {
+     "id": "pre_treino",
+     "nome": "Pré-treino",
+     "hora": "05h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 175,
+       "p_plano": 1,
+       "itens": [
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "mel",
+         "g": 25
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 166,
+       "p_plano": 5,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "geleia",
+         "g": 15
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 159,
+       "p_plano": 3,
+       "itens": [
+        {
+         "alimento": "torrada_integral",
+         "g": 24,
+         "rotulo": "3 torradas integrais"
+        },
+        {
+         "alimento": "mel",
+         "g": 20
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pos_treino",
+     "nome": "Pós-treino",
+     "hora": "07h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 510,
+       "p_plano": 32,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 200,
+         "rotulo": "4 ovos"
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 516,
+       "p_plano": 45,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 35
+        },
+        {
+         "alimento": "aveia",
+         "g": 70
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "morango",
+         "g": 100
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 491,
+       "p_plano": 35,
+       "itens": [
+        {
+         "alimento": "goma_tapioca",
+         "g": 50
+        },
+        {
+         "alimento": "frango_grelhado",
+         "g": 90
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 30
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche_da_manha",
+     "nome": "Lanche da manhã",
+     "hora": "10h00",
+     "opcional": true,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 259,
+       "p_plano": 19,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 100,
+         "rotulo": "2 ovos"
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 25,
+         "rotulo": "1 fatia de pão integral"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 20
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 262,
+       "p_plano": 18,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "granola",
+         "g": 25
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 268,
+       "p_plano": 10,
+       "itens": [
+        {
+         "alimento": "queijo_minas",
+         "g": 40
+        },
+        {
+         "alimento": "torrada_integral",
+         "g": 16,
+         "rotulo": "2 torradas integrais"
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "almoco",
+     "nome": "Almoço",
+     "hora": "12h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 714,
+       "p_plano": 65,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 170
+        },
+        {
+         "alimento": "arroz_integral",
+         "g": 190
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 701,
+       "p_plano": 71,
+       "itens": [
+        {
+         "alimento": "carne_bovina_magra",
+         "g": 190
+        },
+        {
+         "alimento": "macarrao_integral",
+         "g": 180
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 100
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 80
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 636,
+       "p_plano": 58,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 210
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 250
+        },
+        {
+         "alimento": "vagem_cenoura",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 15
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pre_natacao",
+     "nome": "Pré-natação",
+     "hora": "16h00",
+     "opcional": false,
+     "obrigatorio": true,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 293,
+       "p_plano": 18,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "granola",
+         "g": 25
+        },
+        {
+         "alimento": "mel",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 296,
+       "p_plano": 25,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "aveia",
+         "g": 25
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 323,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "atum_agua",
+         "g": 85
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "jantar_pos_natacao",
+     "nome": "Jantar pós-natação",
+     "hora": "20h30",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 500,
+       "p_plano": 42,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 110
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 190
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 462,
+       "p_plano": 33,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 200,
+         "rotulo": "4 ovos"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 25
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 460,
+       "p_plano": 42,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 130
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "brocolis",
+         "g": 150
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ceia",
+     "nome": "Ceia",
+     "hora": "22h30",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 200,
+       "p_plano": 22,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 150
+        },
+        {
+         "alimento": "whey",
+         "g": 10
+        },
+        {
+         "alimento": "morango",
+         "g": 50
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 188,
+       "p_plano": 19,
+       "itens": [
+        {
+         "alimento": "queijo_cottage",
+         "g": 170
+        },
+        {
+         "alimento": "mel",
+         "g": 7,
+         "rotulo": "canela ou mel (1 c. chá)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 286,
+       "p_plano": 25,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 15,
+         "rotulo": "pasta de amendoim (1 c. sopa)"
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "fruta (véspera do pedal longo)"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "sab": {
+   "rotulo": "Sábado — Bike Longo (às vezes brick)",
+   "sessao": "🚴",
+   "meta": {
+    "kcal": 3061,
+    "p": 213
+   },
+   "refeicoes": [
+    {
+     "id": "pre_treino",
+     "nome": "Pré-treino",
+     "hora": "05h30",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 321,
+       "p_plano": 13,
+       "itens": [
+        {
+         "alimento": "aveia",
+         "g": 35
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "mel",
+         "g": 5
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 309,
+       "p_plano": 2,
+       "itens": [
+        {
+         "alimento": "goma_tapioca",
+         "g": 45
+        },
+        {
+         "alimento": "mel",
+         "g": 20
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 302,
+       "p_plano": 6,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "geleia",
+         "g": 30
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "durante_o_pedal",
+     "nome": "Durante o pedal",
+     "hora": "a partir de 60 min",
+     "opcional": false,
+     "obrigatorio": true,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": null,
+       "p_plano": null,
+       "itens": [
+        {
+         "raw": "1 gel Z2/h"
+        },
+        {
+         "raw": "DUX Energy Kick aos poucos"
+        },
+        {
+         "raw": "Saltz Z2 (1 dose/h)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": null,
+       "p_plano": null,
+       "itens": [
+        {
+         "raw": "1 banana"
+        },
+        {
+         "raw": "1 gel de carboidrato"
+        },
+        {
+         "raw": "Saltz Z2 (1 dose/h)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": null,
+       "p_plano": null,
+       "itens": [
+        {
+         "raw": "Rapadura (45 g)"
+        },
+        {
+         "raw": "Saltz Z2 (1 dose/h)"
+        }
+       ]
+      }
+     ],
+     "tipo": "combustivel"
+    },
+    {
+     "id": "pos_treino_imediato",
+     "nome": "Pós-treino imediato",
+     "hora": "até 30 min",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 390,
+       "p_plano": 35,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 35
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "leite_achocolatado",
+         "g": 200
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 404,
+       "p_plano": 31,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 200
+        },
+        {
+         "alimento": "granola",
+         "g": 40
+        },
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "mel",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 415,
+       "p_plano": 25,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "suco_laranja",
+         "g": 200
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "almoco",
+     "nome": "Almoço",
+     "hora": "13h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 783,
+       "p_plano": 71,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 200
+        },
+        {
+         "alimento": "mandioca",
+         "g": 240
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 5
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 753,
+       "p_plano": 39,
+       "itens": [
+        {
+         "alimento": "salmao",
+         "g": 160
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 240
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 170
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 800,
+       "p_plano": 68,
+       "itens": [
+        {
+         "alimento": "carne_bovina_magra",
+         "g": 180
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "feijao",
+         "g": 115
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche",
+     "nome": "Lanche",
+     "hora": "17h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 367,
+       "p_plano": 19,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "granola",
+         "g": 40
+        },
+        {
+         "alimento": "mel",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 374,
+       "p_plano": 32,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "aveia",
+         "g": 40
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "mel",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 372,
+       "p_plano": 12,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 25
+        },
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "jantar",
+     "nome": "Jantar",
+     "hora": "20h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 676,
+       "p_plano": 79,
+       "itens": [
+        {
+         "alimento": "patinho_moido",
+         "g": 190
+        },
+        {
+         "alimento": "macarrao_integral",
+         "g": 160
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 100
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 80
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 661,
+       "p_plano": 70,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 200
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 616,
+       "p_plano": 63,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 230
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 280
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ceia",
+     "nome": "Ceia",
+     "hora": "22h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 188,
+       "p_plano": 22,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 170
+        },
+        {
+         "alimento": "whey",
+         "g": 20
+        },
+        {
+         "alimento": "mel",
+         "g": 7,
+         "rotulo": "canela ou mel (1 c. chá)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 185,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "morango",
+         "g": 50
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 188,
+       "p_plano": 24,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 15,
+         "rotulo": "pasta de amendoim (1 c. sopa)"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "dom": {
+   "rotulo": "Domingo — Corrida Longa Z2",
+   "sessao": "🏃",
+   "meta": {
+    "kcal": 2641,
+    "p": 221
+   },
+   "refeicoes": [
+    {
+     "id": "pre_treino",
+     "nome": "Pré-treino",
+     "hora": "06h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 178,
+       "p_plano": 5,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "geleia",
+         "g": 20
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 175,
+       "p_plano": 1,
+       "itens": [
+        {
+         "alimento": "banana",
+         "g": 100,
+         "rotulo": "1 banana"
+        },
+        {
+         "alimento": "mel",
+         "g": 25
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 171,
+       "p_plano": 9,
+       "itens": [
+        {
+         "alimento": "aveia",
+         "g": 30
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 150
+        },
+        {
+         "alimento": "cafe",
+         "g": 50,
+         "rotulo": "1 xícara de café (sem açúcar)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "pos_corrida",
+     "nome": "Pós-corrida",
+     "hora": "08h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 561,
+       "p_plano": 42,
+       "itens": [
+        {
+         "alimento": "aveia",
+         "g": 65
+        },
+        {
+         "alimento": "ovo",
+         "g": 100,
+         "rotulo": "2 ovos"
+        },
+        {
+         "alimento": "mel",
+         "g": 20
+        },
+        {
+         "alimento": "whey",
+         "g": 25
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 542,
+       "p_plano": 30,
+       "itens": [
+        {
+         "alimento": "pao_frances",
+         "g": 50
+        },
+        {
+         "alimento": "ovo",
+         "g": 150,
+         "rotulo": "3 ovos"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 30
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 505,
+       "p_plano": 41,
+       "itens": [
+        {
+         "alimento": "iogurte_natural",
+         "g": 200
+        },
+        {
+         "alimento": "granola",
+         "g": 60
+        },
+        {
+         "alimento": "whey",
+         "g": 35
+        },
+        {
+         "alimento": "morango",
+         "g": 100
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche_da_manha",
+     "nome": "Lanche da manhã",
+     "hora": "11h00",
+     "opcional": true,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 240,
+       "p_plano": 16,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 100,
+         "rotulo": "2 ovos"
+        },
+        {
+         "alimento": "torrada_integral",
+         "g": 24,
+         "rotulo": "3 torradas integrais"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 279,
+       "p_plano": 19,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "castanha_caju",
+         "g": 20
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 238,
+       "p_plano": 29,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 35
+        },
+        {
+         "alimento": "fruta_estacao",
+         "g": 100,
+         "rotulo": "1 fruta da estação"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "almoco",
+     "nome": "Almoço",
+     "hora": "13h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 751,
+       "p_plano": 60,
+       "itens": [
+        {
+         "alimento": "carne_bovina_magra",
+         "g": 150
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 663,
+       "p_plano": 68,
+       "itens": [
+        {
+         "alimento": "tilapia",
+         "g": 250
+        },
+        {
+         "alimento": "batata_doce",
+         "g": 250
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 15
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 718,
+       "p_plano": 62,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 160
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 200
+        },
+        {
+         "alimento": "feijao",
+         "g": 120
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "azeite",
+         "g": 10
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "lanche",
+     "nome": "Lanche",
+     "hora": "17h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 293,
+       "p_plano": 18,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 170
+        },
+        {
+         "alimento": "granola",
+         "g": 25
+        },
+        {
+         "alimento": "mel",
+         "g": 10
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 308,
+       "p_plano": 39,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 110
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 274,
+       "p_plano": 11,
+       "itens": [
+        {
+         "alimento": "pao_integral",
+         "g": 50,
+         "rotulo": "2 fatias de pão integral"
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 25
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "jantar",
+     "nome": "Jantar",
+     "hora": "20h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "A",
+       "kcal_plano": 460,
+       "p_plano": 36,
+       "itens": [
+        {
+         "alimento": "ovo",
+         "g": 200,
+         "rotulo": "4 ovos"
+        },
+        {
+         "alimento": "queijo_minas",
+         "g": 35
+        },
+        {
+         "alimento": "salada_verde",
+         "g": 120
+        },
+        {
+         "alimento": "pao_integral",
+         "g": 25,
+         "rotulo": "1 fatia de pão integral"
+        }
+       ]
+      },
+      {
+       "letra": "B",
+       "kcal_plano": 486,
+       "p_plano": 57,
+       "itens": [
+        {
+         "alimento": "frango_grelhado",
+         "g": 160
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 250
+        },
+        {
+         "alimento": "torrada_integral",
+         "g": 24,
+         "rotulo": "3 torradas integrais"
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 508,
+       "p_plano": 46,
+       "itens": [
+        {
+         "alimento": "patinho_moido",
+         "g": 110
+        },
+        {
+         "alimento": "arroz_branco",
+         "g": 150
+        },
+        {
+         "alimento": "legumes_salteados",
+         "g": 150
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ceia",
+     "nome": "Ceia",
+     "hora": "22h00",
+     "opcional": false,
+     "obrigatorio": false,
+     "opcoes": [
+      {
+       "letra": "B",
+       "kcal_plano": 185,
+       "p_plano": 27,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "leite_desnatado",
+         "g": 200
+        },
+        {
+         "alimento": "morango",
+         "g": 50
+        }
+       ]
+      },
+      {
+       "letra": "A",
+       "kcal_plano": 200,
+       "p_plano": 22,
+       "itens": [
+        {
+         "alimento": "iogurte_grego",
+         "g": 150
+        },
+        {
+         "alimento": "whey",
+         "g": 10
+        },
+        {
+         "alimento": "morango",
+         "g": 50
+        }
+       ]
+      },
+      {
+       "letra": "C",
+       "kcal_plano": 188,
+       "p_plano": 24,
+       "itens": [
+        {
+         "alimento": "whey",
+         "g": 25
+        },
+        {
+         "alimento": "pasta_amendoim",
+         "g": 15,
+         "rotulo": "pasta de amendoim (1 c. sopa)"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

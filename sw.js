@@ -25,7 +25,7 @@
 // desses outros apps tambem. O "activate" abaixo so toca em caches cujo
 // nome comeca com este prefixo.
 const PREFIXO_CACHE = "plano-alimentar-";
-const CACHE_NOME = PREFIXO_CACHE + "v2";
+const CACHE_NOME = PREFIXO_CACHE + "v3";
 
 // Tempo maximo de espera pela rede nos arquivos de dados antes de cair
 // pro cache. Evita travar a tela numa conexao presente mas lenta/instavel

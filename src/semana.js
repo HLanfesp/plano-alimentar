@@ -54,12 +54,15 @@ export function resumoSemana(dias, plano, alimentos) {
   const opcionaisIgnoradas = new Set(); // nomes das refeições fora da conta
 
   for (const [data, registro] of Object.entries(dias)) {
-    const perfilUsado = registro.perfil && plano.dias[registro.perfil]
+    // `plano` pode ser o plano de um mês ou uma função data -> plano, para
+    // a janela que cruza a virada do mês ler cada dia com o seu cardápio.
+    const planoDia = typeof plano === 'function' ? plano(data) : plano;
+    const perfilUsado = registro.perfil && planoDia.dias[registro.perfil]
       ? registro.perfil
       : diaDaSemana(data);
     perfisUsados[data] = perfilUsado;
 
-    const diaPlano = plano.dias[perfilUsado];
+    const diaPlano = planoDia.dias[perfilUsado];
     if (!diaPlano) continue;
 
     diasContados += 1;

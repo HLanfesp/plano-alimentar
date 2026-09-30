@@ -1,5 +1,6 @@
 {
   "planos": [
-    { "mes": "2026-09", "arquivo": "dados/plano-2026-09.json" }
+    { "mes": "2026-09", "arquivo": "dados/plano-2026-09.json" },
+    { "mes": "2026-10", "arquivo": "dados/plano-2026-10.json" }
   ]
 }
