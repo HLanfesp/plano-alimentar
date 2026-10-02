@@ -111,3 +111,45 @@ describe('valores fixos de setembro/2026 (nao generalizar para outros meses)', (
     assert.strictEqual(planoSetembro.dias.dom.meta.kcal, 2671);
   });
 });
+
+// Pedidos do atleta para outubro/2026 (revisão de 01/Out) — dados daquele mês.
+describe('outubro/2026: pedidos do atleta (nao generalizar)', () => {
+  const out = JSON.parse(readFileSync('dados/plano-2026-10.json', 'utf8'));
+
+  test('a ceia e as 21h00 em todos os dias', () => {
+    for (const dia of DIAS) {
+      const ceia = out.dias[dia].refeicoes.find(r => r.id === 'ceia');
+      assert.strictEqual(ceia.hora, '21h00', `${dia}: ceia as ${ceia.hora}`);
+    }
+  });
+
+  test('o cafe aparece em uma opcao do pre-treino, nao nas tres', () => {
+    for (const dia of DIAS) {
+      const pre = out.dias[dia].refeicoes.find(r => r.id === 'pre_treino');
+      const comCafe = pre.opcoes.filter(o => o.itens.some(i => i.alimento === 'cafe')).length;
+      assert.strictEqual(comCafe, 1, `${dia}: cafe em ${comCafe} opcoes`);
+    }
+  });
+
+  test('a pre-natacao de quarta (direto do trabalho) aceita Energy Kick ou barrinha', () => {
+    const pre = out.dias.qua.refeicoes.find(r => r.id === 'pre_natacao');
+    const itens = pre.opcoes.flatMap(o => o.itens.map(i => i.alimento));
+    assert.ok(itens.includes('energy_kick') && itens.includes('barra_proteina'));
+  });
+});
+
+// Um mesmo alimento duas vezes na mesma opção gera a mesma chave de marcação
+// (refeicao:letra:alimento) — tocar em um marcaria os dois.
+test('nenhuma opcao repete o mesmo alimento (chave de marcacao unica)', () => {
+  for (const { mes, arquivo } of indice.planos) {
+    const plano = JSON.parse(readFileSync(arquivo, 'utf8'));
+    for (const [dia, d] of Object.entries(plano.dias)) {
+      for (const r of d.refeicoes) {
+        for (const o of r.opcoes) {
+          const al = o.itens.map(i => i.alimento).filter(Boolean);
+          assert.strictEqual(new Set(al).size, al.length, `${mes} ${dia} ${r.id} ${o.letra}: alimento repetido`);
+        }
+      }
+    }
+  }
+});

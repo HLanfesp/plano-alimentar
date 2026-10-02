@@ -7,62 +7,6 @@
     "c": 15,
     "fonte": "Estimativa de porção comercial típica (unidade ~40 g), escalada da TACO (pão de queijo ~320 kcal/100 g)"
   },
-  "fatia_pizza": {
-    "nome": "Fatia de pizza",
-    "sublabel": "fatia média",
-    "kcal": 270,
-    "p": 11,
-    "c": 30,
-    "fonte": "Estimativa de porção comercial típica (fatia ~100 g, pizza de mussarela/calabresa)"
-  },
-  "brigadeiro": {
-    "nome": "Brigadeiro",
-    "sublabel": "unidade",
-    "kcal": 90,
-    "p": 1,
-    "c": 12,
-    "fonte": "Estimativa de porção comercial típica (unidade ~20 g)"
-  },
-  "pastel": {
-    "nome": "Pastel",
-    "sublabel": "unidade de feira",
-    "kcal": 390,
-    "p": 8,
-    "c": 38,
-    "fonte": "Estimativa de porção comercial típica (pastel de feira, unidade ~110 g, frito)"
-  },
-  "coxinha": {
-    "nome": "Coxinha",
-    "sublabel": "unidade média",
-    "kcal": 210,
-    "p": 8,
-    "c": 18,
-    "fonte": "Estimativa de porção comercial típica (coxinha média, unidade ~70 g)"
-  },
-  "chocolate_barra_25g": {
-    "nome": "Chocolate ao leite",
-    "sublabel": "barra 25 g",
-    "kcal": 135,
-    "p": 1,
-    "c": 14,
-    "fonte": "Rótulo médio de mercado (barra 25 g, chocolate ao leite)"
-  },
-  "sorvete_bola": {
-    "nome": "Sorvete",
-    "sublabel": "1 bola",
-    "kcal": 120,
-    "p": 2,
-    "c": 15,
-    "fonte": "Estimativa de porção comercial típica (1 bola ~60 g, sorvete cremoso)"
-  },
-  "salgado_padaria": {
-    "nome": "Salgado de padaria",
-    "sublabel": "unidade",
-    "kcal": 220,
-    "p": 6,
-    "c": 20,
-    "fonte": "Estimativa de porção comercial típica (salgado frito/assado de padaria, unidade ~60 g)"
-  },
   "tapioca_simples": {
     "nome": "Tapioca simples",
     "sublabel": "unidade, sem recheio",
@@ -79,14 +23,6 @@
     "c": 29,
     "fonte": "Pão (unidade ~50 g) escalado da TACO + manteiga (~10 g) de rótulo médio de mercado"
   },
-  "pipoca_cinema_media": {
-    "nome": "Pipoca de cinema",
-    "sublabel": "balde médio, amanteigada",
-    "kcal": 500,
-    "p": 5,
-    "c": 50,
-    "fonte": "Estimativa de porção comercial típica (balde médio ~100 g, amanteigado, estimativa de rede de cinema brasileira)"
-  },
   "acai_puro_300ml": {
     "nome": "Açaí puro",
     "sublabel": "300 ml · sem granola nem leite condensado",
@@ -94,14 +30,6 @@
     "p": 2,
     "c": 45,
     "fonte": "Estimativa de porção comercial típica (copo 300 ml, açaí puro batido com guaraná/xarope, sem granola, sem leite condensado, sem banana)"
-  },
-  "acai_completo_300ml": {
-    "nome": "Açaí com granola e leite",
-    "sublabel": "300 ml · com granola e leite condensado",
-    "kcal": 600,
-    "p": 6,
-    "c": 90,
-    "fonte": "Estimativa de porção comercial típica (copo 300 ml, açaí com granola e leite condensado, preparação padrão de loja)"
   },
   "barra_nutrata_whey_grego": {
     "nome": "Barra Nutrata Whey Grego Bar",
@@ -197,5 +125,82 @@
     "alimento": "pasta_amendoim",
     "porcao_g": 15,
     "fonte": "Calculado da base do app: 15 g de 'pasta_amendoim' (Rótulo médio — pasta de amendoim integral (média de mercado entre marcas, não produto específico conferido)). Item que o atleta mais marca nos lanches."
+  },
+  "cafe_xicara": {
+    "nome": "Café",
+    "sublabel": "xícara 50 ml · sem açúcar",
+    "kcal": 0.0,
+    "p": 0.0,
+    "c": 0.0,
+    "g": 0.0,
+    "alimento": "cafe",
+    "porcao_g": 50,
+    "fonte": "Calculado da base do app: 50 g de 'cafe' (TACO — café, infusão (calorias desprezíveis))"
+  },
+  "maca_unidade": {
+    "nome": "Maçã",
+    "sublabel": "unidade ~130 g",
+    "kcal": 67.6,
+    "p": 0.3,
+    "c": 17.3,
+    "g": 0.4,
+    "alimento": "maca",
+    "porcao_g": 130,
+    "fonte": "Calculado da base do app: 130 g de 'maca' (TACO — maçã, crua)"
+  },
+  "mamao_fatia": {
+    "nome": "Mamão",
+    "sublabel": "fatia ~150 g",
+    "kcal": 60.0,
+    "p": 0.8,
+    "c": 14.1,
+    "g": 0.2,
+    "alimento": "mamao",
+    "porcao_g": 150,
+    "fonte": "Calculado da base do app: 150 g de 'mamao' (TACO — mamão, papaia, cru: carboidrato líquido de fibra (10,)"
+  },
+  "abacaxi_fatia": {
+    "nome": "Abacaxi",
+    "sublabel": "fatia ~100 g",
+    "kcal": 50.0,
+    "p": 0.9,
+    "c": 11.3,
+    "g": 0.1,
+    "alimento": "abacaxi",
+    "porcao_g": 100,
+    "fonte": "Calculado da base do app: 100 g de 'abacaxi' (TACO — abacaxi, cru: carboidrato líquido de fibra (12,3 g − )"
+  },
+  "morango_porcao": {
+    "nome": "Morango",
+    "sublabel": "porção 100 g (~8 unid.)",
+    "kcal": 30.0,
+    "p": 0.9,
+    "c": 6.0,
+    "g": 0.3,
+    "alimento": "morango",
+    "porcao_g": 100,
+    "fonte": "Calculado da base do app: 100 g de 'morango' (TACO — morango: carboidrato líquido de fibra (6,8 g carboidr)"
+  },
+  "suco_laranja_copo": {
+    "nome": "Suco de laranja",
+    "sublabel": "copo 200 ml",
+    "kcal": 74.0,
+    "p": 1.0,
+    "c": 16.2,
+    "g": 0.2,
+    "alimento": "suco_laranja",
+    "porcao_g": 200,
+    "fonte": "Calculado da base do app: 200 g de 'suco_laranja' (TACO — suco de laranja, natural)"
+  },
+  "mel_colher": {
+    "nome": "Mel",
+    "sublabel": "colher de sopa 15 g",
+    "kcal": 46.4,
+    "p": 0.1,
+    "c": 12.6,
+    "g": 0.0,
+    "alimento": "mel",
+    "porcao_g": 15,
+    "fonte": "Calculado da base do app: 15 g de 'mel' (TACO — mel de abelha, representante declarado (opção canela/)"
   }
 }

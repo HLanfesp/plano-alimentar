@@ -42,10 +42,10 @@ test('somarExtrasDia soma extras e combustivel do mesmo dia, em porcoes inteiras
 });
 
 test('somarExtrasDia com dia so de extras (combustivel vazio) soma so os extras', () => {
-  const dia = { marcados: [], extras: [{ id: 'fatia_pizza', qtd: 2 }], combustivel: [], perfil: null };
+  const dia = { marcados: [], extras: [{ id: 'pao_de_queijo', qtd: 2 }], combustivel: [], perfil: null };
   const total = somarExtrasDia(zero(), dia, extras, combustivel);
-  assert.strictEqual(total.kcal, extras.fatia_pizza.kcal * 2);
-  assert.strictEqual(total.p, extras.fatia_pizza.p * 2);
+  assert.strictEqual(total.kcal, extras.pao_de_queijo.kcal * 2);
+  assert.strictEqual(total.p, extras.pao_de_queijo.p * 2);
 });
 
 test('somarExtrasDia com dia so de combustivel (extras vazio) soma so o combustivel', () => {

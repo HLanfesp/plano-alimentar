@@ -25,7 +25,7 @@
 // desses outros apps tambem. O "activate" abaixo so toca em caches cujo
 // nome comeca com este prefixo.
 const PREFIXO_CACHE = "plano-alimentar-";
-const CACHE_NOME = PREFIXO_CACHE + "v3";
+const CACHE_NOME = PREFIXO_CACHE + "v4";
 
 // Tempo maximo de espera pela rede nos arquivos de dados antes de cair
 // pro cache. Evita travar a tela numa conexao presente mas lenta/instavel
@@ -50,6 +50,10 @@ const ARQUIVOS_PARA_CACHE = [
   "dados/combustivel.json",
   "dados/extras.json",
   "dados/plano-2026-09.json",
+  // O plano do mês vai no pré-cache junto com alimentos.json: os dois são
+  // instalados da mesma vez, e um cardápio novo nunca encontra uma base de
+  // alimentos velha (ex.: "canela" no plano e a base sem ela).
+  "dados/plano-2026-10.json",
   "dados/unidades.json",
 ];
 

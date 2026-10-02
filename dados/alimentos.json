@@ -414,5 +414,101 @@
     "c": 8.1,
     "g": 0.1,
     "fonte": "TACO — suco de laranja, natural"
+  },
+  "canela": {
+    "nome": "Canela em pó",
+    "kcal": 131,
+    "p": 3.9,
+    "c": 26.2,
+    "g": 1.2,
+    "fonte": "TACO — canela, pó: carboidrato líquido de fibra (80,6 g total − 54,4 g fibra); kcal por Atwater"
+  },
+  "creatina": {
+    "nome": "Creatina monohidratada",
+    "kcal": 0,
+    "p": 0,
+    "c": 0,
+    "g": 0,
+    "fonte": "Rótulo — creatina monohidratada não tem valor energético declarado"
+  },
+  "farinha_funcional": {
+    "nome": "Farinha funcional (mix)",
+    "kcal": 372,
+    "p": 18,
+    "c": 30,
+    "g": 20,
+    "fonte": "ESTIMATIVA — mix típico de linhaça, aveia e chia (média de rótulos de mercado); conferir o rótulo da marca que o atleta usa"
+  },
+  "mamao": {
+    "nome": "Mamão papaia",
+    "kcal": 40,
+    "p": 0.5,
+    "c": 9.4,
+    "g": 0.1,
+    "fonte": "TACO — mamão, papaia, cru: carboidrato líquido de fibra (10,4 g − 1,0 g)"
+  },
+  "abacaxi": {
+    "nome": "Abacaxi",
+    "kcal": 50,
+    "p": 0.9,
+    "c": 11.3,
+    "g": 0.1,
+    "fonte": "TACO — abacaxi, cru: carboidrato líquido de fibra (12,3 g − 1,0 g)"
+  },
+  "geleia_diet": {
+    "nome": "Geleia diet (sem açúcar)",
+    "kcal": 49,
+    "p": 0.3,
+    "c": 12,
+    "g": 0,
+    "fonte": "Rótulo médio — geleia diet de frutas/pimenta (~10 kcal por 20 g), não produto específico conferido"
+  },
+  "bisteca_porco": {
+    "nome": "Bisteca de porco grelhada",
+    "kcal": 272,
+    "p": 28.9,
+    "c": 0,
+    "g": 17.4,
+    "fonte": "TACO — porco, bisteca, grelhada; kcal por Atwater (tabela: 280)"
+  },
+  "figado_bovino": {
+    "nome": "Fígado bovino grelhado",
+    "kcal": 217,
+    "p": 29.9,
+    "c": 4.2,
+    "g": 9.0,
+    "fonte": "TACO — fígado, bovino, grelhado; kcal por Atwater (tabela: 225)"
+  },
+  "limao": {
+    "nome": "Suco de limão",
+    "kcal": 22,
+    "p": 0.3,
+    "c": 5.2,
+    "g": 0,
+    "fonte": "TACO — limão, Tahiti, suco"
+  },
+  "coco_ralado": {
+    "nome": "Coco ralado sem açúcar",
+    "kcal": 617,
+    "p": 5.7,
+    "c": 9,
+    "g": 62,
+    "fonte": "Rótulo médio — coco ralado desidratado sem açúcar (carboidrato líquido de fibra)"
+  },
+  "energy_kick": {
+    "nome": "DUX Energy Kick",
+    "kcal": 436,
+    "p": 0,
+    "c": 100,
+    "g": 4,
+    "fonte": "Rótulo conferido em 07/Set/2026 (sachê 30 g: 30 g carbo, ~1,2 g gordura); kcal por Atwater ≈ 131 por sachê (rótulo: 137)"
+  },
+  "barra_proteina": {
+    "nome": "Barrinha de proteína",
+    "kcal": 409,
+    "p": 31.25,
+    "c": 34.4,
+    "g": 16.25,
+    "fonte": "Média das barras Nutrata Whey Grego e Bold (rótulos informados em 24/Set/2026), por 100 g; barra de 40 g"
   }
 }
