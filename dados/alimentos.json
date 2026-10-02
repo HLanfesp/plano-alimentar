@@ -432,12 +432,12 @@
     "fonte": "Rótulo — creatina monohidratada não tem valor energético declarado"
   },
   "farinha_funcional": {
-    "nome": "Farinha funcional (mix)",
-    "kcal": 372,
-    "p": 18,
-    "c": 30,
-    "g": 20,
-    "fonte": "ESTIMATIVA — mix típico de linhaça, aveia e chia (média de rótulos de mercado); conferir o rótulo da marca que o atleta usa"
+    "nome": "Farinha funcional caseira",
+    "kcal": 234,
+    "p": 18.9,
+    "c": 29.0,
+    "g": 4.7,
+    "fonte": "Receita do atleta (01/Out/2026), lote de 500 g: beterraba em pó 150 g, cacau 100% 100 g, canela 50 g, espirulina 100 g, psyllium 100 g. Macros ponderados de TACO/USDA/rótulos médios de cada pó, carboidrato líquido de fibra (fibra ≈ 34.7 g/100 g)."
   },
   "mamao": {
     "nome": "Mamão papaia",

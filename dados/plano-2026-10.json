@@ -6,7 +6,7 @@
    "rotulo": "Segunda — Musculação Upper A (Empurrar)",
    "sessao": "🏋️",
    "meta": {
-    "kcal": 2630,
+    "kcal": 2616,
     "p": 228
    },
    "refeicoes": [
@@ -102,7 +102,7 @@
      "opcoes": [
       {
        "letra": "A",
-       "kcal_plano": 524,
+       "kcal_plano": 510,
        "p_plano": 49,
        "itens": [
         {
@@ -144,7 +144,7 @@
       },
       {
        "letra": "B",
-       "kcal_plano": 587,
+       "kcal_plano": 573,
        "p_plano": 46,
        "itens": [
         {
@@ -186,7 +186,7 @@
       },
       {
        "letra": "C",
-       "kcal_plano": 548,
+       "kcal_plano": 534,
        "p_plano": 45,
        "itens": [
         {
@@ -627,7 +627,7 @@
    "rotulo": "Terça — Bike Qualidade + 🏊 Natação (almoço)",
    "sessao": "🚴🏊",
    "meta": {
-    "kcal": 3042,
+    "kcal": 3028,
     "p": 235
    },
    "refeicoes": [
@@ -723,7 +723,7 @@
      "opcoes": [
       {
        "letra": "A",
-       "kcal_plano": 671,
+       "kcal_plano": 657,
        "p_plano": 52,
        "itens": [
         {
@@ -769,7 +769,7 @@
       },
       {
        "letra": "B",
-       "kcal_plano": 675,
+       "kcal_plano": 661,
        "p_plano": 49,
        "itens": [
         {
@@ -811,7 +811,7 @@
       },
       {
        "letra": "C",
-       "kcal_plano": 706,
+       "kcal_plano": 692,
        "p_plano": 53,
        "itens": [
         {
@@ -1265,8 +1265,8 @@
    "rotulo": "Quarta — Musculação Lower (Perna) + 🏊 Natação (noite)",
    "sessao": "🏋️🏊",
    "meta": {
-    "kcal": 2865,
-    "p": 216
+    "kcal": 2851,
+    "p": 217
    },
    "refeicoes": [
     {
@@ -1356,7 +1356,7 @@
      "opcoes": [
       {
        "letra": "A",
-       "kcal_plano": 633,
+       "kcal_plano": 619,
        "p_plano": 52,
        "itens": [
         {
@@ -1402,8 +1402,8 @@
       },
       {
        "letra": "B",
-       "kcal_plano": 656,
-       "p_plano": 49,
+       "kcal_plano": 642,
+       "p_plano": 50,
        "itens": [
         {
          "alimento": "pao_frances",
@@ -1449,7 +1449,7 @@
       },
       {
        "letra": "C",
-       "kcal_plano": 610,
+       "kcal_plano": 596,
        "p_plano": 49,
        "itens": [
         {
@@ -1870,7 +1870,7 @@
    "rotulo": "Quinta — Bike Leve (manhã) + 🏃 Corrida Qualidade (tarde)",
    "sessao": "🚴🏃",
    "meta": {
-    "kcal": 2951,
+    "kcal": 2938,
     "p": 220
    },
    "refeicoes": [
@@ -1971,7 +1971,7 @@
      "opcoes": [
       {
        "letra": "A",
-       "kcal_plano": 713,
+       "kcal_plano": 699,
        "p_plano": 50,
        "itens": [
         {
@@ -2013,7 +2013,7 @@
       },
       {
        "letra": "B",
-       "kcal_plano": 662,
+       "kcal_plano": 649,
        "p_plano": 53,
        "itens": [
         {
@@ -2059,7 +2059,7 @@
       },
       {
        "letra": "C",
-       "kcal_plano": 638,
+       "kcal_plano": 624,
        "p_plano": 53,
        "itens": [
         {
@@ -2475,7 +2475,7 @@
    "rotulo": "Sexta — Musculação Upper B (Puxar) + 🏊 Natação (tarde)",
    "sessao": "🏋️🏊",
    "meta": {
-    "kcal": 2785,
+    "kcal": 2771,
     "p": 214
    },
    "refeicoes": [
@@ -2566,7 +2566,7 @@
      "opcoes": [
       {
        "letra": "A",
-       "kcal_plano": 588,
+       "kcal_plano": 574,
        "p_plano": 49,
        "itens": [
         {
@@ -2613,7 +2613,7 @@
       },
       {
        "letra": "B",
-       "kcal_plano": 592,
+       "kcal_plano": 578,
        "p_plano": 49,
        "itens": [
         {
@@ -2655,7 +2655,7 @@
       },
       {
        "letra": "C",
-       "kcal_plano": 640,
+       "kcal_plano": 626,
        "p_plano": 48,
        "itens": [
         {
@@ -3084,7 +3084,7 @@
    "rotulo": "Sábado — Bike Longo (às vezes brick)",
    "sessao": "🚴",
    "meta": {
-    "kcal": 3255,
+    "kcal": 3251,
     "p": 227
    },
    "refeicoes": [
@@ -3240,7 +3240,7 @@
      "opcoes": [
       {
        "letra": "A",
-       "kcal_plano": 538,
+       "kcal_plano": 524,
        "p_plano": 47,
        "itens": [
         {
@@ -3647,7 +3647,7 @@
    "rotulo": "Domingo — Corrida Longa Z2",
    "sessao": "🏃",
    "meta": {
-    "kcal": 3015,
+    "kcal": 3001,
     "p": 238
    },
    "refeicoes": [
@@ -3748,7 +3748,7 @@
      "opcoes": [
       {
        "letra": "A",
-       "kcal_plano": 718,
+       "kcal_plano": 704,
        "p_plano": 51,
        "itens": [
         {
@@ -3794,7 +3794,7 @@
       },
       {
        "letra": "B",
-       "kcal_plano": 734,
+       "kcal_plano": 720,
        "p_plano": 52,
        "itens": [
         {
@@ -3845,7 +3845,7 @@
       },
       {
        "letra": "C",
-       "kcal_plano": 653,
+       "kcal_plano": 639,
        "p_plano": 53,
        "itens": [
         {
