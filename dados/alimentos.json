@@ -510,5 +510,13 @@
     "c": 34.4,
     "g": 16.25,
     "fonte": "Média das barras Nutrata Whey Grego e Bold (rótulos informados em 24/Set/2026), por 100 g; barra de 40 g"
+  },
+  "castanha_para": {
+    "nome": "Castanha-do-pará",
+    "kcal": 643,
+    "p": 14.5,
+    "c": 15.1,
+    "g": 63.5,
+    "fonte": "TACO — castanha-do-Brasil, crua (1 unidade ≈ 4–5 g)"
   }
 }

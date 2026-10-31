@@ -1,6 +1,20 @@
 {
   "planos": [
-    { "mes": "2026-09", "arquivo": "dados/plano-2026-09.json" },
-    { "mes": "2026-10", "arquivo": "dados/plano-2026-10.json" }
+    {
+      "mes": "2026-09",
+      "arquivo": "dados/plano-2026-09.json"
+    },
+    {
+      "mes": "2026-10",
+      "arquivo": "dados/plano-2026-10.json"
+    },
+    {
+      "mes": "2026-11",
+      "arquivo": "dados/plano-2026-11.json"
+    },
+    {
+      "mes": "2026-12",
+      "arquivo": "dados/plano-2026-12.json"
+    }
   ]
 }

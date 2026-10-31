@@ -153,3 +153,28 @@ test('nenhuma opcao repete o mesmo alimento (chave de marcacao unica)', () => {
     }
   }
 });
+
+// Decisões de novembro/2026 (exame de 16/Out e livro Biesek) — dados daquele mês.
+describe('novembro/2026: LDL e vesperas com carbo (nao generalizar)', () => {
+  const nov = JSON.parse(readFileSync('dados/plano-2026-11.json', 'utf8'));
+  const itensDo = dia => nov.dias[dia].refeicoes.flatMap(r => r.opcoes.flatMap(o => o.itens.map(i => i.alimento)));
+
+  test('bisteca so no sabado e nenhum coco ralado', () => {
+    for (const dia of DIAS) {
+      const itens = itensDo(dia);
+      assert.ok(!itens.includes('coco_ralado'), `${dia}: coco ralado`);
+      if (dia !== 'sab') assert.ok(!itens.includes('bisteca_porco'), `${dia}: bisteca`);
+    }
+  });
+
+  test('segunda e sexta (vesperas das sessoes das 5h) tem jantar + ceia com ~100 g de carbo', () => {
+    for (const dia of ['seg', 'sex']) {
+      let c = 0;
+      for (const r of nov.dias[dia].refeicoes.filter(r => r.id.startsWith('jantar') || r.id === 'ceia')) {
+        const porOpcao = r.opcoes.map(o => o.itens.reduce((s, i) => s + alimentos[i.alimento].c * i.g / 100, 0));
+        c += porOpcao.reduce((a, b) => a + b, 0) / porOpcao.length;
+      }
+      assert.ok(c >= 90, `${dia}: jantar + ceia com ${Math.round(c)} g de carbo`);
+    }
+  });
+});

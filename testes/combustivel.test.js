@@ -112,3 +112,9 @@ test('sem o campo inclui nao ha bloqueio nenhum', () => {
   const c = conflitosCombustivel({ combustivel: [{ id: 'a', qtd: 1 }] }, semInclui);
   assert.strictEqual(c.bloqueados.size, 0);
 });
+
+test('o gel Z2+ Iced Coffee entra com o rotulo do sache conferido (16/Out)', () => {
+  const g = comb.gel_z2_cafe;
+  assert.ok(g, 'gel Z2+ ausente');
+  assert.deepStrictEqual([g.kcal, g.c, g.sodio_mg], [100, 25, 158]);
+});

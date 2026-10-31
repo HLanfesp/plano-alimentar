@@ -2,20 +2,40 @@
   "hora_pedal": {
     "nome": "+1h de pedal",
     "sublabel": "a hora inteira do plano · equivale a Energy Kick + Saltz",
-    "kcal": 180, "p": 0, "c": 45, "sodio_mg": 1000,
-    "inclui": ["energy_kick", "saltz"],
+    "kcal": 180,
+    "p": 0,
+    "c": 45,
+    "sodio_mg": 1000,
+    "inclui": [
+      "energy_kick",
+      "saltz"
+    ],
     "fonte": "Média das 3 opções do plano (~50/45/40 g carbo/h)"
   },
   "energy_kick": {
     "nome": "DUX Energy Kick",
     "sublabel": "sachê 30 g",
-    "kcal": 137, "p": 0, "c": 30,
+    "kcal": 137,
+    "p": 0,
+    "c": 30,
     "fonte": "Rótulo conferido em 07/Set/2026"
   },
   "saltz": {
     "nome": "Saltz Z2",
     "sublabel": "dose 15 g · 1000 mg sódio",
-    "kcal": 44, "p": 0, "c": 11, "sodio_mg": 1000,
+    "kcal": 44,
+    "p": 0,
+    "c": 11,
+    "sodio_mg": 1000,
     "fonte": "Rótulo conferido em 07/Set/2026"
+  },
+  "gel_z2_cafe": {
+    "nome": "Gel Z2+ Iced Coffee",
+    "sublabel": "sachê 40 g · 100 mg cafeína · 158 mg sódio",
+    "kcal": 100,
+    "p": 0,
+    "c": 25,
+    "sodio_mg": 158,
+    "fonte": "Rótulo do sachê do atleta conferido em 16/Out/2026 (existe versão com 150 mg de cafeína — conferir ao recomprar)"
   }
 }
