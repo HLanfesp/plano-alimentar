@@ -106,6 +106,8 @@ for chave, dia in D.items():
                 al = i.get('alimento')
                 if al == 'ovo':
                     i['rotulo'] = rotulo_ovo(i['g'])
+                elif al == 'farinha_funcional':
+                    i['alimento'] = 'farinha_funcional_nov'  # lote novo (02/Nov), outubro fica com a receita antiga
                 elif al == 'coco_ralado':
                     i.clear()
                     i.update({'alimento': 'castanha_para', 'g': 5,
@@ -221,7 +223,7 @@ def carga(dia):
                         add(o, 'mel', 20, 'mel (troca a pasta de amendoim)')
                 elif al == 'aveia' and r['id'] != 'pre_treino':
                     tirar(o, al)
-                elif al == 'farinha_funcional':
+                elif al == 'farinha_funcional_nov':
                     tirar(o, al)  # psyllium + fibra: fora nos 2 dias de carga
 
 

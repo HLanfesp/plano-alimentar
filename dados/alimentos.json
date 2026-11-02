@@ -518,5 +518,13 @@
     "c": 15.1,
     "g": 63.5,
     "fonte": "TACO — castanha-do-Brasil, crua (1 unidade ≈ 4–5 g)"
+  },
+  "farinha_funcional_nov": {
+    "nome": "Farinha funcional caseira (lote de novembro)",
+    "kcal": 338,
+    "p": 17.0,
+    "c": 20.9,
+    "g": 20.7,
+    "fonte": "Receita do atleta (02/Nov/2026), lote de 800 g: farinha de uva 150 g, cacau 100% 100 g, farinha de amêndoas 150 g, linhaça dourada 100 g, grão-de-bico 150 g, coco 100 g, canela 50 g. Macros ponderados de USDA/TACO (uva: rótulo médio de mercado), carboidrato líquido de fibra (fibra ≈ 29.5 g/100 g)."
   }
 }

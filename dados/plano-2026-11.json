@@ -6,8 +6,8 @@
       "rotulo": "Segunda — 🏋️ Push · véspera da bike forte",
       "sessao": "🏋️",
       "meta": {
-        "kcal": 2764,
-        "p": 235
+        "kcal": 2774,
+        "p": 234
       },
       "refeicoes": [
         {
@@ -102,7 +102,7 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 510,
+              "kcal_plano": 521,
               "p_plano": 49,
               "itens": [
                 {
@@ -136,7 +136,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -144,7 +144,7 @@
             },
             {
               "letra": "B",
-              "kcal_plano": 573,
+              "kcal_plano": 583,
               "p_plano": 46,
               "itens": [
                 {
@@ -178,7 +178,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -186,7 +186,7 @@
             },
             {
               "letra": "C",
-              "kcal_plano": 534,
+              "kcal_plano": 545,
               "p_plano": 45,
               "itens": [
                 {
@@ -225,7 +225,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -637,7 +637,7 @@
       "rotulo": "Terça — 🚴 Bike Qualidade + 🏊 Natação",
       "sessao": "🚴🏊",
       "meta": {
-        "kcal": 3025,
+        "kcal": 3035,
         "p": 238
       },
       "refeicoes": [
@@ -733,7 +733,7 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 704,
+              "kcal_plano": 714,
               "p_plano": 52,
               "itens": [
                 {
@@ -767,7 +767,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -784,7 +784,7 @@
             },
             {
               "letra": "B",
-              "kcal_plano": 707,
+              "kcal_plano": 718,
               "p_plano": 49,
               "itens": [
                 {
@@ -818,7 +818,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -831,7 +831,7 @@
             },
             {
               "letra": "C",
-              "kcal_plano": 692,
+              "kcal_plano": 702,
               "p_plano": 53,
               "itens": [
                 {
@@ -870,7 +870,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -1285,7 +1285,7 @@
       "rotulo": "Quarta — 🏋️ Lower + 🏊 Natação (noite)",
       "sessao": "🏋️🏊",
       "meta": {
-        "kcal": 2838,
+        "kcal": 2848,
         "p": 220
       },
       "refeicoes": [
@@ -1376,8 +1376,8 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 619,
-              "p_plano": 52,
+              "kcal_plano": 630,
+              "p_plano": 51,
               "itens": [
                 {
                   "alimento": "ovo",
@@ -1410,7 +1410,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -1422,8 +1422,8 @@
             },
             {
               "letra": "B",
-              "kcal_plano": 642,
-              "p_plano": 50,
+              "kcal_plano": 652,
+              "p_plano": 49,
               "itens": [
                 {
                   "alimento": "pao_frances",
@@ -1461,7 +1461,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -1469,8 +1469,8 @@
             },
             {
               "letra": "C",
-              "kcal_plano": 596,
-              "p_plano": 49,
+              "kcal_plano": 606,
+              "p_plano": 48,
               "itens": [
                 {
                   "alimento": "flocao_milho",
@@ -1503,7 +1503,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -1890,7 +1890,7 @@
       "rotulo": "Quinta — 🚴 Bike Leve + 🏃 Corrida",
       "sessao": "🚴🏃",
       "meta": {
-        "kcal": 3105,
+        "kcal": 3116,
         "p": 224
       },
       "refeicoes": [
@@ -1991,7 +1991,7 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 699,
+              "kcal_plano": 709,
               "p_plano": 50,
               "itens": [
                 {
@@ -2025,7 +2025,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -2033,7 +2033,7 @@
             },
             {
               "letra": "B",
-              "kcal_plano": 649,
+              "kcal_plano": 659,
               "p_plano": 53,
               "itens": [
                 {
@@ -2067,7 +2067,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -2079,7 +2079,7 @@
             },
             {
               "letra": "C",
-              "kcal_plano": 702,
+              "kcal_plano": 712,
               "p_plano": 55,
               "itens": [
                 {
@@ -2117,7 +2117,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -2494,7 +2494,7 @@
       "rotulo": "Sexta — 🏋️ Pull + 🏊 Natação · véspera do brick",
       "sessao": "🏋️🏊",
       "meta": {
-        "kcal": 2929,
+        "kcal": 2940,
         "p": 218
       },
       "refeicoes": [
@@ -2585,7 +2585,7 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 574,
+              "kcal_plano": 584,
               "p_plano": 49,
               "itens": [
                 {
@@ -2624,7 +2624,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -2632,7 +2632,7 @@
             },
             {
               "letra": "B",
-              "kcal_plano": 578,
+              "kcal_plano": 589,
               "p_plano": 49,
               "itens": [
                 {
@@ -2666,7 +2666,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -2674,7 +2674,7 @@
             },
             {
               "letra": "C",
-              "kcal_plano": 626,
+              "kcal_plano": 636,
               "p_plano": 48,
               "itens": [
                 {
@@ -2708,7 +2708,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 }
@@ -3112,7 +3112,7 @@
       "rotulo": "Sábado — 🚴→🏃 Brick (bike longo + corrida)",
       "sessao": "🚴🏃",
       "meta": {
-        "kcal": 3392,
+        "kcal": 3396,
         "p": 228
       },
       "refeicoes": [
@@ -3268,7 +3268,7 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 524,
+              "kcal_plano": 534,
               "p_plano": 47,
               "itens": [
                 {
@@ -3292,7 +3292,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -3680,8 +3680,8 @@
       "rotulo": "Domingo — 🏃 Corrida Longa Z2 (ou livre)",
       "sessao": "🏃",
       "meta": {
-        "kcal": 2967,
-        "p": 241
+        "kcal": 2977,
+        "p": 240
       },
       "refeicoes": [
         {
@@ -3781,7 +3781,7 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 704,
+              "kcal_plano": 715,
               "p_plano": 51,
               "itens": [
                 {
@@ -3815,7 +3815,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -3827,7 +3827,7 @@
             },
             {
               "letra": "B",
-              "kcal_plano": 720,
+              "kcal_plano": 731,
               "p_plano": 52,
               "itens": [
                 {
@@ -3866,7 +3866,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
@@ -3878,8 +3878,8 @@
             },
             {
               "letra": "C",
-              "kcal_plano": 639,
-              "p_plano": 53,
+              "kcal_plano": 650,
+              "p_plano": 52,
               "itens": [
                 {
                   "alimento": "ovo",
@@ -3917,7 +3917,7 @@
                   "rotulo": "creatina 5 g"
                 },
                 {
-                  "alimento": "farinha_funcional",
+                  "alimento": "farinha_funcional_nov",
                   "g": 10,
                   "rotulo": "farinha funcional (1 c. sopa)"
                 },
