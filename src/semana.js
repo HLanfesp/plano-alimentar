@@ -3,13 +3,7 @@
 // atleta trocou o cardápio daquela data, é contra esse cardápio que o
 // registro entra na conta, não contra o dia real da semana.
 import { calcularItens, chaveIngrediente, estadoDa } from './nutricao.js';
-
-const CHAVES_DIA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
-
-function diaDaSemana(iso) {
-  const [ano, mes, dia] = iso.split('-').map(Number);
-  return CHAVES_DIA[new Date(ano, mes - 1, dia).getDay()];
-}
+import { perfilDoCalendario } from './porData.js';
 
 // Janela do resumo: 'semana' = os 7 dias terminando em `hoje`; 'mes' = do
 // dia 1 do mês de `hoje` até `hoje`. Datas locais em AAAA-MM-DD, sem fuso.
@@ -59,7 +53,7 @@ export function resumoSemana(dias, plano, alimentos) {
     const planoDia = typeof plano === 'function' ? plano(data) : plano;
     const perfilUsado = registro.perfil && planoDia.dias[registro.perfil]
       ? registro.perfil
-      : diaDaSemana(data);
+      : perfilDoCalendario(planoDia, data);
     perfisUsados[data] = perfilUsado;
 
     const diaPlano = planoDia.dias[perfilUsado];

@@ -10,6 +10,7 @@ import { ordenarOpcoes, resumoRestante, fatiaPorRefeicao } from './sugestao.js';
 import { criarArmazenamento } from './armazenamento.js';
 import { resumoSemana, janelaDoPeriodo } from './semana.js';
 import { escolherPlano } from './indice.js';
+import { expandirPorData, perfilDoCalendario } from './porData.js';
 
 const CHAVES_DIA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
 const NOME_DIA = {
@@ -89,6 +90,9 @@ function somarDias(iso, n) {
 }
 
 const diaDaSemana = iso => CHAVES_DIA[deISO(iso).getDay()];
+// Cardápio que vale na data sem troca do atleta: o da data especial do plano
+// (porData), senão o do dia da semana.
+const calendarioDe = iso => perfilDoCalendario(planoDe(iso), iso);
 const exibirData = iso => deISO(iso).toLocaleDateString('pt-BR');
 
 function distanciaEmDias(iso) {
@@ -157,7 +161,7 @@ async function iniciar() {
   if (!escolhido) throw new Error('nenhum plano cadastrado em dados/indice.json');
 
   const [plano, alimentos, extras, combustivel] = await Promise.all([
-    lerJSON(escolhido.arquivo),
+    lerJSON(escolhido.arquivo).then(expandirPorData),
     lerJSON('dados/alimentos.json'),
     lerJSON('dados/extras.json'),
     lerJSON('dados/combustivel.json'),
@@ -171,7 +175,7 @@ async function iniciar() {
   const planos = { [plano.mes]: plano };
   const outros = (indice.planos || []).filter(p => p.mes !== escolhido.mes && p.mes <= escolhido.mes);
   const lidos = await Promise.allSettled(outros.map(p => lerJSON(p.arquivo)));
-  lidos.forEach(r => { if (r.status === 'fulfilled' && r.value && r.value.mes) planos[r.value.mes] = r.value; });
+  lidos.forEach(r => { if (r.status === 'fulfilled' && r.value && r.value.mes) planos[r.value.mes] = expandirPorData(r.value); });
   dados = { plano, planos, alimentos, extras, combustivel };
 
   // Para trás só até o começo do mês mais antigo com plano carregado: antes
@@ -192,7 +196,7 @@ function planoDe(data) {
 function irPara(data, { render = true } = {}) {
   dataAtiva = data;
   const gravado = arm.lerDia(dataAtiva).perfil;
-  perfil = gravado && planoDe(dataAtiva).dias[gravado] ? gravado : diaDaSemana(dataAtiva);
+  perfil = gravado && planoDe(dataAtiva).dias[gravado] ? gravado : calendarioDe(dataAtiva);
   abrirPadrao();
   if (render) renderizar();
 }
@@ -490,7 +494,7 @@ function renderDatas() {
 }
 
 function renderCabecalho({ diaPlano, meta }) {
-  const trocado = perfil !== diaDaSemana(dataAtiva);
+  const trocado = perfil !== calendarioDe(dataAtiva);
   el.cabecalho.innerHTML = `
     <div class="sessao">
       <span class="emoji" aria-hidden="true">${esc(diaPlano.sessao || '')}</span>
@@ -500,7 +504,7 @@ function renderCabecalho({ diaPlano, meta }) {
       <b class="num">${n0(meta.p)}</b> g de proteína ·
       <b class="num">${n0(meta.c)}</b> g de carbo <span title="derivado">(derivado)</span></p>
     ${trocado
-      ? `<p class="aviso-perfil">Usando o cardápio de ${esc(NOME_DIA[perfil].toLowerCase())} neste dia
+      ? `<p class="aviso-perfil">Usando o cardápio de ${esc((NOME_DIA[perfil] || 'outro dia').toLowerCase())} neste dia
            <button type="button" data-acao="soltar-perfil">desfazer</button></p>`
       : ''}
   `;
@@ -509,13 +513,15 @@ function renderCabecalho({ diaPlano, meta }) {
 // Controle 2: "usar este dia como hoje" — troca o cardápio, não a data.
 function renderDias() {
   const doCalendario = diaDaSemana(dataAtiva);
+  // Data com cardápio próprio: o botão do dia da semana aparece marcado.
+  const especial = calendarioDe(dataAtiva) !== doCalendario ? calendarioDe(dataAtiva) : null;
   el.dias.innerHTML = `
     <p class="dias-titulo">Cardápio usado ${esc(rotuloRelativo(dataAtiva))}
       <span>toque se o treino trocou de dia</span></p>
     <div class="dias-tira">
       ${CHAVES_DIA.slice(1).concat('dom').map(d => `
         <button type="button" data-dia="${d}" data-calendario="${d === doCalendario ? 1 : 0}"
-          aria-pressed="${d === perfil}">${esc(CURTO_DIA[d])}</button>
+          aria-pressed="${d === perfil || (perfil === especial && d === doCalendario)}">${esc(CURTO_DIA[d])}</button>
       `).join('')}
     </div>`;
 }
@@ -830,7 +836,7 @@ function aoTocar(evento) {
   if (d.extra) { arm.addExtra(dataAtiva, d.extra); return renderizar(); }
   if (d.acao === 'voltar-hoje') return irPara(HOJE);
   if (d.acao === 'soltar-perfil') {
-    perfil = diaDaSemana(dataAtiva);
+    perfil = calendarioDe(dataAtiva);
     arm.definirPerfil(dataAtiva, null);
     abrirPadrao();
     return renderizar();

@@ -261,3 +261,7 @@ O app rotula essa meta como **"(derivada)"** para deixar claro que ela não veio
 ## Licença e Público
 
 O repositório é público em GitHub. Qualquer pessoa com o link consegue ver o plano alimentar. Nenhum dado de consumo sai do seu iPhone — o repositório só tem o plano prescrito e o código.
+
+## Cardápio de uma data específica (`porData`)
+
+O plano do mês é por dia da semana. Quando uma data precisa de outro cardápio sem mexer nos outros dias iguais do mês (ex.: o ensaio geral de 28/11/2026, que cai num sábado), ela entra em `porData["AAAA-MM-DD"]` no JSON do mês, com a mesma forma de um dia (`rotulo`, `sessao`, `meta`, `refeicoes`). O app carrega essa data com a chave `@AAAA-MM-DD` (`src/porData.js`). Prioridade: troca gravada pelo atleta > cardápio da data > dia da semana. Os sábados que já passaram continuam medidos contra o `dias.sab`. Exemplo de gerador: `ferramentas/gerar-s15-novembro-2026.py`.
