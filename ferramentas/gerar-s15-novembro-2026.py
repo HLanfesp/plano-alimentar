@@ -99,14 +99,14 @@ cafe_prova = {
     "obrigatorio": True,
     "opcoes": [
         opcao("A", [it("pao_frances", 90, "3 pães franceses sem miolo"), it("mel", 30, "mel (30 g)"),
-                    it("banana", 100, "1 banana"), it("suco_laranja", 200, "suco de laranja (200 ml)"),
+                    it("banana", 100, "1 banana"), it("suco_morango", 200, "suco de morango coado e adoçado (200 ml)"),
                     it("cafe", 50, "1 xícara de café (sem açúcar)")]),
         opcao("B", [it("flocao_milho", 80, "cuscuz (80 g de flocão)"), it("mel", 20, "mel (20 g)"),
-                    it("banana", 100, "1 banana"), it("suco_laranja", 200, "suco de laranja (200 ml)"),
+                    it("banana", 100, "1 banana"), it("suco_morango", 200, "suco de morango coado e adoçado (200 ml)"),
                     it("cafe", 50, "1 xícara de café (sem açúcar)")]),
         opcao("C", [it("pao_frances", 60, "2 pães franceses sem miolo"), it("geleia_diet", 20, "geleia diet (1 c. sopa)"),
                     it("mel", 20, "mel (20 g)"), it("banana", 150, "1½ banana"),
-                    it("suco_laranja", 300, "suco de laranja (300 ml)"), it("cafe", 50, "1 xícara de café (sem açúcar)")]),
+                    it("suco_morango", 300, "suco de morango coado e adoçado (300 ml)"), it("cafe", 50, "1 xícara de café (sem açúcar)")]),
     ],
 }
 combustivel = {

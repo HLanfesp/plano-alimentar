@@ -415,6 +415,14 @@
     "g": 0.1,
     "fonte": "TACO — suco de laranja, natural"
   },
+  "suco_morango": {
+    "nome": "Suco de morango coado e adoçado (ou néctar)",
+    "kcal": 48,
+    "p": 0.2,
+    "c": 12,
+    "g": 0.1,
+    "fonte": "Estimativa — néctar de morango (média de mercado, não produto conferido); caseiro coado com ~1 c. sopa de açúcar ou mel a cada 250 ml fica próximo"
+  },
   "canela": {
     "nome": "Canela em pó",
     "kcal": 131,

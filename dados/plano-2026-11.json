@@ -4928,7 +4928,7 @@
       "sessao": "🏊🚴🏃",
       "meta": {
         "kcal": 3300,
-        "p": 229
+        "p": 228
       },
       "refeicoes": [
         {
@@ -4940,8 +4940,8 @@
           "opcoes": [
             {
               "letra": "A",
-              "kcal_plano": 535,
-              "p_plano": 10,
+              "kcal_plano": 557,
+              "p_plano": 9,
               "itens": [
                 {
                   "alimento": "pao_frances",
@@ -4959,9 +4959,9 @@
                   "rotulo": "1 banana"
                 },
                 {
-                  "alimento": "suco_laranja",
+                  "alimento": "suco_morango",
                   "g": 200,
-                  "rotulo": "suco de laranja (200 ml)"
+                  "rotulo": "suco de morango coado e adoçado (200 ml)"
                 },
                 {
                   "alimento": "cafe",
@@ -4972,7 +4972,7 @@
             },
             {
               "letra": "B",
-              "kcal_plano": 516,
+              "kcal_plano": 538,
               "p_plano": 8,
               "itens": [
                 {
@@ -4991,9 +4991,9 @@
                   "rotulo": "1 banana"
                 },
                 {
-                  "alimento": "suco_laranja",
+                  "alimento": "suco_morango",
                   "g": 200,
-                  "rotulo": "suco de laranja (200 ml)"
+                  "rotulo": "suco de morango coado e adoçado (200 ml)"
                 },
                 {
                   "alimento": "cafe",
@@ -5004,8 +5004,8 @@
             },
             {
               "letra": "C",
-              "kcal_plano": 510,
-              "p_plano": 8,
+              "kcal_plano": 543,
+              "p_plano": 7,
               "itens": [
                 {
                   "alimento": "pao_frances",
@@ -5028,9 +5028,9 @@
                   "rotulo": "1½ banana"
                 },
                 {
-                  "alimento": "suco_laranja",
+                  "alimento": "suco_morango",
                   "g": 300,
-                  "rotulo": "suco de laranja (300 ml)"
+                  "rotulo": "suco de morango coado e adoçado (300 ml)"
                 },
                 {
                   "alimento": "cafe",
